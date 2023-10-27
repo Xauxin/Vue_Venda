@@ -7,15 +7,14 @@
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-autocomplete label="Tipo" :items="['Pedido', 'Orçamento', 'Registro']" variant="outlined"
-            append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete label="Tipo" :items="['Pedido', 'Orçamento', 'Registro']" variant="outlined" auto-select-first>
           </v-autocomplete>
         </v-col>
         <v-col>
           <v-text-field variant="outlined" label="Venda" readonly model-value="Nº001"></v-text-field>
         </v-col>
         <v-col>
-          <v-text-field readonly variant="outline" label="Dt.Registro" :model-value=data_em_string()></v-text-field>
+          <v-text-field readonly variant="outlined" label="Dt.Registro" :model-value=data_em_string()></v-text-field>
         </v-col>
       </v-row>
     </v-container>
@@ -33,14 +32,16 @@ export default defineComponent({
   },
   data() {
     return {
+      data : new Date(), 
       items: ['Dalton', 'Jayne', 'Fátima', 'Sandra', 'Nina', 'Noely']
     }
   },
   methods:{
     data_em_string():String{
-      const data = new Date()
-      const date = useDate() as useDate
-      return  date.format(data, "dayOfMonth")
+      const date = useDate()
+      let data_string = date.format(this.data, "keyboardDate").split("/") as String[] || []
+      return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
+    
     }
   }
 })
