@@ -3,18 +3,18 @@
     <v-container>
       <v-row>
         <v-col>
-          <v-autocomplete label="Cliente" :items=items variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete  hide-details label="Cliente" density="compact" :items=items variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-autocomplete label="Tipo" :items="['Pedido', 'Orçamento', 'Registro']" variant="outlined" auto-select-first>
+          <v-autocomplete  hide-details  label="Tipo" density="compact" :items="['Pedido', 'Orçamento', 'Registro']" variant="outlined" auto-select-first>
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-text-field variant="outlined" label="Venda" readonly model-value="Nº001"></v-text-field>
+          <v-text-field  hide-details variant="outlined" density="compact" label="Venda" readonly model-value="Nº001"></v-text-field>
         </v-col>
         <v-col>
-          <v-text-field readonly variant="outlined" label="Dt.Registro" :model-value=data_em_string()></v-text-field>
+          <v-text-field  hide-details readonly variant="outlined" density="compact" label="Dt.Registro" :model-value=data_em_string()></v-text-field>
         </v-col>
       </v-row>
     </v-container>
