@@ -1,8 +1,8 @@
 <template>
-    <v-sheet align="center" elevation="2" height="100%" class="ma-2">
+    <v-sheet align="center" elevation="2" height="100%" class="ma-1">
         <h4>Resumo</h4>
         <v-divider></v-divider>
-        <v-sheet align="center" elevation="2" class="ma-2">
+        <v-sheet align="center" elevation="2" class="ma-1">
             <v-table class="mr-4" height="100%">
                 <thead>
                     <tr>
