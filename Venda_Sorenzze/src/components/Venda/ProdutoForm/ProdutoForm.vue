@@ -12,7 +12,7 @@
                 </v-col>
             </v-row>
         </v-container>
-        <PrecoProduto/>
+        <PrecoProduto class="px-5 py-2"/>
     </v-form>
 </template>
   
