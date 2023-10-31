@@ -13,8 +13,16 @@ import { createApp } from 'vue'
 // Plugins
 import { registerPlugins } from '@/plugins'
 
+
+
+// Store
+import { createPinia } from 'pinia'
+
+
 const app = createApp(App)
 
 registerPlugins(app)
 
-app.mount('#app')
+app
+.use(createPinia)
+.mount('#app')

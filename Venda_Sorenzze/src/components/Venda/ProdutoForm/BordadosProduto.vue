@@ -3,13 +3,15 @@
         <v-card height="100%" :elevation="3" border rounded class="py-2 px-4">
             <v-row>
                 <v-col cols="4" v-for="(item, key) in bordadosEscolhidos" :key="key">
-                    <v-card density="compact" height="100%" color="#BBBBBB">
+                    <v-card density="compact" height="100%" color="#BBBBBB" >
                         <v-card-title class="text-center text-caption">{{ key.replace("_", " ") as string }}</v-card-title>
-                        <v-card-subtitle class="text-center text-caption">{{ item }}</v-card-subtitle>
+                        <v-card-subtitle class="text-center text-caption">{{ (item ? item.codigo : '') }}</v-card-subtitle>
                         <v-divider class="mx-2"></v-divider>
                         <v-card-text>
-                            <v-img v-bind:key="key" aspect-ratio="1/1">
+                            <v-img v-bind:key="key" :src="item ? item.Imagem : ''" height="100%" aspect-ratio="1/1">
                             </v-img>
+                            <v-divider class="mx-2"></v-divider>
+                            <p class="text-center text-body-1">R${{ item? item.Preço : "" }}</p>
                         </v-card-text>
                         <v-divider class="mx-2"></v-divider>
                         <v-card-actions>
@@ -61,7 +63,8 @@
                                             <v-col cols="2" v-for="bordado in bordados" v-bind:key="bordado.codigo">
                                                 <v-tooltip :text="bordado.Nome" location="top">
                                                     <template v-slot:activator="{ props }">
-                                                        <v-card v-bind="props" height="100%" hover @click.prevent="BordadoPreSelecionado = bordado">
+                                                        <v-card v-bind="props" height="100%" hover
+                                                            @click.prevent="BordadoPreSelecionado = bordado">
                                                             <v-card-title class="text-center text-body-1">{{ bordado.codigo
                                                             }}</v-card-title>
                                                             <v-card-text>
@@ -83,9 +86,7 @@
                                     <v-card-title class="text-center">Selecionado</v-card-title>
                                     <v-card-text>
                                         <v-row>
-                                            <v-img
-                                                max-height="200"
-                                                :src="BordadoPreSelecionado.Imagem">
+                                            <v-img max-height="200" :src="BordadoPreSelecionado.Imagem">
                                             </v-img>
                                         </v-row>
                                         <v-row>
@@ -101,6 +102,9 @@
                                             </v-col>
                                         </v-row>
                                     </v-card-text>
+                                    <v-card-actions>
+                                        <v-btn color="green" variant="flat" @click.prevent="adicionaBordado()">Adicionar</v-btn>
+                                    </v-card-actions>
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -114,16 +118,8 @@
 </template>
 
 <script lang="ts">
-interface IBordado {
-    Nome: string;
-    Estilo: string;
-    Núcleo: string;
-    Particao: string;
-    codigo: string;
-    Imagem: string;
-    Preço: string;
-}
 
+import  { IBordado } from '@/interfaces/Interfaces'
 import { defineComponent } from 'vue'
 export default defineComponent({
     name: 'Home',
@@ -249,7 +245,15 @@ export default defineComponent({
         AbreDialogEMudaBordadoAscessado(key: string) {
             this.BordadoAscessado = key
             this.dialog = !this.dialog
+        },
+        adicionaBordado(){
+            this.bordadosEscolhidos[this.BordadoAscessado] = this.BordadoPreSelecionado
+            this.dialog = !this.dialog
         }
     }
 })
 </script>
+
+
+
+

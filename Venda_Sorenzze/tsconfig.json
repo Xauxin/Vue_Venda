@@ -26,6 +26,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
+    "src/interfaces/Interfaces",
     "vite.config.ts"
   ]
 }
