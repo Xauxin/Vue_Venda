@@ -1,14 +1,21 @@
 export interface IEsquemaProduto{
+    id: Number
     nome: String
-    caimento: String
-    tamanhos: ITamanhos
-    suprimentos: [ISuprimentos]
-    modelagem: [IModelagem]
-    medidas: [IMedidas]
-    medidas_opcionais: [IMedidas]
+    tamanhos: [String]
+    suprimentos: [String]
+    cor: [String]
+    modelagem: {}
+    medidas: [String]
+    mais_medidas: [String]
+    locais_de_bordado: [String]
     valor: Number
     imagem: String
     observacao: String
+}
+
+export interface IOpcaoEsquema{
+    id: number
+    nome: string
 }
 
 export interface ITamanhos{

@@ -10,7 +10,9 @@
           <v-divider thickness="1" class="border-opacity-100"></v-divider>
         </v-col>
       <v-row>
-        <ProdutoForm></ProdutoForm>
+        <v-col>
+          <ProdutoForm></ProdutoForm>
+        </v-col>
       </v-row>
     </v-col>
     <v-divider thickness="1" class="border-opacity-100" vertical></v-divider>

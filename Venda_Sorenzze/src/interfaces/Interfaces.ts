@@ -1,6 +1,6 @@
 export interface IVenda {
     id : Number
-    Cliente: ICliente
+    Pessoa: IPessoa
     Tipo: String
     Fase: IStatus
     Registro: Date
@@ -9,7 +9,7 @@ export interface IVenda {
     Adiantamentos: [IAdiantamentos]
 }
 
-export interface ICliente{
+export interface IPessoa{
     id : Number
     nome : String
     especialidade : String

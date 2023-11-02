@@ -1,0 +1,11 @@
+componente de produto tem acesso as todos nome de produtos e quando é escolhido ele alimenta todas as outras opcoes com suas propriedadas
+opcoes a serem alimentadas:
+    cor
+    tamanhos
+    tecidos
+    possiveis Modelagensx
+    possiveis Medidas
+    possiveis MedidasExtras
+    Locais de Bordado
+    Preco padrao
+    

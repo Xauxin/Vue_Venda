@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <v-autocomplete  hide-details label="Cliente" density="compact" :items=items variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete  hide-details label="Cliente" density="compact" :items=numeroENomePessoas() variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
           </v-autocomplete>
         </v-col>
         <v-col>
@@ -22,7 +22,9 @@
 </template>
     
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { IPessoa } from '@/interfaces/Interfaces'
+import { useAppStore } from '@/store/app'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useDate } from 'vuetify/labs/date'
 
 export default defineComponent({
@@ -42,8 +44,34 @@ export default defineComponent({
       let data_string = date.format(this.data, "keyboardDate").split("/") as String[] || []
       return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
     
+    },
+    numeroENomePessoas(){
+      let lista = [] as String[]
+      this.pessoas.forEach(pessoa =>{
+        let numeroENome = `[${pessoa.id}]- ${pessoa.nome}`
+        lista.push(numeroENome)
+      })
+      return lista
     }
-  }
-})
+  },
+  setup() {
+        const store = useAppStore()
+        const pessoas = ref([] as IPessoa[])
+
+        onMounted(async () => {
+                try {
+                    await store.listPessoas()
+                    pessoas.value = store.getPessoas as IPessoa[]
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+
+        return {
+            pessoas: pessoas,
+        }
+    }
+
+  })
 </script>
     

@@ -180,7 +180,7 @@ export default defineComponent({
 
         onMounted(async () => {
                 try {
-                    await store.obterBordados()
+                    await store.listBordados()
                     bordados.value = store.getBordados as IBordado[]
                 } catch (error) {
                     console.log(error)
