@@ -2,8 +2,20 @@
     <div>
         <v-card height="100%" :elevation="3" border rounded class="py-2 px-4">
             <v-row>
+                <v-col cols="4">
+                    <p class="text-h6 text-center">Nome</p>
+                </v-col>
+                <v-col cols="4">
+                    <v-autocomplete density="compact" label="Fonte" variant="outlined"></v-autocomplete>
+                </v-col>
+                <v-col cols="4">
+                    <v-autocomplete density="compact" label="Cor" variant="outlined"></v-autocomplete>
+                </v-col>
+            </v-row>
+            <v-divider class="mb-1 border-opacity-75"></v-divider>
+            <v-row>
                 <v-col cols="4" v-for="(item, key) in bordadosEscolhidos" :key="key">
-                    <v-card density="compact" height="100%" color="#BBBBBB" >
+                    <v-card density="compact" height="100%" color="#BBBBBB">
                         <v-card-title class="text-center text-caption">{{ key.replace("_", " ") as string }}</v-card-title>
                         <v-card-subtitle class="text-center text-caption">{{ (item ? item.codigo : '') }}</v-card-subtitle>
                         <v-divider class="mx-2"></v-divider>
@@ -11,7 +23,7 @@
                             <v-img v-bind:key="key" :src="item ? item.Imagem : ''" height="100%" aspect-ratio="1/1">
                             </v-img>
                             <v-divider class="mx-2"></v-divider>
-                            <p class="text-center text-body-1">R${{ item? item.Preço : "" }}</p>
+                            <p class="text-center text-body-1">R${{ item ? item.Preço : "" }}</p>
                         </v-card-text>
                         <v-divider class="mx-2"></v-divider>
                         <v-card-actions>
@@ -103,7 +115,8 @@
                                         </v-row>
                                     </v-card-text>
                                     <v-card-actions>
-                                        <v-btn color="green" variant="flat" @click.prevent="adicionaBordado()">Adicionar</v-btn>
+                                        <v-btn color="green" variant="flat"
+                                            @click.prevent="adicionaBordado()">Adicionar</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
@@ -119,13 +132,13 @@
 
 <script lang="ts">
 
-import  { IBordado } from '@/interfaces/Interfaces'
-import { defineComponent } from 'vue'
+import { IBordado } from '@/interfaces/Interfaces'
+import { defineComponent, onMounted, ref } from 'vue'
+import { useAppStore } from '@/store/app'
+
+
 export default defineComponent({
     name: 'Home',
-    components: {
-
-    },
     data() {
         return {
             BordadoPreSelecionado: {} as IBordado,
@@ -136,97 +149,7 @@ export default defineComponent({
                 Manga_Direita: {} as IBordado,
                 Outro: {} as IBordado
             },
-            bordados: [
-                {
-                    Nome: "Brasão da Turma XI de Medicina Uningá",
-                    Estilo: "Brasão",
-                    Núcleo: "Uningá",
-                    Particao: "Medicina XI",
-                    codigo: "B1UNI03_MEDXI",
-                    Imagem: "src/assets/B1UNI02_MEDXI.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Brasão da Liga de Nefrologia Uningá",
-                    Estilo: "Brasão",
-                    Núcleo: "Uningá",
-                    Particao: "Liga de Nefrologia",
-                    codigo: "B1UNI01_NEFRO",
-                    Imagem: "src/assets/B1UNI01_NEFRO.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Brasão do Curso de Medicina Uningá",
-                    Estilo: "Brasão",
-                    Núcleo: "Uningá",
-                    Particao: "Curso de Medicina",
-                    codigo: "B1UNI03_MED0",
-                    Imagem: "src/assets/B1UNI03_MED0.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Brasão da Turma X de Medicina Unicesumar",
-                    Estilo: "Brasão",
-                    Núcleo: "Unicesumar",
-                    Particao: "Medicina X",
-                    codigo: "B1CES02_MEDX",
-                    Imagem: "src/assets/B1CES02_MEDX.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Brasão da Liga de Cardiologia Unicesumar",
-                    Estilo: "Brasão",
-                    Núcleo: "Unicesumar",
-                    Particao: "Liga de Cardiologia",
-                    codigo: "B1CES01_CARDIO",
-                    Imagem: "src/assets/B1CES01_CARDIO.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Brasão do Curso de Medicina Unicesumar",
-                    Estilo: "Brasão",
-                    Núcleo: "Unicesumar",
-                    Particao: "Curso Medicina",
-                    codigo: "B1CES03_MED0",
-                    Imagem: "src/assets/B1CES03_MED0.png",
-                    Preço: "25,00",
-                },
-                {
-                    Nome: "Logo da Clinica Vitally",
-                    Estilo: "Logo",
-                    Núcleo: "Clinica",
-                    Particao: "Vitally",
-                    codigo: "B2CLI00_VITALLY",
-                    Imagem: "src/assets/B2CLI00_VITAL.png",
-                    Preço: "25,00",
-
-                },
-                {
-                    Nome: "Logo da Clinica Prevenpet",
-                    Estilo: "Logo",
-                    Núcleo: "Clinica",
-                    Particao: "Prevenpet",
-                    codigo: "B2CLI00_PREVEN",
-                    Imagem: "src/assets/B2CLI00_PREVEN.png",
-                    Preço: "25,00",
-
-                },
-                {
-                    Nome: "Logo da Cirurgia Vascular Hospital Santa Rita",
-                    Estilo: "Logo",
-                    Núcleo: "Hospital",
-                    Particao: "Santa Rita",
-                    codigo: "B2HOS00_VASCSR",
-                    Imagem: "src/assets/B2HOS00_VASCSR.png",
-                    Preço: "25,00",
-
-                }
-            ] as IBordado[],
-            Locais_Bordados: ['Manga Esquerda', 'Manga Direita', 'Outros']
         }
-    },
-    computed: {
-
     },
     methods: {
         bordadoPeloCodigo(codigoDoBordado: string): IBordado | undefined {
@@ -246,9 +169,26 @@ export default defineComponent({
             this.BordadoAscessado = key
             this.dialog = !this.dialog
         },
-        adicionaBordado(){
+        adicionaBordado() {
             this.bordadosEscolhidos[this.BordadoAscessado] = this.BordadoPreSelecionado
             this.dialog = !this.dialog
+        }
+    },
+    setup() {
+        const store = useAppStore()
+        const bordados = ref([] as IBordado[])
+
+        onMounted(async () => {
+                try {
+                    await store.obterBordados()
+                    bordados.value = store.getBordados as IBordado[]
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+
+        return {
+            bordados: bordados,
         }
     }
 })

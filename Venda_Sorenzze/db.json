@@ -1,0 +1,525 @@
+{
+  "pessoas": [
+    { 
+      "id": 1,
+      "nome": "Dalton Soriani Alves",
+      "especialidade": "Aluno",
+      "telefone": "44998275682",
+      "cpf_cnpj": "11539503917",
+      "nascimento": "1998-10-26",
+      "classificacao_cliente_id": 1,
+      "data_do_cadastro": "2023-09-12",
+      "nucleo_id": 1,
+      "particao_id": 1    
+    },
+    {
+      "id": 2,
+      "nome": "Maria da Silva",
+      "especialidade": "Aluno",
+      "telefone": "44998275683",
+      "cpf_cnpj": "22345678901",
+      "nascimento": "1990-05-15",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-13",
+      "nucleo_id": 2,
+      "particao_id": 5
+    },
+    {
+      "id": 3,
+      "nome": "João Pereira",
+      "especialidade": "Aluno",
+      "telefone": "44998275684",
+      "cpf_cnpj": "33219876543",
+      "nascimento": "1985-12-10",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-14",
+      "nucleo_id": 3,
+      "particao_id": 2
+    },
+    {
+      "id": 4,
+      "nome": "Ana Souza",
+      "especialidade": "Aluno",
+      "telefone": "44998275685",
+      "cpf_cnpj": "44789456231",
+      "nascimento": "1992-08-20",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-15",
+      "nucleo_id": 1,
+      "particao_id": 1
+    },
+    {
+      "id": 5,
+      "nome": "Carlos Santos",
+      "especialidade": "Aluno",
+      "telefone": "44998275686",
+      "cpf_cnpj": "55431234567",
+      "nascimento": "1997-04-05",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-16",
+      "nucleo_id": 4,
+      "particao_id": 8
+    },
+    {
+      "id": 6,
+      "nome": "Juliana Rodrigues",
+      "especialidade": "Aluno",
+      "telefone": "44998275687",
+      "cpf_cnpj": "66789012345",
+      "nascimento": "1993-11-30",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-17",
+      "nucleo_id": 3,
+      "particao_id": 4
+    },
+    {
+      "id": 7,
+      "nome": "Ricardo Oliveira",
+      "especialidade": "Aluno",
+      "telefone": "44998275688",
+      "cpf_cnpj": "77890123456",
+      "nascimento": "1988-03-25",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-18",
+      "nucleo_id": 2,
+      "particao_id": 6
+    },
+    {
+      "id": 8,
+      "nome": "Luisa Carvalho",
+      "especialidade": "Aluno",
+      "telefone": "44998275689",
+      "cpf_cnpj": "88901234567",
+      "nascimento": "1991-07-12",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-19",
+      "nucleo_id": 1,
+      "particao_id": 1
+    },
+    {
+      "id": 9,
+      "nome": "Mariano Ferreira",
+      "especialidade": "Aluno",
+      "telefone": "44998275690",
+      "cpf_cnpj": "99012345678",
+      "nascimento": "1994-02-18",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-20",
+      "nucleo_id": 5,
+      "particao_id": 10
+    },
+    {
+      "id": 10,
+      "nome": "Beatriz Mendes",
+      "especialidade": "Aluno",
+      "telefone": "44998275691",
+      "cpf_cnpj": "10123456789",
+      "nascimento": "1989-06-08",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-21",
+      "nucleo_id": 2,
+      "particao_id": 6
+    },
+    {
+      "id": 11,
+      "nome": "Pedro Santos",
+      "especialidade": "Aluno",
+      "telefone": "44998275692",
+      "cpf_cnpj": "11234567890",
+      "nascimento": "1996-01-23",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-22",
+      "nucleo_id": 4,
+      "particao_id": 9
+    },
+    {
+      "id": 12,
+      "nome": "Camila Silva",
+      "especialidade": "Aluno",
+      "telefone": "44998275693",
+      "cpf_cnpj": "12345678901",
+      "nascimento": "1992-10-05",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-23",
+      "nucleo_id": 3,
+      "particao_id": 3
+    },
+    {
+      "id": 13,
+      "nome": "Lucas Vieira",
+      "especialidade": "Aluno",
+      "telefone": "44998275694",
+      "cpf_cnpj": "23456789012",
+      "nascimento": "1995-07-27",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-24",
+      "nucleo_id": 1,
+      "particao_id": 1
+    },
+    {
+      "id": 14,
+      "nome": "Isabela Fernandes",
+      "especialidade": "Aluno",
+      "telefone": "44998275695",
+      "cpf_cnpj": "34567890123",
+      "nascimento": "1993-04-14",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-25",
+      "nucleo_id": 5,
+      "particao_id": 10
+    },
+    {
+      "id": 15,
+      "nome": "Felipe Barbosa",
+      "especialidade": "Aluno",
+      "telefone": "44998275696",
+      "cpf_cnpj": "45678901234",
+      "nascimento": "1987-09-29",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-26",
+      "nucleo_id": 2,
+      "particao_id": 6
+    },
+    {
+      "id": 16,
+      "nome": "Laura Gonçalves",
+      "especialidade": "Aluno",
+      "telefone": "44998275697",
+      "cpf_cnpj": "56789012345",
+      "nascimento": "1990-12-03",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-27",
+      "nucleo_id": 4,
+      "particao_id": 8
+    },
+    {
+      "id": 17,
+      "nome": "Gustavo Lima",
+      "especialidade": "Aluno",
+      "telefone": "44998275698",
+      "cpf_cnpj": "67890123456",
+      "nascimento": "1991-03-18",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-28",
+      "nucleo_id": 3,
+      "particao_id": 2
+    },
+    {
+      "id": 18,
+      "nome": "Mariana Ribeiro",
+      "especialidade": "Aluno",
+      "telefone": "44998275699",
+      "cpf_cnpj": "78901234567",
+      "nascimento": "1994-06-25",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-29",
+      "nucleo_id": 1,
+      "particao_id": 1
+    },
+    {
+      "id": 19,
+      "nome": "Eduardo Almeida",
+      "especialidade": "Aluno",
+      "telefone": "44998275700",
+      "cpf_cnpj": "89012345678",
+      "nascimento": "1986-11-08",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-09-30",
+      "nucleo_id": 5,
+      "particao_id": 10
+    },
+    {
+      "id": 20,
+      "nome": "Carolina Santos",
+      "especialidade": "Aluno",
+      "telefone": "44998275701",
+      "cpf_cnpj": "90123456789",
+      "nascimento": "1989-02-17",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-01",
+      "nucleo_id": 2,
+      "particao_id": 6
+    },
+    {
+      "id": 21,
+      "nome": "Gabriel Fernandes",
+      "especialidade": "Aluno",
+      "telefone": "44998275702",
+      "cpf_cnpj": "01234567890",
+      "nascimento": "1997-05-22",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-02",
+      "nucleo_id": 4,
+      "particao_id": 9
+    },
+    {
+      "id": 22,
+      "nome": "Isabel Oliveira",
+      "especialidade": "Aluno",
+      "telefone": "44998275703",
+      "cpf_cnpj": "12345678901",
+      "nascimento": "1993-09-15",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-03",
+      "nucleo_id": 3,
+      "particao_id": 3
+    },
+    {
+      "id": 23,
+      "nome": "Fernando Costa",
+      "especialidade": "Aluno",
+      "telefone": "44998275704",
+      "cpf_cnpj": "23456789012",
+      "nascimento": "1996-02-28",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-04",
+      "nucleo_id": 1,
+      "particao_id": 1
+    },
+    {
+      "id": 24,
+      "nome": "Amanda Rocha",
+      "especialidade": "Aluno",
+      "telefone": "44998275705",
+      "cpf_cnpj": "34567890123",
+      "nascimento": "1990-07-10",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-05",
+      "nucleo_id": 5,
+      "particao_id": 10
+    },
+    {
+      "id": 25,
+      "nome": "Rafael Barbosa",
+      "especialidade": "Aluno",
+      "telefone": "44998275706",
+      "cpf_cnpj": "45678901234",
+      "nascimento": "1992-12-14",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-06",
+      "nucleo_id": 2,
+      "particao_id": 6
+    },
+    {
+      "id": 26,
+      "nome": "Patrícia Lima",
+      "especialidade": "Aluno",
+      "telefone": "44998275707",
+      "cpf_cnpj": "56789012345",
+      "nascimento": "1988-03-20",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-07",
+      "nucleo_id": 4,
+      "particao_id": 8
+    },
+    {
+      "id": 27,
+      "nome": "Vitor Santos",
+      "especialidade": "Aluno",
+      "telefone": "44998275708",
+      "cpf_cnpj": "67890123456",
+      "nascimento": "1994-06-05",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-08",
+      "nucleo_id": 3,
+      "particao_id": 2
+    },
+    {
+      "id": 28,
+      "nome": "Natalia Ribeiro",
+      "especialidade": "Aluno",
+      "telefone": "44998275709",
+      "cpf_cnpj": "78901234567",
+      "nascimento": "1987-09-10",
+      "classificacao_cliente_id": 2,
+      "data_do_cadastro": "2023-10-09",
+      "nucleo_id": 1,
+      "particao_id": 1
+    }
+  ],
+  "nucleos":[
+    {
+      "id": 1,
+      "nome": "Sorenzze"
+    },
+    {
+      "id":2,
+      "nome": "Unicesumar"
+    },
+    {
+      "id": 3,
+      "nome": "Uninga"
+    },
+    {
+      "id":4,
+      "nome":"Clinica"
+    },
+    {
+      "id":5,
+      "nome":"Hospital"
+    }
+    
+  ],
+  "particao":[
+    {
+      "id": 1,
+      "nome": "Sorenzze",
+      "nucleo_id": 1
+    },
+    {
+      "id": 2,
+      "nome": "Turma XI",
+      "nucleo_id": 3
+    },
+    {
+      "id": 3,
+      "nome": "Liga Nefrologia",
+      "nucleo_id": 3
+    },
+    {
+      "id": 4,
+      "nome": "Cruso Medicina",
+      "nucleo_id": 3
+    },
+    {
+      "id": 5,
+      "nome": "Turma X",
+      "nucleo_id": 2
+    },
+    {
+      "id": 6,
+      "nome": "Liga de Cardiologia",
+      "nucleo_id": 2
+    },
+    {
+      "id": 7,
+      "nome": "Curso Medicina",
+      "nucleo_id": 2
+    },
+    {
+      "id": 8,
+      "nome": "Vitally",
+      "nucleo_id": 4
+    },
+    {
+      "id": 9,
+      "nome": "Prevenpet",
+      "nucleo_id": 4
+    },
+    {
+      "id": 10,
+      "nome": "Santa Rita",
+      "nucleo_id": 1
+    }
+  ],
+  "classificacao_Cliente":[
+    {
+      "id":1,
+      "nome": "Funcionário"
+    },
+    {
+      "id":2,
+      "nome": "Cliente"
+    },
+    {
+      "id":3,
+      "nome": "Prestador de Serviço"
+    },
+    {
+      "id":4,
+      "nome": "Empresa"
+    }
+  ],
+  "bordados": [
+    {
+      "id": 1,
+      "Nome": "Brasão da Turma XI de Medicina Uningá",
+      "Estilo": "Brasão",
+      "Núcleo": "Uningá",
+      "Particao": "Medicina XI",
+      "codigo": "B1UNI03_MEDXI",
+      "Imagem": "src/assets/B1UNI02_MEDXI.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 2,
+      "Nome": "Brasão da Liga de Nefrologia Uningá",
+      "Estilo": "Brasão",
+      "Núcleo": "Uningá",
+      "Particao": "Liga de Nefrologia",
+      "codigo": "B1UNI01_NEFRO",
+      "Imagem": "src/assets/B1UNI01_NEFRO.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 3,
+      "Nome": "Brasão do Curso de Medicina Uningá",
+      "Estilo": "Brasão",
+      "Núcleo": "Uningá",
+      "Particao": "Curso de Medicina",
+      "codigo": "B1UNI03_MED0",
+      "Imagem": "src/assets/B1UNI03_MED0.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 4,
+      "Nome": "Brasão da Turma X de Medicina Unicesumar",
+      "Estilo": "Brasão",
+      "Núcleo": "Unicesumar",
+      "Particao": "Medicina X",
+      "codigo": "B1CES02_MEDX",
+      "Imagem": "src/assets/B1CES02_MEDX.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 5,
+      "Nome": "Brasão da Liga de Cardiologia Unicesumar",
+      "Estilo": "Brasão",
+      "Núcleo": "Unicesumar",
+      "Particao": "Liga de Cardiologia",
+      "codigo": "B1CES01_CARDIO",
+      "Imagem": "src/assets/B1CES01_CARDIO.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 6,
+      "Nome": "Brasão do Curso de Medicina Unicesumar",
+      "Estilo": "Brasão",
+      "Núcleo": "Unicesumar",
+      "Particao": "Curso Medicina",
+      "codigo": "B1CES03_MED0",
+      "Imagem": "src/assets/B1CES03_MED0.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 7,
+      "Nome": "Logo da Clinica Vitally",
+      "Estilo": "Logo",
+      "Núcleo": "Clinica",
+      "Particao": "Vitally",
+      "codigo": "B2CLI00_VITALLY",
+      "Imagem": "src/assets/B2CLI00_VITAL.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 8,
+      "Nome": "Logo da Clinica Prevenpet",
+      "Estilo": "Logo",
+      "Núcleo": "Clinica",
+      "Particao": "Prevenpet",
+      "codigo": "B2CLI00_PREVEN",
+      "Imagem": "src/assets/B2CLI00_PREVEN.png",
+      "Preço": "25,00"
+    },
+    {
+      "id": 9,
+      "Nome": "Logo da Cirurgia Vascular Hospital Santa Rita",
+      "Estilo": "Logo",
+      "Núcleo": "Hospital",
+      "Particao": "Santa Rita",
+      "codigo": "B2HOS00_VASCSR",
+      "Imagem": "src/assets/B2HOS00_VASCSR.png",
+      "Preço": "25,00"
+    }
+  ]
+}

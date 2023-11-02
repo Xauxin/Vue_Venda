@@ -63,10 +63,14 @@ export interface IBordado {
     Preço: string;
 }
 
-interface IValores{}
-interface IAdiantamentos{}
-interface INucleo{}
-interface IParticao{}
-interface IModelagem{}
-interface IMedidas{}
+export interface IValores{}
+export interface IAdiantamentos{}
+export interface INucleo{
+    id: Number
+    nome: String
+    imagem: String
+}
+export interface IParticao{}
+export interface IModelagem{}
+export interface IMedidas{}
 
