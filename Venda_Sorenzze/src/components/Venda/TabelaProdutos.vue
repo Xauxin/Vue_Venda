@@ -21,15 +21,23 @@
                         <td>1</td>
                         <td>R$250</td>
                         <td>R$250,00</td>
-                        <th><v-row><v-col cols="6"><v-btn size="xsmall" icon="edit"></v-btn></v-col><v-col cols="6"><v-btn
-                                        size="xsmall" icon="delete"></v-btn></v-col></v-row></th>
+                        <th><v-row>
+                                <v-col cols="6">
+                                    <v-btn size="xsmall" icon="edit"></v-btn>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-btn
+                                        size="xsmall" icon="delete"></v-btn>
+                                    </v-col>
+                            </v-row></th>
                     </tr>
                     <tr>
                         <td><v-switch label="Frete" v-model="switchFrete" color="info"></v-switch></td>
-                        <td colspan="3"><v-select density="compact" variant="outlined" auto-select-first hide-details label="Tipo"
-                            v-if=switchFrete :items=items></v-select></td>
-                        <td colspan="3"><v-text-field density="compact" v-if=switchFrete prefix="R$" variant="outlined" auto-select-first hide-details></v-text-field></td>
-            
+                        <td colspan="3"><v-select density="compact" variant="outlined" auto-select-first hide-details
+                                label="Tipo" v-if=switchFrete :items=items></v-select></td>
+                        <td colspan="3"><v-text-field density="compact" v-if=switchFrete prefix="R$" variant="outlined"
+                                auto-select-first hide-details></v-text-field></td>
+
                     </tr>
                 </tbody>
                 <tfoot>

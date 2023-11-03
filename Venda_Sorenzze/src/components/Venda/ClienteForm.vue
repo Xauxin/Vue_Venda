@@ -1,8 +1,8 @@
 <template>
   <v-form>
-    <v-container>
+    <v-container class="pb-0">
       <v-row>
-        <v-col>
+        <v-col >
           <v-autocomplete  hide-details label="Cliente" density="compact" :items=numeroENomePessoas() variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
           </v-autocomplete>
         </v-col>

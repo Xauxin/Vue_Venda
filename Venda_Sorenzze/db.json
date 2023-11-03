@@ -530,8 +530,8 @@
       "cor": ["Branco", "Preto", "Grafite", "Bordo", "Azul Escuro"],
       "suprimentos": ["Gabardine", "Biostretch"],
       "modelagem": {
-        "trava": {"presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15},
-        "gola": {"padre": 10, "Blaser": 0, "Smoking": 20},
+        "Trava": {"presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15},
+        "Gola": {"padre": 10, "Blaser": 0, "Smoking": 20},
         "Manga": {"curta": -10, "cavada": -15, "franzida": 20, "Longa Basica": 0},
         "Punho": {"Basico": 0, "Camisa": 10, "Ribana": 10, "Elastico": 10}
       },

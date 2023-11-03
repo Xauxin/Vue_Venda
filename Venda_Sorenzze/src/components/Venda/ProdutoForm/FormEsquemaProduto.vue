@@ -1,20 +1,20 @@
 <template>
     <v-container class="px-5 py-2" fluid height="50%">
         <v-row height="50%">
-            <v-col>
+            <v-col class="py-1">
                 <v-autocomplete density="compact" label="Produto" v-model="escolhido"  variant="outlined" :items="opcoes"
                     auto-select-first hide-details>
                 </v-autocomplete>
             </v-col>
-            <v-col>
+            <v-col class="py-1">
                 <v-autocomplete density="compact" hide-details label="Cor" :items=opcaoEscolhida.cor variant="outlined"
                     auto-select-first>
                 </v-autocomplete>
             </v-col>
-            <v-col>
+            <v-col class="py-1">
                 <v-autocomplete :items="opcaoEscolhida.tamanhos" density="compact" hide-details  variant="outlined" label="Tamanho"></v-autocomplete>
             </v-col>
-            <v-col>
+            <v-col class="py-1">
                 <v-autocomplete density="compact" :items=opcaoEscolhida.suprimentos hide-details variant="outlined"
                     label="Tecido"></v-autocomplete>
             </v-col>

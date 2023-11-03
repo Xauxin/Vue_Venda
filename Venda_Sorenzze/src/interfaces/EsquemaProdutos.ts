@@ -56,3 +56,38 @@ export interface IMedidas{
     Preço: Number
 }
 
+// Venda {
+// 	id: Num
+// 	cliente: ICLiente,
+// 	tipo: String,
+// 	data: date,
+// 	Produtos: IProduto: {
+// 		nome: String
+// 		cor: String
+// 		tamanho: String
+// 		tecido: string
+// 		modelagem: {
+// 			Nome_da_modelagem: opcao_escolhida
+// 			}
+// 		Medida: {
+// 			Nome_da_medida: numero medido
+// 			}
+// 		Bordados{
+// 			Nome: {
+// 				Fonte: String
+// 				cor: String
+// 			}
+// 			Manga_D: IBordado
+// 			Manga_E: IBordado
+// 			Outro: IBordado
+// 		}
+// 		Valor: NUM
+// 		Quantidade: Num
+// 	}
+// 	Valores: Num
+// 	Pagamentos {
+// 		id: Num
+// 		tipo: String
+// 		Valor: String
+// 	}
+// }

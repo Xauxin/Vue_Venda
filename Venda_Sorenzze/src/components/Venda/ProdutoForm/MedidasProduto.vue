@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <v-sheet :elevation="3" border rounded height="100%" class="px-2 py-2">
             <v-row class="pa-2">
                 <v-col cols="6">
@@ -56,7 +55,7 @@
                         <v-col cols="7" class="px-4 py-4">
                             <v-row>
                                 <v-col dense cols="6" v-for="medida in medidas" v-bind:key="medida" class="pa-1">
-                                    <v-text-field density="compact" :label=medida hide-details
+                                    <v-text-field v-model="MedidasEscolhidas[medida]" density="compact" :label=medida hide-details
                                         variant="outlined"></v-text-field>
                                 </v-col>
                             </v-row>
@@ -75,11 +74,6 @@
                                         </template>
                                     </v-autocomplete>
                                 </v-col>
-                                <v-col>
-                                    <v-btn color="success">
-                                        Salvar
-                                    </v-btn>
-                                </v-col>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -90,6 +84,10 @@
 </template>
 
 <script lang="ts">
+interface IMedidasEscolhidas{
+    [medida: string]: string
+}
+
 
 import { defineComponent } from 'vue'
 export default defineComponent({
@@ -105,10 +103,13 @@ export default defineComponent({
             possiveisMedidasEscolhidas: [] as string[],
             MedidasEscolhidas: {
 
-            }
+            } as IMedidasEscolhidas
         }
     },
     watch: {
+        MedidasEscolhida: function (){
+            console.log(this.MedidasEscolhidas)
+        },
         possiveisMedidasEscolhidas: function (newArray: string[], oldArray: string[]) {
             console.log(newArray, oldArray)
             if (newArray.length > oldArray.length) {

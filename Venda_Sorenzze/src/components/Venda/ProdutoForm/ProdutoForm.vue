@@ -3,7 +3,7 @@
         <FormEsquemaProduto></FormEsquemaProduto>
         <ModelagemProduto/>
         <v-container class="px-5 py-2">
-            <v-row  no-gutters>
+            <v-row>
                 <v-col cols="4">
                     <MedidasProduto></MedidasProduto>
                 </v-col>
