@@ -533,12 +533,13 @@
         "Trava": {"presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15},
         "Gola": {"padre": 10, "Blaser": 0, "Smoking": 20},
         "Manga": {"curta": -10, "cavada": -15, "franzida": 20, "Longa Basica": 0},
-        "Punho": {"Basico": 0, "Camisa": 10, "Ribana": 10, "Elastico": 10}
+        "Punho": {"Basico": 0, "Camisa": 10, "Ribana": 10, "Elastico": 10},
+        "Vivo": ["Gola", "Punho", "Frente"]
       },
       "medidas": ["Busto","Ombro","Costa","Frente","Decote","Comprimento","Cintura",
       "Elastico","Quadril","Mnaga Longa","Punho","Cava","Bordado","Trava","Botão"],
       "mais_medidas": ["de Cava ao Recorte", "De cava a Barra", "no Tecido das Costas"],
-      "locias_de_bordaoo":["Manga Esquerda", "Manga Diereita", "Outro"],
+      "locais_de_bordado":["Manga Esquerda", "Manga Diereita", "Outro"],
       "valor": 155
     }
   ]

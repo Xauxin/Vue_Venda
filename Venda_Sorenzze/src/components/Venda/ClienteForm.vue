@@ -22,7 +22,7 @@
 </template>
     
 <script lang="ts">
-import { IPessoa } from '@/interfaces/Interfaces'
+import { IPessoa } from '@/interfaces/Pessoas'
 import { useAppStore } from '@/store/app'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useDate } from 'vuetify/labs/date'
