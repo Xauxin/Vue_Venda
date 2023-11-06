@@ -61,7 +61,6 @@ export default defineComponent({
             await store.listOpcoes()
             opcoes.value = store.getOpcoes
             opcaoEscolhida.value = store.getEsquema
-            console.log(opcoes.value)
         } catch (error) {
             console.log(error)
         }

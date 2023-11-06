@@ -1,0 +1,94 @@
+<template>
+    <v-row>
+        <v-col cols="4" v-for="(item, index) in locaisEscolhidos" :key="index">
+            <v-card density="compact" height="100%" min-height="235" color="#BBBBBB">
+                <v-card-title class="pa-0 text-center text-caption">{{ item }}</v-card-title>
+                <v-card-subtitle class="text-center text-caption">{{ (bordadosEscolhidos[(item as string)] ?
+                    bordadosEscolhidos[(item as string)].codigo : "B1ABC00.ABC") }}</v-card-subtitle>
+                <v-divider class="mx-2 my-1"></v-divider>
+                <v-card-text class="pa-0">
+                    <v-img v-bind:item="item"
+                        :src="bordadosEscolhidos[(item as string)] ? bordadosEscolhidos[(item as string)].Imagem : ''"
+                        min-height="100" height="100" aspect-ratio="1/1">
+                    </v-img>
+                    <v-divider class="mx-2 my-1"></v-divider>
+                    <p height="24px" class="mt-1 text-center text-body-1">{{ (bordadosEscolhidos[(item as string)] ?
+                        `R$${bordadosEscolhidos[(item as string)].Preço}` : "ㅤ") }}</p>
+                </v-card-text>
+                <v-divider class="mx-2"></v-divider>
+                <v-card-actions align-self="bo">
+                    <v-row>
+                        <v-col cols="4">
+                            <v-btn variant="flat" icon="add" :id="item" @click.prevent="$emit('abreDialog', item)" rounded
+                                density="compact" color="success" bg-color="info"></v-btn>
+                        </v-col>
+                        <v-col cols="4" offset="4">
+                            <v-btn variant="flat" density="compact" rounded icon="delete" color="danger"
+                                bg-color="danger"></v-btn>
+                        </v-col>
+                    </v-row>
+                </v-card-actions>
+            </v-card>
+        </v-col>
+        <v-col cols="4" v-if="locaisEscolhidos && locais && locaisEscolhidos.length < locais.length">
+            <v-card density="compact" height="100%" min-height="235" color="#BBBBBB" @click="escolhendoCard = !escolhendoCard">
+                <v-card-text>
+                    <v-img v-if='!escolhendoCard'
+                        src="https://icon-library.com/images/white-plus-icon/white-plus-icon-3.jpg" aspect-ratio="1/1"
+                        height="50%" class="border-opacity-100"></v-img>
+                    <v-menu v-else aling="center">
+                        <template v-slot:activator="{ props }"> 
+                            <v-btn v-bind="props">
+                                Local
+                            </v-btn>
+                        </template>
+                        <v-list>
+                            <v-list-item @click="adicionaBordado(item as string)" v-for="(item, index) in locais" :key="index" :value="index">
+                                <v-list-item-title>{{ item }}</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+                    </v-menu>
+                </v-card-text>
+            </v-card>
+        </v-col>
+    </v-row>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+    name: 'BordadoCards',
+    props: {
+        locais: {
+            type: Array,
+            required: true
+        },
+        bordadosEscolhidos: {
+            type: Object,
+            required: true
+        }
+    },
+    data() {
+        return {
+            escolhendoCard: false,
+            locaisEscolhidos: [] as String[]
+        }
+    },
+    methods: {
+        abreDialog(item: String) {
+            this.$emit('abreDialog', item)
+        },
+        adicionaBordado(item: String) {
+            this.locaisEscolhidos.push(item)
+            this.locais.slice(this.locais.indexOf(item), 1)
+            this.escolhendoCard = !this.escolhendoCard
+
+        }
+    }
+})
+</script>
+
+
+
+

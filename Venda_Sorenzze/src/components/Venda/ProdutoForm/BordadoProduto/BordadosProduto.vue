@@ -1,47 +1,9 @@
 <template>
     <div>
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
-            <v-row align="center" v-if="produtoEscolhido.nome">
-                <v-col cols="4">
-                    <p class="text-h6 text-center">Nome</p>
-                </v-col>
-                <v-col cols="4">
-                    <v-autocomplete hide-details class="pb-1" density="compact" label="Fonte" variant="outlined" ></v-autocomplete>
-                </v-col>
-                <v-col cols="4">
-                    <v-autocomplete hide-details class="pb-1" density="compact" label="Cor" variant="outlined"></v-autocomplete>
-                </v-col>
-            </v-row>
+            <BordadoNome v-if="produtoEscolhido.nome" :cores="['Preto', 'Dourado', 'Grafite']" :fontes="['MontSerrat', 'Block', 'Monotype']" />
             <v-divider  v-if="produtoEscolhido.nome" class="mb-1 border-opacity-75"></v-divider>
-            <v-row>
-                <v-col cols="4" v-for="(item, index) in produtoEscolhido.locais_de_bordado" :key="index">
-                    <v-card density="compact" height="100%" min-height="235" color="#BBBBBB">
-                        <v-card-title class="pa-0 text-center text-caption">{{ item }}</v-card-title>
-                        <v-card-subtitle class="text-center text-caption">{{ (bordadosEscolhidos[(item as string)] ? bordadosEscolhidos[(item as string)].codigo : "B1ABC00.ABC") }}</v-card-subtitle>
-                        <v-divider class="mx-2 my-1"></v-divider>
-                        <v-card-text class="pa-0">
-                            <v-img v-bind:item="item" :src="bordadosEscolhidos[(item as string)] ? bordadosEscolhidos[(item as string)].Imagem : ''" min-height="100" height="100" aspect-ratio="1/1">
-                            </v-img>
-                            <v-divider class="mx-2 my-1"></v-divider>
-                            <p height="24px"  class="mt-1 text-center text-body-1">{{ (bordadosEscolhidos[(item as string)] ? `R$${bordadosEscolhidos[(item as string)].Preço}` : "ㅤ") }}</p>
-                        </v-card-text>
-                        <v-divider class="mx-2"></v-divider>
-                        <v-card-actions align-self="bo">
-                            <v-row>
-                                <v-col cols="4">
-                                    <v-btn variant="flat" icon="add" :id="item"
-                                        @click.prevent="AbreDialogEMudaBordadoAscessado((item as string))" rounded density="compact"
-                                        color="success" bg-color="info"></v-btn>
-                                </v-col>
-                                <v-col cols="4" offset="4">
-                                    <v-btn variant="flat" density="compact" rounded icon="delete" color="danger"
-                                        bg-color="danger"></v-btn>
-                                </v-col>
-                            </v-row>
-                        </v-card-actions>
-                    </v-card>
-                </v-col>
-            </v-row>
+            <BordadoCards :bordados-escolhidos="bordadosEscolhidos" :locais="produtoEscolhido ? produtoEscolhido.locais_de_bordado : []" @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
         <v-dialog v-model="dialog" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
             <v-row>
@@ -137,6 +99,8 @@ import { defineComponent, onMounted, ref, watch } from 'vue'
 import { useAppStore } from '@/store/app'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
+import  BordadoNome  from './BordadoNome.vue'
+import BordadoCards from './BordadoCard.vue'
 
 interface IBordadosEscolhidos {
     [Local: string]: IBordado
@@ -145,7 +109,11 @@ interface IBordadosEscolhidos {
 
 
 export default defineComponent({
-    name: 'Home',
+    name: 'BordadosProduto',
+    components:{
+        BordadoNome,
+        BordadoCards
+    },
     data() {
         return {
             BordadoPreSelecionado: {} as IBordado,
@@ -192,7 +160,6 @@ export default defineComponent({
         () => storeEsquema.getEsquema,
         () => {
             produtoEscolhido.value = storeEsquema.getEsquema
-            console.log(produtoEscolhido)
         }
     )
         onMounted(async () => {
@@ -203,7 +170,7 @@ export default defineComponent({
                 console.log(error)
             }
         })
-
+        console.log(produtoEscolhido)
         return {
             bordados: bordados,
             produtoEscolhido: produtoEscolhido,

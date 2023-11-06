@@ -20,7 +20,7 @@
 import FormEsquemaProduto from './FormEsquemaProduto.vue';
 import ModelagemProduto from './ModelagemProduto.vue'
 import MedidasProduto from './MedidasProduto.vue'
-import BordadosProduto from './BordadosProduto.vue'
+import BordadosProduto from './BordadoProduto/BordadosProduto.vue'
 import PrecoProduto from './PrecoProduto.vue';
 
 import { defineComponent } from 'vue'
