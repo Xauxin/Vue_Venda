@@ -46,7 +46,6 @@ export default defineComponent({
                 let id = this.escolhido.split("-")[0] as String
                 await this.store.SetEscolhido(id)
                 this.opcaoEscolhida = this.store.getEsquema
-                console.log(this.store.esquema_escolhido.cor)
             } catch (error) {
                 console.log(error)
             }

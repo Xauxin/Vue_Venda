@@ -5,7 +5,7 @@
                 <v-col v-for="(item, key) in produtoEscolhido.modelagem" cols=auto v-bind:key=key>
                     <v-container v-if="key == 'Vivo'" class="pa-0 ma-1"> 
                         <p class="text-center">{{ key }}</p>   
-                        <v-switch v-model="vivoOn" hide-details color="primary">
+                        <v-switch v-model="vivoOn" hide-details density="compact" color="primary">
                             <template v-slot:label>
                                 <v-btn-toggle v-model="modelagemEscolhida[key]"  multiple :disabled="!vivoOn" density="compact" elevation="2" rounded color="info">
                                     <v-btn :value="iten" class="px-1 py-2" size="x-small" v-for="iten in item" border  :key="iten">
@@ -49,6 +49,7 @@ export default defineComponent({
             densidade: "compact" as String,
             vivoOn: false as boolean,
             labelVivo: "Vivo" as  string
+            
         }
     },
     watch: {

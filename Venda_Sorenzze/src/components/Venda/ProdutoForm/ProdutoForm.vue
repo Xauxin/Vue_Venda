@@ -19,7 +19,7 @@
 <script lang="ts">
 import FormEsquemaProduto from './FormEsquemaProduto.vue';
 import ModelagemProduto from './ModelagemProduto.vue'
-import MedidasProduto from './MedidasProduto.vue'
+import MedidasProduto from './MedidasProduto/MedidasProduto.vue'
 import BordadosProduto from './BordadoProduto/BordadosProduto.vue'
 import PrecoProduto from './PrecoProduto.vue';
 

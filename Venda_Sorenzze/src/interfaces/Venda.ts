@@ -1,16 +1,3 @@
-// Venda {
-// 	id: Num
-// 	cliente: ICLiente,
-// 	tipo: String,
-//  Fase: String,
-// 	data: date,
-// 	Valores: Num
-// 	Pagamentos {
-// 		id: Num
-// 		tipo: String
-// 		Valor: String
-// 	}
-// }
 
 import { IPessoa } from "./Pessoas"
 import { IProduto } from "./Produto"

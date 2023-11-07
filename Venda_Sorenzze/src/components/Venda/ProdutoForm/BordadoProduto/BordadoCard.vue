@@ -30,7 +30,7 @@
                 </v-card-actions>
             </v-card>
         </v-col>
-        <v-col cols="4" v-if="locaisEscolhidos && locais && locaisEscolhidos.length < locais.length">
+        <v-col cols="4" v-if="locais.length">
             <v-card density="compact" height="100%" min-height="235" color="#BBBBBB" @click="escolhendoCard = !escolhendoCard">
                 <v-card-text>
                     <v-img v-if='!escolhendoCard'
@@ -59,6 +59,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     name: 'BordadoCards',
+    emits:['abreDialog', 'atualizaLocaisEscolhidos'],
     props: {
         locais: {
             type: Array,
@@ -81,9 +82,8 @@ export default defineComponent({
         },
         adicionaBordado(item: String) {
             this.locaisEscolhidos.push(item)
-            this.locais.slice(this.locais.indexOf(item), 1)
+            this.$emit('atualizaLocaisEscolhidos', ( item as String))
             this.escolhendoCard = !this.escolhendoCard
-
         }
     }
 })
