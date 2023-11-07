@@ -1,18 +1,22 @@
-// import http from "@/http"
-// import { IEsquemaProduto} from '@/interfaces/EsquemaProdutos';
-// import { IProduto } from "@/interfaces/Produto";
-// import { defineStore } from 'pinia'
+import { IMedidas } from './../interfaces/Produto';
+import { IProduto } from "@/interfaces/Produto";
+import { defineStore } from 'pinia'
 
 
-// export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
-//   state: () => ({
-//     produtos: [] as IProduto[]
-//     produtoASerSalvo: {} as IProduto
-//   }),
-//   actions:{
-    
-// },
-//   getters:{
-//     getOpcoes: (state) => state.opcoes_de_esquema,
-//     getEsquema: (state) => state.esquema_escolhido
-//   }})
+export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
+  state: () => ({
+    produtos: [] as IProduto[],
+    produtoASerSalvo: {} as IProduto
+  }),
+  actions:{
+    setProduto(medidas:IMedidas){
+      this.produtoASerSalvo.medidas = medidas
+    }
+},
+  getters:{
+    getprodutos: (state) => state.produtos,
+    getprodutoASerSalvo: (state) => state.produtoASerSalvo,
+    getmodelagemASerSAlva: (state) => state.produtoASerSalvo.modelagems,
+    getmedidasASerSAlva: (state) => state.produtoASerSalvo.medidas,
+    getbordadosASerSAlva: (state) => state.produtoASerSalvo.bordados
+  }})

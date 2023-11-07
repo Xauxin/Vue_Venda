@@ -7,7 +7,7 @@
             <v-col cols="6">
                 <VRow no-gutters>
                     <v-col cols="6" align="end">
-                        <v-btn size="x-small" icon="edit" @click="abreEFechaDialog"></v-btn>
+                        <v-btn size="x-small" icon="edit" @click="abreEFechaDialog()"></v-btn>
                     </v-col>
                     <v-col cols="6" align="end">
                         <v-btn size="x-small" icon="delete" @click="apagaMedidas()"></v-btn>
@@ -34,28 +34,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from 'vue'
+import { useProdutoParaVendaStore } from '@/store/ProdutoParaVenda'
+import { defineComponent, ref, watch} from 'vue'
 
 
 
 export default defineComponent({
     name: 'TabelaMedidas',
-    props:{
-        MedidasEscolhida:{
-            type: Object,
-            default: {}
-        }
-    },
     methods: {
         apagaMedidas() {
             this.$emit('apagaMedidas')
         },
         abreEFechaDialog(){
-            console.log('eta')
             this.$emit('abreEFechaDialog')
         }
 
     },
+    setup() {
+        const ProdutoParaVenda = useProdutoParaVendaStore()
+        let MedidasEscolhidas = ref({})
+    watch(
+        () => ProdutoParaVenda.getmedidasASerSAlva,
+        () => {
+            MedidasEscolhidas.value = ProdutoParaVenda.getmedidasASerSAlva
+        }
+    )
+        return {
+            MedidasEscolhidas,
+            ProdutoParaVenda
+        }
+    }
+    
     
 })
 </script>

@@ -49,10 +49,8 @@ export default defineComponent({
     },
     methods: {
         locaisPossiveis(todosLocais: String[], locaisEscolhidos: String[]){
-            console.log(locaisEscolhidos, todosLocais)
             if(todosLocais){
                 const possiveisLocais = todosLocais.filter(local => !locaisEscolhidos.includes(local)) as String[]
-                console.log(possiveisLocais)
                 return possiveisLocais
             }
             return []

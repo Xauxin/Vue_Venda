@@ -16,7 +16,9 @@ export interface IModelagem{
 }
 
 export interface IMedidas{
-    [nome: string]: string
-    ajuste: string
+    [medida: string]: string
+
 }
+
+
 
