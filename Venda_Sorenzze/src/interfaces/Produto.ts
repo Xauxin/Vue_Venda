@@ -1,13 +1,19 @@
+
 import { IBordados } from "./Bordado"
 
-export interface IProduto{
-    nome: String
-    cor: String
-    tamanho: String
-    Tecido: String
+interface produtoComChave{
+    [chave: string]: string;
+}
+
+export interface IProduto extends produtoComChave{
+    nome: string;
+    cor: string;
+    tamanho: string;
+    Tecido: string;
     modelagems: [IModelagem]
     medidas: IMedidas
-    bordados: IBordados
+    bordados: IBordados,
+    keys: keyof IProduto
 }
 
 export interface IModelagem{

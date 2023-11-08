@@ -66,15 +66,18 @@ export default defineComponent({
     setup() {
         const store = useEsquemaProdutoStore()
         let produtoEscolhido = ref({} as IEsquemaProduto)
+
         watch(
             () => store.getEsquema,
             () => {
                 produtoEscolhido.value = store.getEsquema
-            }
+            },
         )
+       
         return {
             store,
-            produtoEscolhido
+            produtoEscolhido,
+            
         }
     }
 })

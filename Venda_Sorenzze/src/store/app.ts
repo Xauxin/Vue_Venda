@@ -1,4 +1,7 @@
-import { IBordado, IVenda, IPessoa } from './../interfaces/Interfaces';
+
+import { IBordado,} from '@/interfaces/Bordado';
+import { IVenda} from '@/interfaces/Venda';
+import { IPessoa } from '@/interfaces/Pessoas';
 import http from "@/http"
 import { defineStore } from 'pinia'
 

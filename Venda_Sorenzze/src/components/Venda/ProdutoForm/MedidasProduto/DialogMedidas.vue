@@ -98,7 +98,7 @@ export default defineComponent({
             this.dialog = !this.dialog
         },
         SalvarMedidas(){
-            this.ProdutoParaVenda.setProduto(this.MedidasEscolhidas)
+            // this.ProdutoParaVenda.setProduto(this.MedidasEscolhidas)
         }
     },
     setup() {
