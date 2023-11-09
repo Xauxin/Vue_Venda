@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" location="center" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
             <v-row justify="center">
-                <v-sheet width="40%" class="pa-2" @click="console.log(MedidasEscolhidas)">
+                <v-sheet width="40%" class="pa-2">
                     <v-row>
                         <v-col cols="10">
                             <p class="text-h4">Medidas</p>
@@ -94,19 +94,20 @@ export default defineComponent({
     },
     methods: {
         apagaMedidas() {
-            this.$emit('apagaMedidas')
+            this.MedidasEscolhidas =  {}
         },
         abreEFechaDialog(){
             this.dialog = !this.dialog
         },
         SalvarMedidas(){
-            // this.ProdutoParaVenda.setProduto(this.MedidasEscolhidas)
+            this.produtoParaVenda.setMedidas(this.MedidasEscolhidas)
+            this.abreEFechaDialog()
         }
     },
     setup() {
         const storeEsquema = useEsquemaProdutoStore()
         let produtoEscolhido = ref({} as IEsquemaProduto)
-        const ProdutoParaVenda = useProdutoParaVendaStore()
+        const produtoParaVenda = useProdutoParaVendaStore()
     watch(
         () => storeEsquema.getEsquema,
         () => {
@@ -114,7 +115,8 @@ export default defineComponent({
         }
     )
         return {
-            produtoEscolhido: produtoEscolhido,
+            produtoEscolhido,
+            produtoParaVenda
             
         }
     }

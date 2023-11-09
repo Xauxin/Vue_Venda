@@ -60,7 +60,6 @@ export default defineComponent({
         },
         modelagemEscolhida:{
             handler(){
-                console.log(this.oldModelagemEscolhido, this.modelagemEscolhida)
                 if(this.modelagemEscolhida != this.oldModelagemEscolhido){
                     this.oldModelagemEscolhido = { ...this.modelagemEscolhida }
                     for(const [key, value] of Object.entries(this.modelagemEscolhida)){
@@ -70,7 +69,6 @@ export default defineComponent({
                        }
                     }
                     this.valid = true
-                    console.log(true)
                     this.storeProdutoaSerSalvo.setModelagem(this.modelagemEscolhida)
                 }
             },
@@ -91,7 +89,6 @@ export default defineComponent({
                     modelagemObrigatórias.value[key] = value.required
                     modelagemEscolhida.value[key] = ""
                 }
-                console.log(modelagemObrigatórias.value)
             },
         )
        

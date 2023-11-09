@@ -67,7 +67,6 @@ export default defineComponent({
         },
         baseEscolhida: {
             handler: function () {    
-                console.log(this.baseEscolhida)
                 if(this.baseEscolhida != this.oldbaseEscolhida){
                     this.oldbaseEscolhida = { ...this.baseEscolhida}
                     if ( this.ProdutoParaVenda.getbaseFoiEscolhida ){

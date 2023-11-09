@@ -1,4 +1,5 @@
 import http from "@/http"
+import { IBordado } from "@/interfaces/Bordado";
 import { IEsquemaProduto} from '@/interfaces/EsquemaProdutos';
 import { defineStore } from 'pinia'
 
@@ -7,6 +8,7 @@ import { defineStore } from 'pinia'
 export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
   state: () => ({
     opcoes_de_esquema : [] as String[],
+    bordados: [] as IBordado[],
     esquema_escolhido: {} as IEsquemaProduto
   }),
   actions:{
@@ -28,9 +30,20 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
       } catch (error){
         console.log(error)
     }
-    }
+    },
+    async listBordados (){
+      try {
+        const resposta = (await http.get('bordados')).data as [IBordado]
+        resposta.forEach((bordado: IBordado) => {
+          this.bordados.push(bordado)
+        }) 
+      } catch (error) {
+        return error
+      }
+    },
 },
   getters:{
+    getBordados: (state) => state.bordados,
     getOpcoes: (state) => state.opcoes_de_esquema,
     getEsquema: (state) => state.esquema_escolhido
   }})

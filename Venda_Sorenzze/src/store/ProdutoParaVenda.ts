@@ -14,8 +14,8 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
     baseFoiEscolhida: false as boolean,
     modelagemProduto: {} as IModelagem,
     modelagemFoiEscolhida: false as boolean,
-    medidaProduto: {} as IMedidas,
-    medidaFoiEscolhida: false as boolean,
+    medidasProduto: {} as IMedidas,
+    medidasFoiEscolhida: false as boolean,
     bordadosProduto: {} as IBordados,
     bordadosFoiEscolhida: false as boolean
   }),
@@ -27,7 +27,6 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
       },
     atualizaNomeCorTamanhoETecido(produto:IBaseProduto){
       const chaves = ['nome', 'cor', 'tamanho', 'tecido'];
-      console.log(chaves)
       for (const chave in chaves) {
         if (this.baseProduto[chave] !== produto[chave] && chave in this.baseProduto) {
           this.baseProduto[chave] = produto[chave];
@@ -36,9 +35,20 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
       console.log('att', this.baseProduto)
     },
     setModelagem(modelagem: IModelagem) {
+      console.log('set',modelagem)
       this.modelagemProduto = modelagem
       this.modelagemFoiEscolhida = true
-    }
+    },
+    setMedidas(medidas: IMedidas){
+      console.log('set',medidas)
+      this.medidasProduto = medidas
+      this.medidasFoiEscolhida = true
+    },
+    clearMedidas(){
+      this.medidasProduto = {}
+      console.log('clear',this.medidasProduto)
+    },
+    
   },
     getters: {
       getprodutoASerSalvo: (state) => state.produtoASerSalvo,
@@ -46,8 +56,8 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
       getbaseFoiEscolhida: (state) => state.baseFoiEscolhida,
       getmodelagemProduto: (state) => state.modelagemProduto,
       getmodelagemFoiEscolhida: (state) => state.modelagemFoiEscolhida,
-      getmedidaProduto: (state) => state.medidaProduto,
-      getmedidaFoiEscolhida: (state) => state.medidaFoiEscolhida,
+      getmedidaProduto: (state) => state.medidasProduto,
+      getmedidaFoiEscolhida: (state) => state.medidasFoiEscolhida,
       getbordadosProduto: (state) => state.bordadosProduto,
       getbordadosFoiEscolhida: (state) => state.bordadosFoiEscolhida,
     }

@@ -1,6 +1,6 @@
 <template>
-    <v-sheet :elevation="3" border rounded height="100%" class="px-2 py-2">
-        <v-row class="pa-2">
+    <v-sheet :elevation="3" border rounded height="100%" class="px-2 py-2" >
+        <v-row class="pa-2" v-if="produtoParaVenda.getbaseFoiEscolhida">
             <v-col cols="6">
                 <p class="text-h6">Medidas</p>
             </v-col>
@@ -43,7 +43,7 @@ export default defineComponent({
     name: 'TabelaMedidas',
     methods: {
         apagaMedidas() {
-            this.$emit('apagaMedidas')
+            this.produtoParaVenda.clearMedidas()
         },
         abreEFechaDialog(){
             this.$emit('abreEFechaDialog')
@@ -51,17 +51,17 @@ export default defineComponent({
 
     },
     setup() {
-        const ProdutoParaVenda = useProdutoParaVendaStore()
+        const produtoParaVenda = useProdutoParaVendaStore()
         let MedidasEscolhidas = ref({})
     watch(
-        () => ProdutoParaVenda.getmedidaProduto,
+        () => produtoParaVenda.getmedidaProduto,
         () => {
-            MedidasEscolhidas.value = ProdutoParaVenda.getmedidaProduto
+            MedidasEscolhidas.value = produtoParaVenda.getmedidaProduto
         }
     )
         return {
             MedidasEscolhidas,
-            ProdutoParaVenda
+            produtoParaVenda
         }
     }
     

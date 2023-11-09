@@ -1,33 +1,20 @@
 
-import { IBordado,} from '@/interfaces/Bordado';
 import { IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import http from "@/http"
 import { defineStore } from 'pinia'
 
 
-export const useAppStore = defineStore('app', {
+export const useVendaAberta = defineStore('VendaAberta', {
   state: () => ({
-      vendas: [] as IVenda[],
-      bordados: [] as IBordado[],
+      venda: [] as IVenda[],
       pessoas: [] as IPessoa[]
   }),
   getters: {
-    getVendas: (state) => state.vendas,
-
+    getVendas: (state) => state.venda,
     getPessoas: (state) => state.pessoas
   },
   actions:{
-    async listBordados (){
-      try {
-        const resposta = (await http.get('bordados')).data as [IBordado]
-        resposta.forEach((bordado: IBordado) => {
-          this.bordados.push(bordado)
-        }) 
-      } catch (error) {
-        return error
-      }
-    },
     async listPessoas(){
       try {
         const resposta = (await http.get('pessoas')).data as [IPessoa]

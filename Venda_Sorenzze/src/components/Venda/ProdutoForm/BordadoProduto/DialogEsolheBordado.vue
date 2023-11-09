@@ -87,7 +87,7 @@
 
 import { IBordado } from '@/interfaces/Bordado' 
 import { defineComponent, onMounted, ref } from 'vue'
-import { useAppStore } from '@/store/app'
+import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 
 
 export default defineComponent({
@@ -134,13 +134,13 @@ export default defineComponent({
         }
     },
     setup() {
-        const storeApp = useAppStore()
+        const EsquemaStore = useEsquemaProdutoStore()
         const bordados = ref([] as IBordado[])
     
         onMounted(async () => {
             try {
-                await storeApp.listBordados()
-                bordados.value = storeApp.getBordados as IBordado[]
+                await EsquemaStore.listBordados()
+                bordados.value = EsquemaStore.getBordados as IBordado[]
             } catch (error) {
                 console.log(error)
             }
