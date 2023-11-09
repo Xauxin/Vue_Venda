@@ -1,5 +1,5 @@
 <template>
-    <v-form v-model="valid" validate-on="input" update:model-value>
+    <v-form v-model="valid" validate-on="input">
         <v-container class="px-5 py-2" fluid height="50%">
             <v-row height="50%">
                 <v-col class="py-1">
@@ -44,6 +44,7 @@ export default defineComponent({
             valid: false as boolean,
             nomeEscolhido: "" as String,
             produtoEscolhido: {} as IProduto,
+            oldProdutoEscolhido: {} as IProduto,
             cores: ['Branco', 'Preto', 'Azul-Noite', 'Verde Militar'],
             tecidos: ['Gabardine', 'Tricoline'],
             rules: [
@@ -65,13 +66,17 @@ export default defineComponent({
             }
         },
         produtoEscolhido: {
-            handler() {
-                if ( this.ProdutoParaVenda.getprodutoJaEscolhido ){
-                    if (this.valid) {
-                    this.ProdutoParaVenda.atualizaNomeCorTamanhoETecido(this.produtoEscolhido)
+            handler: function () { 
+                console.log('primeiro|||||||||||||||','new',this.produtoEscolhido,'old',this.oldProdutoEscolhido)    
+                if(this.produtoEscolhido != this.oldProdutoEscolhido){
+                    this.oldProdutoEscolhido = this.produtoEscolhido
+                    console.log('segundo|||||||||||||||','new',this.produtoEscolhido,'old',this.oldProdutoEscolhido) 
+                    if ( this.ProdutoParaVenda.getprodutoJaEscolhido ){
+                        if (this.valid) {
+                        this.ProdutoParaVenda.atualizaNomeCorTamanhoETecido(this.produtoEscolhido)
+                    }
                 }
             }},
-            deep: true
         },
         valid(){
             if (!this.ProdutoParaVenda.getprodutoJaEscolhido && this.valid){

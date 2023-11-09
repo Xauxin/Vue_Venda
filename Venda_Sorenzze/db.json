@@ -530,11 +530,34 @@
       "cor": ["Branco", "Preto", "Grafite", "Bordo", "Azul Escuro"],
       "suprimentos": ["Gabardine", "Biostretch"],
       "modelagem": {
-        "Trava": {"presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15},
-        "Gola": {"padre": 10, "Blaser": 0, "Smoking": 20},
-        "Manga": {"curta": -10, "cavada": -15, "franzida": 20, "Longa Basica": 0},
-        "Punho": {"Basico": 0, "Camisa": 10, "Ribana": 10, "Elastico": 10},
-        "Vivo": ["Gola", "Punho", "Frente"]
+        "Trava": {
+          "opcoes":{
+            "presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15
+          },
+          "required":true
+        },
+        "Gola": {
+          "opcoes":{
+           "padre": 10, "Blaser": 0, "Smoking": 20
+          },
+          "required":true
+        },
+        "Manga": {
+          "opcoes":{
+           "curta": -10, "cavada": -15, "franzida": 20, "Longa Basica": 0
+          },
+          "required":true
+        },
+        "Punho": {
+          "opcoes":{
+           "Basico": 0, "Camisa": 10, "Ribana": 10, "Elastico": 10
+          },
+          "required":true
+        },
+        "Vivo": {
+          "opcoes":["Gola", "Punho", "Frente"],
+          "required":false
+        }
       },
       "medidas": ["Busto","Ombro","Costa","Frente","Decote","Comprimento","Cintura",
       "Elastico","Quadril","Mnaga Longa","Punho","Cava","Bordado","Trava","Botão"],

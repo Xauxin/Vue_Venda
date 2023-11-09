@@ -1,10 +1,11 @@
+
 export interface IEsquemaProduto{
     id: Number
     nome: String
     tamanhos: [String]
     suprimentos: [String]
     cor: [String]
-    modelagem: {}
+    modelagem: IEsquemaModelagem
     medidas: [String]
     mais_medidas: [String]
     locais_de_bordado: [String]
@@ -41,14 +42,13 @@ export interface ISuprimentos{
     cores: [ICores]
 }
 
-export interface IModelagem{
-    nome: String
-    opcoes: [IOpcaoModelagem]
+export interface IEsquemaModelagem{
+    [nome: string]: IEsquemaOpcaoModelagem
 }
 
-export interface IOpcaoModelagem{
-    nome: String
-    valor: Number
+export interface IEsquemaOpcaoModelagem{
+    opcoes: { [key: string]: Number };
+    required: boolean
 }
 
 export interface IMedidas{

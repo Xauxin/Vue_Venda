@@ -1,3 +1,4 @@
+import { IModelagem } from './../interfaces/Produto';
 
 import { IProduto } from "@/interfaces/Produto";
 import { defineStore } from 'pinia'
@@ -25,12 +26,15 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
         }
       }
       console.log('att', this.produtoASerSalvo)
+    },
+    setModelagem(modelagem:IModelagem){
+      this.produtoASerSalvo.modelagem = modelagem
     }
   },
     getters: {
       getprodutos: (state) => state.produtos,
       getprodutoASerSalvo: (state) => state.produtoASerSalvo,
-      getmodelagemASerSAlva: (state) => state.produtoASerSalvo.modelagems,
+      getmodelagemASerSAlva: (state) => state.produtoASerSalvo.modelagem,
       getmedidasASerSAlva: (state) => state.produtoASerSalvo.medidas,
       getbordadosASerSAlva: (state) => state.produtoASerSalvo.bordados,
       getprodutoJaEscolhido: (state) => state.produtoJaEscolhido
