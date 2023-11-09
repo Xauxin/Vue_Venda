@@ -1,4 +1,5 @@
-import { IModelagem } from './../interfaces/Produto';
+import { IModelagem, IBaseProduto, IMedidas } from './../interfaces/Produto';
+import { IBordados } from './../interfaces/Bordado';
 
 import { IProduto } from "@/interfaces/Produto";
 import { defineStore } from 'pinia'
@@ -8,35 +9,46 @@ import { defineStore } from 'pinia'
 
 export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
   state: () => ({
-    produtos: [] as IProduto[],
     produtoASerSalvo: {} as IProduto,
-    produtoJaEscolhido: false as boolean
+    baseProduto: {} as IBaseProduto,
+    baseFoiEscolhida: false as boolean,
+    modelagemProduto: {} as IModelagem,
+    modelagemFoiEscolhida: false as boolean,
+    medidaProduto: {} as IMedidas,
+    medidaFoiEscolhida: false as boolean,
+    bordadosProduto: {} as IBordados,
+    bordadosFoiEscolhida: false as boolean
   }),
   actions: {
-    setNomeCorTamanhoETecido(produto: IProduto) {
-        this.produtoASerSalvo = produto as IProduto
-        this.produtoJaEscolhido = true as boolean
-        console.log('set', this.produtoASerSalvo)
+    setNomeCorTamanhoETecido(produto: IBaseProduto) {
+        this.baseProduto = produto as IBaseProduto
+        this.baseFoiEscolhida = true as boolean
+        console.log('set', this.baseProduto)
       },
-    atualizaNomeCorTamanhoETecido(produto:IProduto){
-      const chaves = Object.keys(produto) as string[];
+    atualizaNomeCorTamanhoETecido(produto:IBaseProduto){
+      const chaves = ['nome', 'cor', 'tamanho', 'tecido'];
+      console.log(chaves)
       for (const chave in chaves) {
-        if (this.produtoASerSalvo[chave] !== produto[chave] && chave in this.produtoASerSalvo) {
-          this.produtoASerSalvo[chave] = produto[chave];
+        if (this.baseProduto[chave] !== produto[chave] && chave in this.baseProduto) {
+          this.baseProduto[chave] = produto[chave];
         }
       }
-      console.log('att', this.produtoASerSalvo)
+      console.log('att', this.baseProduto)
     },
-    setModelagem(modelagem:IModelagem){
-      this.produtoASerSalvo.modelagem = modelagem
+    setModelagem(modelagem: IModelagem) {
+      this.modelagemProduto = modelagem
+      this.modelagemFoiEscolhida = true
     }
   },
     getters: {
-      getprodutos: (state) => state.produtos,
       getprodutoASerSalvo: (state) => state.produtoASerSalvo,
-      getmodelagemASerSAlva: (state) => state.produtoASerSalvo.modelagem,
-      getmedidasASerSAlva: (state) => state.produtoASerSalvo.medidas,
-      getbordadosASerSAlva: (state) => state.produtoASerSalvo.bordados,
-      getprodutoJaEscolhido: (state) => state.produtoJaEscolhido
+      getbaseProduto: (state) => state.baseProduto,
+      getbaseFoiEscolhida: (state) => state.baseFoiEscolhida,
+      getmodelagemProduto: (state) => state.modelagemProduto,
+      getmodelagemFoiEscolhida: (state) => state.modelagemFoiEscolhida,
+      getmedidaProduto: (state) => state.medidaProduto,
+      getmedidaFoiEscolhida: (state) => state.medidaFoiEscolhida,
+      getbordadosProduto: (state) => state.bordadosProduto,
+      getbordadosFoiEscolhida: (state) => state.bordadosFoiEscolhida,
     }
   })

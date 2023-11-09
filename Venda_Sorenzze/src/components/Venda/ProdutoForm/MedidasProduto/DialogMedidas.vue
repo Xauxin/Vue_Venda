@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" location="center" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
             <v-row justify="center">
-                <v-sheet width="40%" class="pa-2"  @click="console.log(MedidasEscolhidas)">
+                <v-sheet width="40%" class="pa-2" @click="console.log(MedidasEscolhidas)">
                     <v-row>
                         <v-col cols="10">
                             <p class="text-h4">Medidas</p>
@@ -12,7 +12,7 @@
                                     <v-btn size="x-small" icon="delete" @click="apagaMedidas()"></v-btn>
                                 </v-col>
                                 <v-col cols="6" align="end">
-                                    <v-btn size="x-small" icon="close" @click="dialog = !dialog"></v-btn>
+                                    <v-btn size="x-small" icon="close" @click="abreEFechaDialog()"></v-btn>
                                 </v-col>
                             </VRow>
                         </v-col>
@@ -21,7 +21,7 @@
                     <v-row no-gutters>
                         <v-col cols="7" class="px-4 py-4">
                             <v-row>
-                                <v-col dense cols="6" v-for="medida, index in produtoEscolhido.medidas" :key="index" class="pa-1">
+                                <v-col dense cols="6" v-for="(medida, index) in produtoEscolhido.medidas" :key="index" class="pa-1">
                                     <v-text-field 
                                         v-model="MedidasEscolhidas[(medida as string)]" 
                                         density="compact" 
@@ -48,7 +48,9 @@
                                 </v-col>
                             </v-row>
                             <v-row>
-                                <v-btn @click.prevent="SalvarMedidas()"></v-btn>
+                                <v-col>
+                                    <v-btn @click.prevent="SalvarMedidas()">Salvar</v-btn>
+                                </v-col>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -113,7 +115,7 @@ export default defineComponent({
     )
         return {
             produtoEscolhido: produtoEscolhido,
-            ProdutoParaVenda: ProdutoParaVenda
+            
         }
     }
     

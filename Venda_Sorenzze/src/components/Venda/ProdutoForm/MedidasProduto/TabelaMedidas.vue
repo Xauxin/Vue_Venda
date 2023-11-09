@@ -54,9 +54,9 @@ export default defineComponent({
         const ProdutoParaVenda = useProdutoParaVendaStore()
         let MedidasEscolhidas = ref({})
     watch(
-        () => ProdutoParaVenda.getmedidasASerSAlva,
+        () => ProdutoParaVenda.getmedidaProduto,
         () => {
-            MedidasEscolhidas.value = ProdutoParaVenda.getmedidasASerSAlva
+            MedidasEscolhidas.value = ProdutoParaVenda.getmedidaProduto
         }
     )
         return {

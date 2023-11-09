@@ -4,13 +4,13 @@ import { IBordados } from "./Bordado"
 
 
 export interface IProduto {
-    [nome: string]: string;
+    nome: string;
     cor: string;
     tamanho: string;
-    Tecido: string;
-    modelagem: IModelagem
-    medidas: IMedidas
-    bordados: IBordados,
+    tecido: string;
+    modelagem: IModelagem;
+    medidas: IMedidas;
+    bordados: IBordados;
     keys: keyof IProduto,
 }
 
@@ -20,7 +20,14 @@ export interface IModelagem{
 }
 
 export interface IMedidas{
-    medida: string
+    [medida:string]: string
+}
+
+export interface IBaseProduto{
+    [nome: string]: string;
+    cor: string;
+    tamanho: string;
+    Tecido: string;
 }
 
 

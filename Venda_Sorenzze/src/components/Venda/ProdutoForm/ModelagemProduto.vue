@@ -45,7 +45,6 @@ export default defineComponent({
     name: 'ModelagemProduto',
     data() {
         return {
-            cloneModelagemEscolhida: {...this.modelagemEscolhida},
             oldModelagemEscolhido: {} as IModelagem,
             densidade: "compact" as String,
             vivoOn: false as boolean,
@@ -61,10 +60,12 @@ export default defineComponent({
         },
         modelagemEscolhida:{
             handler(){
-                console.log(this.oldModelagemEscolhido)
+                console.log(this.oldModelagemEscolhido, this.modelagemEscolhida)
                 if(this.modelagemEscolhida != this.oldModelagemEscolhido){
+                    this.oldModelagemEscolhido = { ...this.modelagemEscolhida }
                     for(const [key, value] of Object.entries(this.modelagemEscolhida)){
                        if(!value && this.modelagemObrigatórias[key] == true){
+
                         return false
                        }
                     }
