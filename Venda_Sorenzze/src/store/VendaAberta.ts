@@ -7,12 +7,14 @@ import { defineStore } from 'pinia'
 
 export const useVendaAberta = defineStore('VendaAberta', {
   state: () => ({
-      venda: [] as IVenda[],
-      pessoas: [] as IPessoa[]
+    pessoas: [] as IPessoa[],
+    vendaAberta: [] as IVenda[],
+    pessoaEscolhida: {} as IPessoa 
   }),
   getters: {
-    getVendas: (state) => state.venda,
-    getPessoas: (state) => state.pessoas
+    getVendas: (state) => state.vendaAberta,
+    getPessoas: (state) => state.pessoas,
+    getpessoaEscolhida: (state) => state.pessoaEscolhida
   },
   actions:{
     async listPessoas(){
@@ -25,6 +27,14 @@ export const useVendaAberta = defineStore('VendaAberta', {
       })} catch (error) {
         return error
       }
+    },
+    setPessoa(pessoaNome:String){
+      this.pessoas.forEach(pessoa => {
+        if (pessoa.nome == pessoaNome){
+          this.pessoaEscolhida = pessoa
+          console.log('set',this.getpessoaEscolhida)
+        }
+      })
     }
   }
 

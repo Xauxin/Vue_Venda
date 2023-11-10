@@ -3,7 +3,7 @@
     <v-container class="pb-0">
       <v-row>
         <v-col >
-          <v-autocomplete  hide-details label="Cliente" density="compact" :items=numeroENomePessoas() variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete  hide-details label="Cliente" density="compact" v-model="pessoaEscolhida" :items=nomesPessoas() variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
           </v-autocomplete>
         </v-col>
         <v-col>
@@ -23,7 +23,7 @@
     
 <script lang="ts">
 import { IPessoa } from '@/interfaces/Pessoas'
-import { useAppStore } from '@/store/app'
+import { useVendaAberta } from '@/store/VendaAberta'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useDate } from 'vuetify/labs/date'
 
@@ -35,7 +35,8 @@ export default defineComponent({
   data() {
     return {
       data : new Date(), 
-      items: ['Dalton', 'Jayne', 'Fátima', 'Sandra', 'Nina', 'Noely']
+      pessoaEscolhida: "" as string
+
     }
   },
   methods:{
@@ -45,33 +46,39 @@ export default defineComponent({
       return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
     
     },
-    numeroENomePessoas(){
+    nomesPessoas(){
       let lista = [] as String[]
       this.pessoas.forEach(pessoa =>{
-        let numeroENome = `[${pessoa.id}]- ${pessoa.nome}`
-        lista.push(numeroENome)
+        lista.push(pessoa.nome)
       })
       return lista
     }
   },
+  watch:{
+    pessoaEscolhida(){
+      if(this.pessoaEscolhida){
+        this.storeVenda.setPessoa(this.pessoaEscolhida)
+      }
+    }
+  },
   setup() {
-        const store = useAppStore()
+        const storeVenda = useVendaAberta()
         const pessoas = ref([] as IPessoa[])
 
         onMounted(async () => {
                 try {
-                    await store.listPessoas()
-                    pessoas.value = store.getPessoas as IPessoa[]
+                    await storeVenda.listPessoas()
+                    pessoas.value = storeVenda.getPessoas as IPessoa[]
                 } catch (error) {
                     console.log(error)
                 }
             })
 
         return {
-            pessoas: pessoas,
+            storeVenda,
+            pessoas,
         }
     }
-
   })
 </script>
     

@@ -1,54 +1,49 @@
 <template>
-    <v-row align="center" no-gutters>
-        <v-col cols="2">
-            <v-switch density="compact" v-model="comNome" hide-details><v-label>Nome</v-label></v-switch>
-        </v-col>
-        <v-col cols="10">
-            <v-row align="center" v-if="comNome">
-                <v-col cols="9">
-                    <p class="text-center sans">Nome</p>
-                </v-col>
-                <v-col cols="2">
-                    <div class="text-center">
-                        <v-menu v-model="menu" :close-on-content-click="false" location="end">
-                            <template v-slot:activator="{ props }">
-                                <v-btn class="$" v-bind="props" density="compact">
-                                    <v-icon>edit</v-icon>
-                                </v-btn>
-                            </template>
-
-                            <v-card min-width="150">
-
-                                <v-list>
-                                    <v-list-item>
-                                        <v-select class="mt-2" label="Fonte" :items="fontes" v-model="fonteNome"
-                                            hide-details density="compact" variant="outlined"></v-select>
-                                    </v-list-item>
-                                    <v-list-item>
-                                        <v-select class="mt-2" variant="outlined" :items="cores" label="Cor"
-                                            v-model="corNome" hide-details density="compact"></v-select>
-                                    </v-list-item>
-                                </v-list>
-
-                                <v-card-actions>
-                                    <v-btn variant="tonal" @click="menu = false">
-                                        Cancelar
+    <v-container class="pa-0 ma-0">
+        <v-row align="center" no-gutters >
+            <v-col cols="2">
+                <v-switch density="compact" v-model="comNome" hide-details :label="labelNome"></v-switch>
+            </v-col>
+            <v-col cols="10">
+                <v-row align="center" v-if="comNome">
+                    <v-col cols="9">
+                        <v-text-field hide-details v-model="nomeEscolhido" class="text-center pa-0" :style="{ ...estiloNome, fontSize: '40px'}" density="compact"/>
+                    </v-col>
+                    <v-col cols="2">
+                        <div class="text-center">
+                            <v-menu v-model="menu" :close-on-content-click="false" location="end">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn class="$" v-bind="props" density="compact">
+                                        <v-icon>edit</v-icon>
                                     </v-btn>
-                                    <v-btn color="primary" variant="tonal" @click="menu = false">
-                                        Salvar
-                                    </v-btn>
-                                </v-card-actions>
-                            </v-card>
-                        </v-menu>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-col>
-    </v-row>
+                                </template>
+    
+                                <v-card min-width="150">
+    
+                                    <v-list>
+                                        <v-list-item>
+                                            <v-select class="mt-2" label="Fonte" :items="fontes" v-model="fonteNome"
+                                                hide-details density="compact" variant="outlined"></v-select>
+                                        </v-list-item>
+                                        <v-list-item>
+                                            <v-text-field class="mt-2" variant="outlined" label="Cor"
+                                                v-model="corNome" hide-details density="compact">
+                                            </v-text-field>
+                                        </v-list-item>
+                                    </v-list>
+                                </v-card>
+                            </v-menu>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { useVendaAberta } from '@/store/VendaAberta';
+import { defineComponent, onMounted, ref, watch } from 'vue'
 
 export default defineComponent({
     name: 'BordadoNome',
@@ -62,21 +57,71 @@ export default defineComponent({
             required: true
         }
     },
+    computed: {
+        estiloNome(): { [key: string]: string } {
+            const estilo: { [key: string]: string } = {
+                fontFamily: this.fonteNome,
+                color: this.corNome,
+                fontSize: this.fontSize
+            };
+            if (this.fonteNome == 'Montserrat') {
+                estilo.fontWeight = 'bold';
+            } else {
+                estilo.fontWeight = this.fontWeight;
+            }
+            return estilo as { [key: string]: string };
+        },
+    },
     data() {
         return {
             comNome: false as boolean,
-            labelNome: "Nome" as String,
-            fonteNome: "" as String,
+            labelNome: "Nome" as string,
+            fonteNome: "MonoType" as string,
+            fontWeight: "400" as string,
+            fontSize: '40px' as string,
             corNome: "" as string,
-            menu: false
+            menu: false as boolean,
+            pa: 'pa-0'
+        }
+    },
+    watch:{
+        comNome(){
+            if (this.comNome){
+                this.labelNome = ""
+            }else{
+                this.labelNome = "Nome"
+            }
+        }
+    },
+    setup(){
+        const VendaAbertastore = useVendaAberta()
+        const NomepessoaEscolhida = ref("" as String)
+        const nomeEscolhido = ref("" as String)
+        onMounted( () => {
+            nomeEscolhido.value = NomepessoaEscolhida.value
+        })
+        watch(
+            () => VendaAbertastore.getpessoaEscolhida,
+            () => {
+                NomepessoaEscolhida.value = VendaAbertastore.getpessoaEscolhida.nome
+                nomeEscolhido.value = NomepessoaEscolhida.value 
+            }
+        )
+        return{
+            NomepessoaEscolhida,
+            nomeEscolhido 
         }
     }
 })
 </script>
 
-<style lang="scss">
- @use '@/styles/main';
+<style lang="scss" scoped>
+@use '@/styles/main';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat&display=swap');
 
-
+@font-face {
+    font-family: 'Monotype';
+    src: url('../../../../assets/fonts/monotype-corsiva/Monotype\ Corsiva.ttf') format('truetype');
+}
 </style>''
 

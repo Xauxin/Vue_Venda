@@ -1,8 +1,5 @@
 export interface IBordados{
-    nome: IBordadoNome,
-    manga_direita: IBordado
-    manga_esquerda: IBordado
-    outro: IBordado
+    [local:string]: IBordado | IBordadoNome
 }
 
 export interface IBordadoNome{

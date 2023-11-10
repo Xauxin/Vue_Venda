@@ -31,14 +31,14 @@
             </v-card>
         </v-col>
         <v-col cols="4" v-if="locais.length">
-            <v-card density="compact" height="100%" min-height="235" color="#BBBBBB" @click="escolhendoCard = !escolhendoCard">
+            <v-card  justify="center" density="compact" height="100%" min-height="235" color="#BBBBBB" @click="escolhendoCard = !escolhendoCard">
                 <v-card-text>
                     <v-img v-if='!escolhendoCard'
                         src="https://icon-library.com/images/white-plus-icon/white-plus-icon-3.jpg" aspect-ratio="1/1"
                         height="50%" class="border-opacity-100"></v-img>
                     <v-menu v-else aling="center">
                         <template v-slot:activator="{ props }"> 
-                            <v-btn v-bind="props">
+                            <v-btn v-bind="props" justify-self='center'>
                                 Local
                             </v-btn>
                         </template>
