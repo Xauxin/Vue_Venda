@@ -25,7 +25,7 @@
     "@vue/eslint-config-typescript": "^11.0.0",
     "eslint": "^8.37.0",
     "eslint-plugin-vue": "^9.3.0",
-    "sass": "^1.60.0",
+    "sass": "^1.69.5",
     "typescript": "^5.0.0",
     "unplugin-fonts": "^1.0.3",
     "vite": "^4.2.0",

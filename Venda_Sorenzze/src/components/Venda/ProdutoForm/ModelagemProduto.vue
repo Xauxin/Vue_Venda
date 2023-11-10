@@ -19,7 +19,7 @@
                     </v-container>
                     <v-container v-else class="pa-0 ma-1">
                         <p class="text-center">{{ key }}</p>
-                        <v-btn-toggle density="compact" elevation="2" rounded color="info" mandatory
+                        <v-btn-toggle density="compact" elevation="2" rounded mandatory
                             v-model="modelagemEscolhida[key]">
                             <v-btn prevent :value="key" class="px-1 py-2" size="x-small" v-for="(iten, key) in item.opcoes" border
                                 :key="key">
@@ -103,3 +103,9 @@ export default defineComponent({
 })
 </script>
   
+<style scoped lang="scss">
+    @use 'vuetify/settings' with(
+    $button-background: #000000
+)
+
+</style>
