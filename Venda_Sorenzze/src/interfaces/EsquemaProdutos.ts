@@ -1,4 +1,3 @@
-
 export interface IEsquemaProduto{
     id: Number
     nome: String
@@ -6,8 +5,8 @@ export interface IEsquemaProduto{
     suprimentos: [String]
     cor: [String]
     modelagem: IEsquemaModelagem
-    medidas: [String]
-    mais_medidas: [String]
+    medidas: IEsquemaMedidas
+    mais_medidas: IEsquemaMedidas
     locais_de_bordado: [String]
     valor: Number
     imagem: String
@@ -19,28 +18,28 @@ export interface IOpcaoEsquema{
     nome: string
 }
 
-export interface ITamanhos{
-    nome: String
-    preco: Number
-}
+// export interface ITamanhos{
+//     nome: String
+//     preco: Number
+// }
 
-export interface ICores{
-    nome: String
-    cores_de_bordado: ICorDeBordado
-}
+// export interface ICores{
+//     nome: String
+//     cores_de_bordado: ICorDeBordado
+// }
 
-export interface ICorDeBordado{
-    nome: String
-    codigo: String
-}
+// export interface ICorDeBordado{
+//     nome: String
+//     codigo: String
+// }
 
-export interface ISuprimentos{
-    nome: String
-    valor: Number
-    unidade_de_medida: String
-    classificacao: String
-    cores: [ICores]
-}
+// export interface ISuprimentos{
+//     nome: String
+//     valor: Number
+//     unidade_de_medida: String
+//     classificacao: String
+//     cores: [ICores]
+// }
 
 export interface IEsquemaModelagem{
     [nome: string]: IEsquemaOpcaoModelagem
@@ -51,8 +50,11 @@ export interface IEsquemaOpcaoModelagem{
     required: boolean
 }
 
-export interface IMedidas{
-    nome: String
-    Preço: Number
+export interface IEsquemaMedidas{
+    [nome: string]: IEsquemaConfiguracaoMedidas
+}
+
+export interface IEsquemaConfiguracaoMedidas{
+    configuracao: { [key: string]: Number };
 }
 

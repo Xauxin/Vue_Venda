@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
-            <BordadoNome v-if="produtoEscolhido.nome" :cores="['Preto', 'Dourado', 'Grafite']"
+            <BordadoNome :cores="['Preto', 'Dourado', 'Grafite']"
                 :fontes="['MontSerrat', 'Block', 'Monotype']" />
-            <v-divider v-if="produtoEscolhido.nome" class="mb-1 border-opacity-75"></v-divider>
-            <BordadoCards v-if="produtoEscolhido.nome" :bordados-escolhidos="bordadosEscolhidos"
+            <v-divider class="mb-1 border-opacity-75"></v-divider>
+            <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
                 :locais="produtoEscolhido ? locaisPossiveis((produtoEscolhido.locais_de_bordado as String[]), (locaisEscolhidos as String[])) : []"
                 @atualiza-locais-escolhidos="atualizaLocaisEscolhidos" @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>

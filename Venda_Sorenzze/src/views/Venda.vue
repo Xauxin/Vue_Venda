@@ -24,7 +24,7 @@
   
 <script lang="ts">
 import { defineComponent } from 'vue'
-import ClientForm from "@/components/Venda/ClienteForm.vue"
+import ClientForm from "@/components/Venda/ClientForm/ClienteForm.vue"
 import ProdutoForm from '@/components/Venda/ProdutoForm/ProdutoForm.vue';
 import TabelaProdutos from '@/components/Venda/TabelaProdutos.vue';
 

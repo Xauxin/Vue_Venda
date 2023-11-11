@@ -28,7 +28,7 @@
   
 <script lang="ts">
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
-import { useProdutoParaVendaStore } from '@/store/ProdutoParaVenda'
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 import { defineComponent, onMounted, ref } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import {  IBaseProduto } from '@/interfaces/Produto'
@@ -42,7 +42,6 @@ export default defineComponent({
     data() {
         return {
             valid: false as boolean,
-            nomeEscolhido: "" as String,
             baseEscolhida: {} as IBaseProduto,
             oldbaseEscolhida: {} as IBaseProduto,
             cores: ['Branco', 'Preto', 'Azul-Noite', 'Verde Militar'],
@@ -59,27 +58,30 @@ export default defineComponent({
         async 'baseEscolhida.nome'() {
             try {
                 let id = this.baseEscolhida.nome.split(" - ") as String[]
+                console.log(id)
                 await this.store.SetEscolhido(id[0])
                 this.opcaoEscolhida = this.store.getEsquema
+                this.ProdutoAberto.setNomeProdutoFoiEscolhido(true)
             } catch (error) {
                 console.log(error)
+                this.ProdutoAberto.setNomeProdutoFoiEscolhido(false)
             }
         },
         baseEscolhida: {
             handler: function () {    
                 if(this.baseEscolhida != this.oldbaseEscolhida){
                     this.oldbaseEscolhida = { ...this.baseEscolhida}
-                    if ( this.ProdutoParaVenda.getbaseFoiEscolhida ){
+                    if ( this.ProdutoAberto.getbaseFoiEscolhida ){
                         if (this.valid) {
-                        this.ProdutoParaVenda.atualizaNomeCorTamanhoETecido(this.baseEscolhida)
+                        this.ProdutoAberto.atualizaNomeCorTamanhoETecido(this.baseEscolhida)
                     }
                 }
             }},
             deep:true
         },
         valid(){
-            if (!this.ProdutoParaVenda.getbaseFoiEscolhida && this.valid){
-                this.ProdutoParaVenda.setNomeCorTamanhoETecido(this.baseEscolhida)
+            if (!this.ProdutoAberto.getbaseFoiEscolhida && this.valid){
+                this.ProdutoAberto.setNomeCorTamanhoETecido(this.baseEscolhida)
             }
         }
     },
@@ -87,23 +89,24 @@ export default defineComponent({
         const opcoes = ref([] as String[])
         const opcaoEscolhida = ref({} as IEsquemaProduto)
         const store = useEsquemaProdutoStore()
-        const ProdutoParaVenda = useProdutoParaVendaStore()
+        const ProdutoAberto = useProdutoAbertoStore()
 
         onMounted(async () => {
             try {
                 await store.listOpcoes()
-                opcoes.value = store.getOpcoes
+                opcoes.value = [] as String[]
+                opcoes.value = store.getOpcoesDeEsquema
+                opcaoEscolhida.value = {} as IEsquemaProduto
                 opcaoEscolhida.value = store.getEsquema
             } catch (error) {
                 console.log(error)
             }
         })
-        ProdutoParaVenda.$reset
         return {
             store,
             opcoes,
             opcaoEscolhida,
-            ProdutoParaVenda,
+            ProdutoAberto,
         }
     }
 })

@@ -1,20 +1,21 @@
-
 import { IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import http from "@/http"
 import { defineStore } from 'pinia'
 
 
-export const useVendaAberta = defineStore('VendaAberta', {
+export const useVendaAbertaStore = defineStore('VendaAberta', {
   state: () => ({
     pessoas: [] as IPessoa[],
     vendaAberta: [] as IVenda[],
-    pessoaEscolhida: {} as IPessoa 
+    pessoaVenda: {} as IPessoa,
+    pessoaFoiEscolhida: false as boolean 
   }),
   getters: {
     getVendas: (state) => state.vendaAberta,
     getPessoas: (state) => state.pessoas,
-    getpessoaEscolhida: (state) => state.pessoaEscolhida
+    getpessoaVenda: (state) => state.pessoaVenda,
+    getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida
   },
   actions:{
     async listPessoas(){
@@ -28,16 +29,21 @@ export const useVendaAberta = defineStore('VendaAberta', {
         return error
       }
     },
-    setPessoa(pessoaNome:String){
-      this.pessoas.forEach(pessoa => {
-        if (pessoa.nome == pessoaNome){
-          this.pessoaEscolhida = pessoa
-          console.log('set',this.getpessoaEscolhida)
-        }
-      })
+    setPessoaVenda(pessoaNome:String){
+      if(pessoaNome){
+        this.pessoas.forEach(pessoa => {
+          if (pessoa.nome == pessoaNome){
+            this.pessoaVenda = pessoa
+            console.log('set',this.getpessoaVenda)
+            this.pessoaFoiEscolhida = true
+          }
+        })
+      }else{
+        this.pessoaVenda = {} as IPessoa
+        this.pessoaFoiEscolhida = false
+      }
     }
   }
-
 })
 
 

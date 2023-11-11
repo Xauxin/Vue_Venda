@@ -1,5 +1,5 @@
-import { IModelagem, IBaseProduto, IMedidas } from './../interfaces/Produto';
-import { IBordados } from './../interfaces/Bordado';
+import { IModelagem, IBaseProduto, IMedidas } from '../interfaces/Produto';
+import { IBordados } from '../interfaces/Bordado';
 
 import { IProduto } from "@/interfaces/Produto";
 import { defineStore } from 'pinia'
@@ -7,9 +7,10 @@ import { defineStore } from 'pinia'
 
 
 
-export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
+export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
   state: () => ({
-    produtoASerSalvo: {} as IProduto,
+    produtoABerto: {} as IProduto,
+    nomeProdutoFoiEscolhido: false as boolean,
     baseProduto: {} as IBaseProduto,
     baseFoiEscolhida: false as boolean,
     modelagemProduto: {} as IModelagem,
@@ -48,10 +49,14 @@ export const useProdutoParaVendaStore = defineStore('ProdutoParaVenda', {
       this.medidasProduto = {}
       console.log('clear',this.medidasProduto)
     },
+    setNomeProdutoFoiEscolhido(value:boolean){
+      this.nomeProdutoFoiEscolhido = value
+    }
     
   },
     getters: {
-      getprodutoASerSalvo: (state) => state.produtoASerSalvo,
+      getprodutoABerto: (state) => state.produtoABerto,
+      getnomeProdutoFoiEScolhido: (state) => state.nomeProdutoFoiEscolhido,
       getbaseProduto: (state) => state.baseProduto,
       getbaseFoiEscolhida: (state) => state.baseFoiEscolhida,
       getmodelagemProduto: (state) => state.modelagemProduto,

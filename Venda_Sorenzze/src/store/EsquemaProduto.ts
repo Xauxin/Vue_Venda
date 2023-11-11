@@ -1,3 +1,4 @@
+import { IEsquemaConfiguracaoMedidas } from './../interfaces/EsquemaProdutos';
 import http from "@/http"
 import { IBordado } from "@/interfaces/Bordado";
 import { IEsquemaProduto} from '@/interfaces/EsquemaProdutos';
@@ -8,8 +9,8 @@ import { defineStore } from 'pinia'
 export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
   state: () => ({
     opcoes_de_esquema : [] as String[],
+    esquema_escolhido: {} as IEsquemaProduto,
     bordados: [] as IBordado[],
-    esquema_escolhido: {} as IEsquemaProduto
   }),
   actions:{
     async listOpcoes(){
@@ -41,9 +42,16 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
         return error
       }
     },
+    alteraEsquemaModelagemEscolhida(contexto:string, key:string){
+      if(contexto == 'add'){
+        this.esquema_escolhido.medidas[key] = {} as IEsquemaConfiguracaoMedidas
+      }else if (contexto == 'delete'){
+        delete this.esquema_escolhido.medidas[key]
+      }
+    },
 },
   getters:{
     getBordados: (state) => state.bordados,
-    getOpcoes: (state) => state.opcoes_de_esquema,
+    getOpcoesDeEsquema: (state) => state.opcoes_de_esquema,
     getEsquema: (state) => state.esquema_escolhido
   }})

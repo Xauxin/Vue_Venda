@@ -2,7 +2,7 @@
     <v-container class="px-5 py-2" fluid>
         <v-sheet :elevation="3" border rounded class="py-2 px-4" width="100%" min-height="150px">
             <v-row justify="space-evenly" no-gutters>
-                <v-col v-for="(item, key) in EsquemaModelagemEscolhida" cols=auto v-bind:key=key>
+                <v-col v-for="(item, key) in esquemaModelagemEscolhida" cols=auto v-bind:key=key>
                     <v-container v-if="key == 'Vivo'" class="pa-0 ma-1">
                         <p class="text-center">{{ key }}</p>
                         <v-switch v-model="vivoOn" hide-details density="compact" color="primary">
@@ -36,13 +36,18 @@
 <script lang="ts">
 import { IEsquemaModelagem } from '@/interfaces/EsquemaProdutos'
 import { IModelagem } from '@/interfaces/Produto'
-import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
-import { useProdutoParaVendaStore } from '@/store/ProdutoParaVenda'
-import { defineComponent, ref, watch } from 'vue'
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
+import { defineComponent, ref } from 'vue'
 
 
 export default defineComponent({
     name: 'ModelagemProduto',
+    props:{
+        esquemaModelagemEscolhida:{
+            type: Object as () => IEsquemaModelagem,
+            required: true
+        }
+    },
     data() {
         return {
             oldModelagemEscolhido: {} as IModelagem,
@@ -69,43 +74,23 @@ export default defineComponent({
                        }
                     }
                     this.valid = true
-                    this.storeProdutoaSerSalvo.setModelagem(this.modelagemEscolhida)
+                    this.storeProdutoAberto.setModelagem(this.modelagemEscolhida)
                 }
             },
             deep:true
         }
     },
     setup() {
-        const store = useEsquemaProdutoStore()
-        const storeProdutoaSerSalvo = useProdutoParaVendaStore()
-        const EsquemaModelagemEscolhida = ref({} as IEsquemaModelagem)
+        const storeProdutoAberto = useProdutoAbertoStore()
         const modelagemObrigatórias = ref({} as { [nome: string]: boolean })
         const modelagemEscolhida = ref({} as IModelagem)
-        watch(
-            () => store.getEsquema,
-            () => {
-                EsquemaModelagemEscolhida.value = store.getEsquema.modelagem
-                for(const [key, value] of Object.entries(EsquemaModelagemEscolhida.value)){
-                    modelagemObrigatórias.value[key] = value.required
-                    modelagemEscolhida.value[key] = ""
-                }
-            },
-        )
+
        
         return {
-            store,
-            storeProdutoaSerSalvo,
-            EsquemaModelagemEscolhida,
+            storeProdutoAberto,
             modelagemObrigatórias,
             modelagemEscolhida
         }
     }
 })
 </script>
-  
-<style scoped lang="scss">
-    @use 'vuetify/settings' with(
-    $button-background: #000000
-)
-
-</style>

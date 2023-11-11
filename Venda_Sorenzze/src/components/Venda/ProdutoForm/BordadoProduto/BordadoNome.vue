@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { useVendaAberta } from '@/store/VendaAberta';
+import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { defineComponent, onMounted, ref, watch } from 'vue'
 
 export default defineComponent({
@@ -94,21 +94,21 @@ export default defineComponent({
         }
     },
     setup(){
-        const VendaAbertastore = useVendaAberta()
-        const NomepessoaEscolhida = ref("" as String)
+        const VendaAbertastore = useVendaAbertaStore()
+        const NomepessoaVenda = ref("" as String)
         const nomeEscolhido = ref("" as String)
         onMounted( () => {
-            nomeEscolhido.value = NomepessoaEscolhida.value
+            nomeEscolhido.value = NomepessoaVenda.value
         })
         watch(
-            () => VendaAbertastore.getpessoaEscolhida,
+            () => VendaAbertastore.getpessoaVenda,
             () => {
-                NomepessoaEscolhida.value = VendaAbertastore.getpessoaEscolhida.nome
-                nomeEscolhido.value = NomepessoaEscolhida.value 
+                NomepessoaVenda.value = VendaAbertastore.getpessoaVenda.nome
+                nomeEscolhido.value = NomepessoaVenda.value 
             }
         )
         return{
-            NomepessoaEscolhida,
+            NomepessoaVenda,
             nomeEscolhido 
         }
     }

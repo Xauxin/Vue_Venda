@@ -559,8 +559,54 @@
           "required":false
         }
       },
-      "medidas": ["Busto","Ombro","Costa","Frente","Decote","Comprimento","Cintura",
-      "Elastico","Quadril","Mnaga Longa","Punho","Cava","Bordado","Trava","Botão"],
+      "medidas": {
+        "Busto":{
+  
+        },
+        "Ombro":{
+  
+        },
+        "Costa":{
+  
+        },
+        "Frente":{
+  
+        },
+        "Decote":{
+  
+        },
+        "Comprimento":{
+  
+        },
+        "Cintura":{
+  
+        },
+        "Elastico":{
+  
+        },
+        "Quadril":{
+  
+        },
+        "Mnaga Longa":{
+  
+        },
+        "Punho":{
+  
+        },
+        "Cava":{
+  
+        },
+        "Bordado":{
+  
+        },
+        "Trava":{
+  
+        },
+        "Botão":{
+  
+        }
+      }
+    ,
       "mais_medidas": ["de Cava ao Recorte", "De cava a Barra", "no Tecido das Costas"],
       "locais_de_bordado":["Manga Esquerda", "Manga Diereita", "Outro"],
       "valor": 155

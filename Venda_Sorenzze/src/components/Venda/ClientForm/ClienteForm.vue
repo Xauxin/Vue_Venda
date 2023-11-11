@@ -23,7 +23,7 @@
     
 <script lang="ts">
 import { IPessoa } from '@/interfaces/Pessoas'
-import { useVendaAberta } from '@/store/VendaAberta'
+import { useVendaAbertaStore } from '@/store/VendaAberta'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useDate } from 'vuetify/labs/date'
 
@@ -56,13 +56,11 @@ export default defineComponent({
   },
   watch:{
     pessoaEscolhida(){
-      if(this.pessoaEscolhida){
-        this.storeVenda.setPessoa(this.pessoaEscolhida)
-      }
+        this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
     }
   },
   setup() {
-        const storeVenda = useVendaAberta()
+        const storeVenda = useVendaAbertaStore()
         const pessoas = ref([] as IPessoa[])
 
         onMounted(async () => {
