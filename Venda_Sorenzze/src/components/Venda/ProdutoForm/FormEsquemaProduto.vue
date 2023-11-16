@@ -4,7 +4,7 @@
             <v-row height="50%">
                 <v-col class="py-1">
                     <v-autocomplete validate-on="input" :rules="rules" v-model="baseEscolhida['nome']" density="compact" label="Produto"
-                        variant="outlined" :items="opcoes" auto-select-first hide-details>
+                        variant="outlined" :items="opcoesDeEsquema" auto-select-first hide-details>
                     </v-autocomplete>
                 </v-col>
                 <v-col class="py-1">
@@ -29,14 +29,18 @@
 <script lang="ts">
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import {  IBaseProduto } from '@/interfaces/Produto'
 
 
 export default defineComponent({
     name: 'FormEsquemaProduto',
-    components: {
+    props:{
+        opcoesDeEsquema:{
+            type: Array as ()=> String[],
+            required: true,
+        }
 
     },
     data() {
@@ -86,25 +90,15 @@ export default defineComponent({
         }
     },
     setup() {
-        const opcoes = ref([] as String[])
         const opcaoEscolhida = ref({} as IEsquemaProduto)
         const store = useEsquemaProdutoStore()
         const ProdutoAberto = useProdutoAbertoStore()
 
-        onMounted(async () => {
-            try {
-                await store.listOpcoes()
-                opcoes.value = [] as String[]
-                opcoes.value = store.getOpcoesDeEsquema
-                opcaoEscolhida.value = {} as IEsquemaProduto
-                opcaoEscolhida.value = store.getEsquema
-            } catch (error) {
-                console.log(error)
-            }
-        })
+
+        
+
         return {
             store,
-            opcoes,
             opcaoEscolhida,
             ProdutoAberto,
         }

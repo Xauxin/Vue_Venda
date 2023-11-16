@@ -2,24 +2,22 @@
     <v-container class="pa-0 ma-0">
         <v-row align="center" no-gutters >
             <v-col cols="2">
-                <v-switch density="compact" v-model="comNome" hide-details :label="labelNome"></v-switch>
+                <v-switch density="compact" v-model="comNome" hide-details :label="(!comNome as boolean) ? 'Nome' : undefined "></v-switch>
             </v-col>
             <v-col cols="10">
-                <v-row align="center" v-if="comNome">
+                <v-row align="center">
                     <v-col cols="9">
-                        <v-text-field hide-details v-model="nomeEscolhido" class="text-center pa-0" :style="{ ...estiloNome, fontSize: '40px'}" density="compact"/>
+                        <v-text-field variant="solo" :disabled="!comNome" single-line hide-details v-model="nomeEscolhido" class="text-center pa-0 ma-0 nomeBordado" :style="{ ...estiloNome, fontSize: '40px'}" density="compact"/>
                     </v-col>
                     <v-col cols="2">
                         <div class="text-center">
                             <v-menu v-model="menu" :close-on-content-click="false" location="end">
                                 <template v-slot:activator="{ props }">
-                                    <v-btn class="$" v-bind="props" density="compact">
+                                    <v-btn :disabled="!comNome" v-bind="props" density="compact">
                                         <v-icon>edit</v-icon>
                                     </v-btn>
                                 </template>
-    
                                 <v-card min-width="150">
-    
                                     <v-list>
                                         <v-list-item>
                                             <v-select class="mt-2" label="Fonte" :items="fontes" v-model="fonteNome"
@@ -75,22 +73,11 @@ export default defineComponent({
     data() {
         return {
             comNome: false as boolean,
-            labelNome: "Nome" as string,
             fonteNome: "MonoType" as string,
             fontWeight: "400" as string,
             fontSize: '40px' as string,
             corNome: "" as string,
             menu: false as boolean,
-            pa: 'pa-0'
-        }
-    },
-    watch:{
-        comNome(){
-            if (this.comNome){
-                this.labelNome = ""
-            }else{
-                this.labelNome = "Nome"
-            }
         }
     },
     setup(){
@@ -104,7 +91,7 @@ export default defineComponent({
             () => VendaAbertastore.getpessoaVenda,
             () => {
                 NomepessoaVenda.value = VendaAbertastore.getpessoaVenda.nome
-                nomeEscolhido.value = NomepessoaVenda.value 
+                nomeEscolhido.value = NomepessoaVenda.value
             }
         )
         return{

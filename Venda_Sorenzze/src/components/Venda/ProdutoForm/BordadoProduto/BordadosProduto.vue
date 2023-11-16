@@ -2,7 +2,7 @@
     <div>
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
             <BordadoNome :cores="['Preto', 'Dourado', 'Grafite']"
-                :fontes="['MontSerrat', 'Block', 'Monotype']" />
+                :fontes="['MontSerrat', 'Block', 'Monotype']"/>
             <v-divider class="mb-1 border-opacity-75"></v-divider>
             <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
                 :locais="produtoEscolhido ? locaisPossiveis((produtoEscolhido.locais_de_bordado as String[]), (locaisEscolhidos as String[])) : []"

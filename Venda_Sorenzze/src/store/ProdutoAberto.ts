@@ -1,7 +1,6 @@
 import { IModelagem, IBaseProduto, IMedidas } from '../interfaces/Produto';
 import { IBordados } from '../interfaces/Bordado';
-
-import { IProduto } from "@/interfaces/Produto";
+import { IProduto } from "../interfaces/Produto";
 import { defineStore } from 'pinia'
 
 
