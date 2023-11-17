@@ -22,6 +22,7 @@ import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 import BordadoNome from './BordadoNome.vue'
 import BordadoCards from './BordadoCard.vue'
 import DialogEsolheBordado from './DialogEsolheBordado.vue'
+import { onMounted } from 'vue'
 
 
 
@@ -77,10 +78,14 @@ export default defineComponent({
     setup() {
         const storeEsquema = useEsquemaProdutoStore()
         let produtoEscolhido = ref({} as IEsquemaProduto)
+        onMounted(()=>{
+            produtoEscolhido.value = storeEsquema.getEsquema
+        })
         watch(
             () => storeEsquema.getEsquema,
             () => {
                 produtoEscolhido.value = storeEsquema.getEsquema
+                console.log(produtoEscolhido.value )
             }
         )
         return {

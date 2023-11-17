@@ -2,7 +2,10 @@
     <v-form>
         <FormEsquemaProduto :opcoes-de-esquema="(opcoesDeEsquema as String[])"></FormEsquemaProduto>
         <v-container class="pa-0 ma-0" v-if="nomeProdutoFoiEscolhido">
-            <ModelagemProduto :esquemaModelagemEscolhida="esquemaEscolhido.modelagem"/>
+            <ModelagemProduto 
+                :esquemaModelagemEscolhida="esquemaEscolhido.modelagem"
+                :modelagemObrigatorias="modelagemObrigatoria"
+                />
             <v-container class="px-5 py-2">
                 <v-row>
                     <v-col cols="4">
@@ -44,6 +47,16 @@ export default defineComponent({
     },
     data(){
         return{
+        }
+    },
+    computed:{
+        modelagemObrigatoria(){
+            const modelagemObrigatoria = {} as { [key:string]: boolean}
+            Object.entries(this.esquemaEscolhido.modelagem).forEach(modelagem => {
+                    console.log(modelagem)
+                    modelagemObrigatoria[modelagem[0]] = modelagem[1].required
+            })
+            return modelagemObrigatoria
         }
     },
     setup (){

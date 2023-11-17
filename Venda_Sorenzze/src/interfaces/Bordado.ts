@@ -3,9 +3,9 @@ export interface IBordados{
 }
 
 export interface IBordadoNome{
-    nome: String
-    fonte: String
-    cor: String
+    nome: string
+    fonte: string
+    cor: string
 }
 
 export interface IBordado {

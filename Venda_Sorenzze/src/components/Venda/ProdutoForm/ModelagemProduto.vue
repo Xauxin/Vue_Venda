@@ -46,6 +46,10 @@ export default defineComponent({
         esquemaModelagemEscolhida:{
             type: Object as () => IEsquemaModelagem,
             required: true
+        },
+        modelagemObrigatorias:{
+            type: Object as () => {[key:string]: boolean},
+            required: true
         }
     },
     data() {
@@ -54,7 +58,7 @@ export default defineComponent({
             densidade: "compact" as String,
             vivoOn: false as boolean,
             labelVivo: "Vivo" as string,
-            valid : false
+            valid : false,
         }
     },
     watch: {
@@ -67,11 +71,10 @@ export default defineComponent({
             handler(){
                 if(this.modelagemEscolhida != this.oldModelagemEscolhido){
                     this.oldModelagemEscolhido = { ...this.modelagemEscolhida }
-                    for(const [key, value] of Object.entries(this.modelagemEscolhida)){
-                       if(!value && this.modelagemObrigatórias[key] == true){
-
-                        return false
-                       }
+                    for(const [key, value] of Object.entries(this.esquemaModelagemEscolhida)){
+                        if(!this.modelagemEscolhida[key] && value.required ){
+                            return false
+                        }
                     }
                     this.valid = true
                     this.storeProdutoAberto.setModelagem(this.modelagemEscolhida)
@@ -80,15 +83,15 @@ export default defineComponent({
             deep:true
         }
     },
+    
     setup() {
         const storeProdutoAberto = useProdutoAbertoStore()
-        const modelagemObrigatórias = ref({} as { [nome: string]: boolean })
         const modelagemEscolhida = ref({} as IModelagem)
+
 
        
         return {
             storeProdutoAberto,
-            modelagemObrigatórias,
             modelagemEscolhida
         }
     }
