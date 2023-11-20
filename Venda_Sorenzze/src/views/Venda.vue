@@ -43,7 +43,6 @@ export default defineComponent({
     watch(
       () => vendaAbertaStore.getpessoaFoiEscolhida,
       () => {
-        console.log(vendaAbertaStore.getpessoaFoiEscolhida)
         clienteFoiEscolhido.value = vendaAbertaStore.getpessoaFoiEscolhida
       }
     )

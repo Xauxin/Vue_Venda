@@ -2,7 +2,7 @@
     <v-container class="pa-0 ma-0">
         <v-row align="center" no-gutters>
             <v-col cols="2" class="mb-1">
-                <v-switch density="compact" v-model="comNome" hide-details>
+                <v-switch color="primary" density="compact" v-model="comNome" hide-details>
                     <template v-slot:label="props">
                         <v-label v-bind="props" class="labelNome">{{ (!comNome as boolean) ? 'Nome' : undefined }}</v-label>
                     </template>
@@ -155,6 +155,7 @@ export default defineComponent({
 .Dra {
     font-size: 14px;
     font-weight: bold;
+    font-style: none;
 }
 </style>
 

@@ -1,6 +1,5 @@
 import { IModelagem, IBaseProduto, IMedidas } from '../interfaces/Produto';
 import { IBordados } from '../interfaces/Bordado';
-import { IProduto } from "../interfaces/Produto";
 import { defineStore } from 'pinia'
 
 
@@ -8,7 +7,7 @@ import { defineStore } from 'pinia'
 
 export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
   state: () => ({
-    produtoABerto: {} as IProduto,
+
     nomeProdutoFoiEscolhido: false as boolean,
     baseProduto: {} as IBaseProduto,
     baseFoiEscolhida: false as boolean,
@@ -23,7 +22,6 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
     setNomeCorTamanhoETecido(produto: IBaseProduto) {
         this.baseProduto = produto as IBaseProduto
         this.baseFoiEscolhida = true as boolean
-        console.log('set', this.baseProduto)
       },
     atualizaNomeCorTamanhoETecido(produto:IBaseProduto){
       const chaves = ['nome', 'cor', 'tamanho', 'tecido'];
@@ -32,21 +30,18 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
           this.baseProduto[chave] = produto[chave];
         }
       }
-      console.log('att', this.baseProduto)
+
     },
     setModelagem(modelagem: IModelagem) {
-      console.log('set',modelagem)
       this.modelagemProduto = modelagem
       this.modelagemFoiEscolhida = true
     },
     setMedidas(medidas: IMedidas){
-      console.log('set',medidas)
       this.medidasProduto = medidas
       this.medidasFoiEscolhida = true
     },
     clearMedidas(){
       this.medidasProduto = {}
-      console.log('clear',this.medidasProduto)
     },
     setNomeProdutoFoiEscolhido(value:boolean){
       this.nomeProdutoFoiEscolhido = value
@@ -54,7 +49,6 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
     
   },
     getters: {
-      getprodutoABerto: (state) => state.produtoABerto,
       getnomeProdutoFoiEScolhido: (state) => state.nomeProdutoFoiEscolhido,
       getbaseProduto: (state) => state.baseProduto,
       getbaseFoiEscolhida: (state) => state.baseFoiEscolhida,

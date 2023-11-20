@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-col cols="4" v-for="(item, index) in locaisEscolhidos" :key="index">
-            <v-card density="compact" height="100%" min-height="235" color="#BBBBBB">
+            <v-card density="compact" height="100%" min-height="235" color="primary">
                 <v-card-title class="pa-0 text-center text-caption">{{ item }}</v-card-title>
                 <v-card-subtitle class="text-center text-caption">{{ (bordadosEscolhidos[(item as string)] ?
                     bordadosEscolhidos[(item as string)].codigo : "B1ABC00.ABC") }}</v-card-subtitle>
@@ -20,10 +20,10 @@
                     <v-row>
                         <v-col cols="4">
                             <v-btn variant="flat" icon="add" :id="item" @click.prevent="$emit('abreDialog', item)" rounded
-                                density="compact" color="success" bg-color="info"></v-btn>
+                                density="compact" color="secondary" bg-color="info"></v-btn>
                         </v-col>
                         <v-col cols="4" offset="4">
-                            <v-btn variant="flat" density="compact" rounded icon="delete" color="danger"
+                            <v-btn variant="flat" density="compact" rounded icon="delete" color="secondary"
                                 bg-color="danger"></v-btn>
                         </v-col>
                     </v-row>
@@ -31,23 +31,25 @@
             </v-card>
         </v-col>
         <v-col cols="4" v-if="locais.length">
-            <v-card  justify="center" density="compact" height="100%" min-height="235" color="#BBBBBB" @click="escolhendoCard = !escolhendoCard">
+            <v-card color="primary" justify="center" density="compact" height="100%" min-height="235" @click="escolhendoCard = !escolhendoCard">
                 <v-card-text>
-                    <v-img v-if='!escolhendoCard'
-                        src="https://icon-library.com/images/white-plus-icon/white-plus-icon-3.jpg" aspect-ratio="1/1"
-                        height="50%" class="border-opacity-100"></v-img>
-                    <v-menu v-else aling="center">
-                        <template v-slot:activator="{ props }"> 
-                            <v-btn v-bind="props" justify-self='center'>
-                                Local
-                            </v-btn>
-                        </template>
-                        <v-list>
-                            <v-list-item @click="adicionaBordado(item as string)" v-for="(item, index) in locais" :key="index" :value="index">
-                                <v-list-item-title>{{ item }}</v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-menu>
+                    <v-row height="100%">
+                        <v-col cols="12" justify-self="center">
+                            <v-icon v-if='!escolhendoCard' size="x-large">add</v-icon>
+                            <v-menu v-else aling="center" >
+                                <template v-slot:activator="{ props }"> 
+                                    <v-btn color="secondary" v-bind="props" justify-self='center'>
+                                        Local
+                                    </v-btn>
+                                </template>
+                                <v-list>
+                                    <v-list-item @click="adicionaBordado(item as string)" v-for="(item, index) in locais" :key="index" :value="index">
+                                        <v-list-item-title>{{ item }}</v-list-item-title>
+                                    </v-list-item>
+                                </v-list>
+                            </v-menu>
+                        </v-col>
+                    </v-row>
                 </v-card-text>
             </v-card>
         </v-col>

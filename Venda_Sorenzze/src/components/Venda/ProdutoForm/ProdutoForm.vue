@@ -53,7 +53,6 @@ export default defineComponent({
         modelagemObrigatoria(){
             const modelagemObrigatoria = {} as { [key:string]: boolean}
             Object.entries(this.esquemaEscolhido.modelagem).forEach(modelagem => {
-                    console.log(modelagem)
                     modelagemObrigatoria[modelagem[0]] = modelagem[1].required
             })
             return modelagemObrigatoria
@@ -83,7 +82,6 @@ export default defineComponent({
         let opcoesDeEsquema = ref([] as String[])
         onMounted(async () => {
             opcoesDeEsquema.value = []
-            console.log('mounted')
             try {
                 await esquemaStore.listOpcoes()
                 opcoesDeEsquema.value = esquemaStore.getOpcoesDeEsquema

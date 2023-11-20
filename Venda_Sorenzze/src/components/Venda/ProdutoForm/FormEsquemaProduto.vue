@@ -62,7 +62,6 @@ export default defineComponent({
         async 'baseEscolhida.nome'() {
             try {
                 let id = this.baseEscolhida.nome.split(" - ") as String[]
-                console.log(id)
                 await this.store.SetEscolhido(id[0])
                 this.opcaoEscolhida = this.store.getEsquema
                 this.ProdutoAberto.setNomeProdutoFoiEscolhido(true)

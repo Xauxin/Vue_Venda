@@ -1,3 +1,4 @@
+import { IProduto } from './../interfaces/Produto';
 import { IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import http from "@/http"
@@ -9,7 +10,8 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     pessoas: [] as IPessoa[],
     vendaAberta: [] as IVenda[],
     pessoaVenda: {} as IPessoa,
-    pessoaFoiEscolhida: false as boolean 
+    pessoaFoiEscolhida: false as boolean,
+    produtos: [] as IProduto[] 
   }),
   getters: {
     getVendas: (state) => state.vendaAberta,
@@ -34,7 +36,6 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         this.pessoas.forEach(pessoa => {
           if (pessoa.nome == pessoaNome){
             this.pessoaVenda = pessoa
-            console.log('set',this.getpessoaVenda)
             this.pessoaFoiEscolhida = true
           }
         })
