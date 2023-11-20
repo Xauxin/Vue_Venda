@@ -17,7 +17,8 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     getVendas: (state) => state.vendaAberta,
     getPessoas: (state) => state.pessoas,
     getpessoaVenda: (state) => state.pessoaVenda,
-    getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida
+    getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
+    getProdutos: (state) => state.produtos
   },
   actions:{
     async listPessoas(){
@@ -43,6 +44,9 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         this.pessoaVenda = {} as IPessoa
         this.pessoaFoiEscolhida = false
       }
+    },
+    setProduto(Produto:IProduto){
+      this.produtos.push(Produto)
     }
   }
 })

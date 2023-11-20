@@ -4,14 +4,16 @@ import { IBordados } from "./Bordado"
 
 
 export interface IProduto {
-    nome: string;
-    cor: string;
-    tamanho: string;
-    tecido: string;
-    modelagem: IModelagem;
-    medidas: IMedidas;
-    bordados: IBordados;
-    keys: keyof IProduto,
+    nome: string
+    cor: string
+    tamanho: string
+    tecido: string
+    modelagem: IModelagem
+    medidas: IMedidas
+    bordados: IBordados
+    valor: number
+    quantidade: number
+    [key: string]: number | string | IModelagem | IMedidas | IBordados | keyof IProduto | undefined;
 }
 
 export interface IModelagem{

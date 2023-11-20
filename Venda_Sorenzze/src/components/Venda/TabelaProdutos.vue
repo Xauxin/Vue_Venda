@@ -6,24 +6,24 @@
             <v-table class="mr-4" height="100%">
                 <thead>
                     <tr>
-                        <th>Produto</th>
+                        <th @click.prevent="console.log(produtos)">Produto</th>
                         <th>Tam</th>
-                        <th>Qnt</th>
                         <th>Valor</th>
+                        <th>Qnt</th>
                         <th>Total</th>
                         <th><v-btn icon="delete"></v-btn></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Jaleco Masculino</td>
-                        <td>50</td>
-                        <td>1</td>
-                        <td>R$250</td>
-                        <td>R$250,00</td>
+                    <tr v-for="(produto, index) in produtos" :key="index">
+                        <td>{{ produto.nome }}</td>
+                        <td>{{ produto.tamanho }}</td>
+                        <td>{{ produto.preco }}</td>
+                        <td>{{ produto.quantidade }}</td>
+                        <td>{{ multiplica(produto.preco as number, produto.quantidade) }}</td>
                         <th><v-row>
                                 <v-col cols="6">
-                                    <v-btn size="xsmall" icon="edit"></v-btn>
+                                    <v-btn  size="xsmall" icon="edit"></v-btn>
                                 </v-col>
                                 <v-col cols="6">
                                     <v-btn
@@ -52,6 +52,9 @@
   
 <script lang="ts">
 
+import { IProduto } from '@/interfaces/Produto';
+import { useVendaAbertaStore } from '@/store/VendaAberta';
+import { ref, watch } from 'vue';
 import { defineComponent } from 'vue'
 export default defineComponent({
     name: 'Home',
@@ -59,6 +62,25 @@ export default defineComponent({
         return {
             switchFrete: false,
             items: ['Correios', 'Entrega'] as String[],
+        }
+    },
+    methods:{
+        multiplica(val1:number, val2:number){
+            return val1 * val2 as number
+        }
+    },
+    setup(){
+        const vendaAberta = useVendaAbertaStore()
+        const produtos = ref([] as IProduto[])
+        watch(
+            () => vendaAberta.getProdutos,
+            () =>{
+                produtos.value = vendaAberta.getProdutos
+            },
+            {deep:true}
+        )
+        return{
+            produtos
         }
     }
 })

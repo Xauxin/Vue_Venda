@@ -21,7 +21,7 @@
             <v-col aling="center">
                 <v-row>
                     <v-col cols="4">
-                        <v-btn :disabled="!produtoValido" color="success" density="compact" variant="elevated" style="font-size: 10px;">
+                        <v-btn :disabled="!produtoValido" color="success" @click.prevent="adicionarProduto" density="compact" variant="elevated" style="font-size: 10px;">
                             Adicionar
                         </v-btn>
                     </v-col>
@@ -42,6 +42,7 @@
 </template>
   
 <script lang="ts">
+
 
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
@@ -70,6 +71,11 @@ export default defineComponent({
             if (this.comPreco && this.escolhasValidas){
                 this.produtoValido = true
             }
+        },
+        adicionarProduto(){
+            this.produtoAbertoStore.setPrecoEQuantidadeProduto(this.valorProduto, this.quantidadeProduto)
+            const produto = this.produtoAbertoStore.getProdutoInteiro
+            this.vendaAbertaStore.setProduto(produto)
         }
     },
     watch:{
@@ -84,20 +90,22 @@ export default defineComponent({
     setup() {
         const produtoAbertoStore = useProdutoAbertoStore();
         const vendaAbertaStore = useVendaAbertaStore()
-        const escolhasValidas = ref(false as boolean) 
+        const escolhasValidas = ref(false as boolean)
         watch(
-            ([produtoAbertoStore.getbaseFoiEscolhida, produtoAbertoStore.getmodelagemFoiEscolhida]),([newBase, newModelagem], [oldBase, oldModelagem]) => {
+            ([()=> produtoAbertoStore.getbaseFoiEscolhida, ()=> produtoAbertoStore.getmodelagemFoiEscolhida]),([newBase, newModelagem]) => {
                 if (newBase && newModelagem) {
                     console.log('escolhasValidas')
                     escolhasValidas.value = true
+                }else{
+                    escolhasValidas.value = false
                 }
-                console.log(oldBase, oldModelagem)
                 
             },
             {deep: true})
         return{
             escolhasValidas,
-            vendaAbertaStore
+            vendaAbertaStore,
+            produtoAbertoStore
         }
     }   
 })
