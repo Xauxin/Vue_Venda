@@ -1,6 +1,6 @@
 <template>
     <v-form>
-        <v-container class="px-5 py-2" fluid height="50%">
+        <v-container class="px-3 py-2" fluid height="50%">
             <v-row height="50%">
                 <v-col class="py-1">
                     <v-autocomplete v-model="baseEscolhida.nome" density="compact" label="Produto" variant="outlined"

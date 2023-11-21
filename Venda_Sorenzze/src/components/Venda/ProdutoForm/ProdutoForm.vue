@@ -1,27 +1,33 @@
 <template>
-    <v-form>
-        <FormEsquemaProduto :opcoes-de-esquema="(opcoesDeEsquema as String[])"></FormEsquemaProduto>
-        <v-container class="pa-0 ma-0" v-if="nomeProdutoFoiEscolhido">
-            <ModelagemProduto 
-                :esquemaModelagemEscolhida="esquemaEscolhido.modelagem"
-                :modelagemObrigatorias="modelagemObrigatoria"
-                />
-            <v-container class="px-5 py-2">
-                <v-row>
-                    <v-col cols="4">
-                        <MedidasProduto 
-                            :esquemaMedidasEscolhidas="esquemaEscolhido.medidas"
-                            :esquemaMaisMedidasEscolhidas="esquemaEscolhido.mais_medidas">
-                        </MedidasProduto>
-                    </v-col>
-                    <v-col cols="8" >
-                        <BordadosProduto></BordadosProduto>
-                    </v-col>
-                </v-row>
+    <v-card class="ma-1">
+        <v-card-title class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
+        <v-divider></v-divider>
+        <v-card-text class="px-0 py-2 mx-0">
+            <FormEsquemaProduto :opcoes-de-esquema="(opcoesDeEsquema as String[])"></FormEsquemaProduto>
+            <v-container class="pa-0 ma-0" v-if="nomeProdutoFoiEscolhido">
+                <ModelagemProduto 
+                    :esquemaModelagemEscolhida="esquemaEscolhido.modelagem"
+                    :modelagemObrigatorias="modelagemObrigatoria"
+                    />
+                <v-container class="px-3 py-2">
+                    <v-row>
+                        <v-col cols="4" class="pb-1">
+                            <MedidasProduto 
+                                :esquemaMedidasEscolhidas="esquemaEscolhido.medidas"
+                                :esquemaMaisMedidasEscolhidas="esquemaEscolhido.mais_medidas">
+                            </MedidasProduto>
+                        </v-col>
+                        <v-col cols="8" class="pb-1">
+                            <BordadosProduto></BordadosProduto>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </v-container>
-            <PrecoProduto class="px-5 py-2"/>
-        </v-container>
-    </v-form>
+        </v-card-text>
+        <v-card-actions v-if="nomeProdutoFoiEscolhido" class="px-0 mx-0">
+            <PrecoProduto class="px-5 py-1"/>
+        </v-card-actions>
+    </v-card>
 </template>
   
 <script lang="ts">
@@ -99,4 +105,20 @@ export default defineComponent({
     }
 })
 </script>
+
+<style lang="scss">
+@use 'vuetify/settings' with(
+    $card-border:(
+        #e5e0ff,
+        solid,
+        1px,
+    )
+);
+
+.tituloCard {
+    background-color: #e5e0ff;
+
+}
+
+</style>
   

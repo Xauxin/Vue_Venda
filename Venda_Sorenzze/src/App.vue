@@ -2,7 +2,7 @@
   <v-app>
     <NavDrawer/>
     <v-main>
-      <router-view></router-view>
+      <router-view class="ma-1"></router-view>
     </v-main>
   </v-app>
 </template>

@@ -1,6 +1,6 @@
 <template>
-    <v-container class="px-5 py-2" fluid>
-        <v-sheet :elevation="3" border rounded class="py-2 px-4" width="100%" min-height="150px">
+    <v-container class="px-3 py-2" fluid>
+        <v-sheet :elevation="2" border rounded class="py-2 px-4" width="100%" min-height="150px">
             <v-row justify="space-evenly" no-gutters>
                 <v-col v-for="(item, key) in esquemaModelagemEscolhida" cols=auto v-bind:key=key>
                     <v-container v-if="key == 'Vivo'" class="pa-0 ma-1">

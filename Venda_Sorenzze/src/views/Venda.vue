@@ -1,23 +1,19 @@
 <template>
-  <v-row>
-    <v-col cols="7">
-      <v-row>
-        <v-col>
+  <v-row no-gutters>
+    <v-col cols="7" class="ma-0 pa-0">
+      <v-row class="ma-0 pa-0">
+        <v-col class="ma-0 pa-0">
           <ClientForm></ClientForm>
         </v-col>
       </v-row>
-      <v-col>
-        <v-divider thickness="1" class="border-opacity-100"></v-divider>
-      </v-col>
-      <v-row>
-        <v-col>
+      <v-row class="ma-0 pa-0">
+        <v-col class="ma-0 pa-0">
           <ProdutoForm v-if="clienteFoiEscolhido"></ProdutoForm>
         </v-col>
       </v-row>
     </v-col>
-    <v-divider thickness="1" class="border-opacity-100" vertical></v-divider>
-    <v-col cols="5">
-      <TabelaProdutos></TabelaProdutos>
+    <v-col cols="5" class="ma-0 pa-0">
+          <ResumoVenda></ResumoVenda>
     </v-col>
   </v-row>
 </template>
@@ -26,7 +22,8 @@
 import { defineComponent, ref, watch } from 'vue'
 import ClientForm from "@/components/Venda/ClientForm/ClienteForm.vue"
 import ProdutoForm from '@/components/Venda/ProdutoForm/ProdutoForm.vue';
-import TabelaProdutos from '@/components/Venda/TabelaProdutos.vue';
+// import TabelaProdutos from '@/components/Venda/ResumoVenda/TabelaProdutos.vue';
+import ResumoVenda from '@/components/Venda/ResumoVenda/ResumoVenda.vue';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
 
 export default defineComponent({
@@ -34,7 +31,8 @@ export default defineComponent({
   components: {
     ClientForm,
     ProdutoForm,
-    TabelaProdutos
+    // TabelaProdutos
+    ResumoVenda
   },
   setup() {
     //Ascessa store de venda e cria varia mutáveal ligada ao cliente que foi escolhido

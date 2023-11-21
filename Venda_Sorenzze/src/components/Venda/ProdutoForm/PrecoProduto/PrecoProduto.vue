@@ -1,21 +1,17 @@
 <template>
-    <v-sheet elevation="2" class="px-2 py-4">
         <v-row align="center">
-            <v-col cols="3">
+            <v-col cols="3" class="py-0">
                 <v-text-field density="compact" class="inputPreco" prefix="R$" type="number" label="Preço" variant="outlined"
                     v-model="valorProduto" hide-details/>
-                    
             </v-col>
-            <v-col cols="2">
+            <v-col cols="2" class="py-0">
                 <v-text-field density="compact"  type="number" label="Quantidade" variant="outlined" 
                     auto-select-first menu-icon="" v-model="quantidadeProduto" hide-details>
-
                 </v-text-field>
             </v-col>
-            <v-col cols="3">
+            <v-col cols="3" class="py-0">
                 <v-text-field density="compact" type="number" prefix="R$" label="Valor Total" variant="outlined" 
                     auto-select-first menu-icon="" hide-details readonly :model-value="valorConjuntoProdutos">
-
                 </v-text-field>
             </v-col>
             <v-col aling="center">
@@ -38,7 +34,7 @@
                 </v-row>
             </v-col>
         </v-row>
-    </v-sheet>
+
 </template>
   
 <script lang="ts">
