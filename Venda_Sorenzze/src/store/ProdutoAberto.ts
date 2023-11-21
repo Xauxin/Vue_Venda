@@ -18,7 +18,8 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
     bordadosProduto: {} as IBordados,
     bordadosFoiEscolhida: false as boolean,
     precoProduto: 0 as number,
-    quantidadeProduto: 1 as number
+    quantidadeProduto: 1 as number,
+    total: 0 as number
   }),
   actions: {
     setNomeCorTamanhoETecido(produto: IBaseProduto) {
@@ -54,6 +55,7 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
     setPrecoEQuantidadeProduto(preco:number, quantidade:number){
       this.precoProduto = preco
       this.quantidadeProduto = quantidade
+      this.total = preco * quantidade
     }
   },
     getters: {
@@ -71,13 +73,14 @@ export const useProdutoAbertoStore = defineStore('ProdutoAberto', {
       getProdutoInteiro(){
         const produto = {} as IProduto
         if (this.baseFoiEscolhida && this.modelagemFoiEscolhida){
-          Object.entries(this.baseProduto).forEach((dado:string[]) =>{
-            const [chave, valor] = dado
+          Object.entries(this.baseProduto).forEach((dado:[string, unknown]) =>{
+            const [chave, valor] = dado as [string,string]
             chave == 'nome' ? produto.nome = valor.split(' - ')[1] : produto[chave] = valor 
           })
           produto.modelagem = this.modelagemProduto
           produto.preco = this.precoProduto
           produto.quantidade = this.quantidadeProduto
+          produto.total = this.total
         }
         return produto
       }

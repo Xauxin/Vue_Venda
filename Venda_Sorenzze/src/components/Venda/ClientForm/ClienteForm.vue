@@ -27,7 +27,8 @@
 import { IPessoa } from '@/interfaces/Pessoas'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
 import { defineComponent, onMounted, ref } from 'vue'
-import { useDate } from 'vuetify/labs/date'
+import { useDate } from 'vuetify/lib/framework.mjs'
+
 
 export default defineComponent({
   name: 'ClientForm',

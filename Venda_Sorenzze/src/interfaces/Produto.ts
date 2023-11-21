@@ -13,6 +13,7 @@ export interface IProduto {
     bordados: IBordados
     valor: number
     quantidade: number
+    total: number
     [key: string]: number | string | IModelagem | IMedidas | IBordados | keyof IProduto | undefined;
 }
 

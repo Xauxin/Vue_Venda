@@ -1,15 +1,121 @@
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
     <v-card>
         <v-card-title class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
         <v-card-text class="px-0 py-2 mx-0">
-            <v-data-table :items="produtos" item-value="name" show-expand :headers="dessertHeaders" class="mr-4"
-                height="100%" density="compact" v-model:expanded="expanded">
+            <v-data-table hover :items="produtos" item-value="name" :headers="dessertHeaders" class="mr-4" height="100%"
+                density="compact">
                 <template v-slot:expanded-row="{ columns, item }">
                     <tr>
                         <td :colspan="columns.length">
-                            More info about {{ item.name }}
+                            modelagem:{{ item.modelagem }}
                         </td>
                     </tr>
+                </template>
+                <template v-slot:bottom>
+                    <v-table>
+                        <tbody>
+                            <tr>
+                                <td> 
+                                    <v-menu v-model="menuFrete" :close-on-content-click="false" location="center">
+                                        <template v-slot:activator="{ props }">
+                                            <v-btn 
+                                                v-bind="props" 
+                                                density="compact" 
+                                                :color="valorFrete && switchFrete == 'Com' ? 'green' : ''"
+                                                size="large"
+                                                >{{ valorFrete && switchFrete == 'Com' ?  parseFloat(valorFrete).toFixed(2)  : "Frete" }}
+                                            </v-btn>
+                                        </template>
+                                        <v-card>
+                                            <v-card-text class="px-1 py-0 ma-0">
+                                                <v-list>
+                                                    <v-list-item>
+                                                        <v-switch class="mx-3" density="compact" auto-select-first color="primary" true-value="Com" false-value="Sem"
+                                                            hide-details :label="`${switchFrete} Frete`" v-model="switchFrete">
+                                                        </v-switch>
+                                                    </v-list-item>
+                                                    <v-list-item>
+                                                        <v-select class="mt-2" density="compact" variant="outlined" auto-select-first v-model="tipoFrete"
+                                                            hide-details label="Tipo" :disabled="!funcaoSwitchFrete" :items=items>
+                                                        </v-select>
+                                                    </v-list-item>
+                                                    <v-list-item>
+                                                        <v-text-field v-model="valorFrete" density="compact" :disabled="!funcaoSwitchFrete || !tipoFrete" prefix="R$" variant="outlined"
+                                                            auto-select-first hide-details>
+                                                        </v-text-field>
+                                                    </v-list-item>
+                                                </v-list>
+                                            </v-card-text>
+                                            <v-card-actions class="px-3 py-0 ma-0">
+                                                <v-btn 
+                                                    variant="flat" 
+                                                    @click.prevent="menuFrete = false" 
+                                                    :disabled="!funcaoSwitchFrete || valorFrete == ''"  
+                                                    color="success" 
+                                                    density="compact" 
+                                                    size="small"
+                                                    >Salvar
+                                                </v-btn>
+                                                <v-spacer></v-spacer>
+                                                <v-btn 
+                                                    variant="flat" 
+                                                    color="red" 
+                                                    size="small" 
+                                                    density="compact"
+                                                    @click.prevent="cancelaFrete"
+                                                    >Cancelar
+                                                </v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-menu>
+                                </td>
+                                <td> 
+                                    <v-menu :close-on-content-click="false" location="center">
+                                        <template v-slot:activator="{ props }">
+                                            <v-btn v-bind="props" density="compact" size="large">
+                                                Desconto
+                                            </v-btn>
+                                        </template>
+                                        <v-card  min-width="200px">
+                                            <v-card-text class="px-1 py-0 ma-0">
+                                                <v-list>
+                                                    <v-list-item>
+                                                        <v-switch 
+                                                            class="mx-3" 
+                                                            density="compact" 
+                                                            auto-select-first color="primary" 
+                                                            true-value="Porcentagem" 
+                                                            false-value="Valor"
+                                                            hide-details 
+                                                            :label="`${switchDesconto}`" 
+                                                            v-model="switchDesconto">
+                                                        </v-switch>
+                                                    </v-list-item>
+                                                    <v-list-item>
+                                                        <v-text-field 
+                                                            v-model="valorDesconto"
+                                                            density="compact" 
+                                                            :disabled="!funcaoSwitchFrete && !tipoFrete" 
+                                                            :prefix="switchDesconto == 'Valor' ? 'R$' : '%'" 
+                                                            variant="outlined"
+                                                            auto-select-first hide-details>
+                                                        </v-text-field>
+                                                    </v-list-item>
+                                                </v-list>
+                                            </v-card-text>
+                                            <v-card-actions class="px-3 py-0 ma-0">
+                                                <v-btn variant="flat" color="success" density="compact" size="small">Salvar</v-btn>
+                                                <v-spacer></v-spacer>
+                                                <v-btn variant="flat" color="red" size="small" density="compact">Cancelar</v-btn>
+                                            </v-card-actions>
+                                        </v-card>
+                                    </v-menu>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </v-table>
                 </template>
             </v-data-table>
         </v-card-text>
@@ -26,23 +132,43 @@ export default defineComponent({
     name: 'TabelaResumo',
     data() {
         return {
-            switchFrete: false,
+            tipoFrete: "" as string,
+            menuFrete: false as boolean,
+            switchFrete: "Sem" as string,
+            switchDesconto: "Valor" as string,
             items: ['Correios', 'Entrega'] as String[],
             expanded: [],
+            valorFrete: "" as string ,
             dessertHeaders: [
-                { text: 'Dessert (100g serving)', align: 'start', sortable: false, value: 'name' },
-                { text: 'Calories', value: 'calories' },
-                { text: 'Fat (g)', value: 'fat' },
-                { text: 'Carbs (g)', value: 'carbs' },
-                { text: 'Protein (g)', value: 'protein' },
-                { text: 'Iron (%)', value: 'iron' },
-                { text: '', value: 'data-table-expand' },
-            ] as  ReadonlyArray<DataTableHeader>
+                { title: 'Produto', align: 'start', sortable: false, key: 'nome' },
+                { title: 'Tamanho', key: 'tamanho' },
+                { title: 'Preço(UN)', key: 'preco' },
+                { title: 'Quantidade', key: 'quantidade' },
+                { title: 'Total', key: 'total' },
+                { title: 'Opções', key: 'opcoes' },
+                { title: '', key: 'data-table-expand' },
+            ] as ReadonlyArray<Object>
         }
+    },
+    computed:{
+        funcaoSwitchFrete(){
+            if (this.switchFrete == 'Sem'){
+                return false
+            }else{
+                return true
+            }
+        }
+
     },
     methods: {
         multiplica(val1: number, val2: number) {
             return val1 * val2 as number
+        },
+        cancelaFrete(){
+            this.tipoFrete = ""
+            this.valorFrete = ""
+            this.switchFrete = "Sem"
+            this.menuFrete = false
         }
     },
 
