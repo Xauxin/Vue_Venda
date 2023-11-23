@@ -77,7 +77,7 @@ export default defineComponent({
                         }
                     }
                     this.valid = true
-                    this.storeProdutoAberto.setModelagem(this.modelagemEscolhida)
+                    this.storeProdutoAberto.setter('modelagem', this.modelagemEscolhida)
                 }
             },
             deep:true

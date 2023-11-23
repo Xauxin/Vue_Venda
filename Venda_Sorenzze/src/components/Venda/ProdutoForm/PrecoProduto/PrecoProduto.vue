@@ -52,7 +52,7 @@ export default defineComponent({
         return {
             produtoValido : false as boolean,
             comPreco: false as boolean,
-            valorProduto: NaN as number,
+            valorProduto: 0 as number,
             quantidadeProduto: 1 as number
         }
     },

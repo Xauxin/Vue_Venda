@@ -3,18 +3,23 @@
         <v-card-title class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
         <v-divider></v-divider>
         <v-card-text class="px-0 py-2 mx-0">
-            <FormEsquemaProduto :opcoes-de-esquema="(opcoesDeEsquema as String[])"></FormEsquemaProduto>
+            <BaseProduto
+                @set-nome="setState" 
+                :opcoes-de-esquema="(opcoesDeEsquema as String[])"
+                :esquema-escolhido="esquemaEscolhido ? esquemaEscolhido : ({} as IEsquemaProduto )"
+                >
+            </BaseProduto>
             <v-container class="pa-0 ma-0" v-if="nomeProdutoFoiEscolhido">
                 <ModelagemProduto 
-                    :esquemaModelagemEscolhida="esquemaEscolhido.modelagem"
+                    :esquemaModelagemEscolhida="esquemaEscolhido ? esquemaEscolhido.modelagem : {}"
                     :modelagemObrigatorias="modelagemObrigatoria"
                     />
                 <v-container class="px-3 py-2">
                     <v-row>
                         <v-col cols="4" class="pb-1">
                             <MedidasProduto 
-                                :esquemaMedidasEscolhidas="esquemaEscolhido.medidas"
-                                :esquemaMaisMedidasEscolhidas="esquemaEscolhido.mais_medidas">
+                                :esquemaMedidasEscolhidas="esquemaEscolhido ? esquemaEscolhido.medidas : {}"
+                                :esquemaMaisMedidasEscolhidas="esquemaEscolhido ? esquemaEscolhido.mais_medidas : {}">
                             </MedidasProduto>
                         </v-col>
                         <v-col cols="8" class="pb-1">
@@ -31,7 +36,7 @@
 </template>
   
 <script lang="ts">
-import FormEsquemaProduto from './FormEsquemaProduto.vue';
+import BaseProduto from './BaseProduto/BaseProduto.vue';
 import ModelagemProduto from './ModelagemProduto.vue'
 import MedidasProduto from './MedidasProduto/MedidasProduto.vue'
 import BordadosProduto from './BordadoProduto/BordadosProduto.vue'
@@ -40,12 +45,14 @@ import { defineComponent, onMounted, ref , watch } from 'vue'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto';
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos';
+import { IBordados } from '@/interfaces/Bordado';
+import { IModelagem, IMedidas } from '@/interfaces/Produto';
 
 
 export default defineComponent({
     name: 'ProdutoForm',
     components: {
-        FormEsquemaProduto,
+        BaseProduto,
         ModelagemProduto,
         MedidasProduto,
         BordadosProduto,
@@ -58,19 +65,32 @@ export default defineComponent({
     computed:{
         modelagemObrigatoria(){
             const modelagemObrigatoria = {} as { [key:string]: boolean}
-            Object.entries(this.esquemaEscolhido.modelagem).forEach(modelagem => {
-                    modelagemObrigatoria[modelagem[0]] = modelagem[1].required
-            })
-            return modelagemObrigatoria
+            if(this.esquemaEscolhido){
+                Object.entries(this.esquemaEscolhido.modelagem).forEach(modelagem => {
+                        modelagemObrigatoria[modelagem[0]] = modelagem[1].required
+                })
+                return modelagemObrigatoria
+            }
+            return {}
+        }
+    },
+    methods:{
+        setState(valor:string|IModelagem|IMedidas|IBordados|number, campo:string){
+            this.produtoAbertoStore.setter(campo, valor)
+            if(campo == 'nome'){
+                const id = (valor as string).split(" - ")[0] as string
+                this.esquemaStore.SetEscolhido(id)
+            }
         }
     },
     setup (){
         //Ascessa store de esquema e cria varia mutáveal ligada ao produtro que foi escolhido
         const esquemaStore = useEsquemaProdutoStore()
-        const esquemaEscolhido = ref({} as IEsquemaProduto)
+        const esquemaEscolhido = ref(null as IEsquemaProduto| null)
         watch(
             () => esquemaStore.getEsquema,
             () => {
+
                 esquemaEscolhido.value = esquemaStore.getEsquema
             }
         )
@@ -79,9 +99,9 @@ export default defineComponent({
         const produtoAbertoStore = useProdutoAbertoStore()
         const nomeProdutoFoiEscolhido = ref(false as boolean)
         watch(
-            () => produtoAbertoStore.getnomeProdutoFoiEScolhido,
+            () => produtoAbertoStore.getNomeFoiEscolhido,
             () => {
-                nomeProdutoFoiEscolhido.value = produtoAbertoStore.getnomeProdutoFoiEScolhido
+                nomeProdutoFoiEscolhido.value = produtoAbertoStore.getNomeFoiEscolhido
             }
         )
         //Acessa store de Esquema e pega as opções possiveis para venda
@@ -95,8 +115,8 @@ export default defineComponent({
                 console.log(error)
             }
         })
-       
         return{
+            esquemaStore,
             produtoAbertoStore,
             nomeProdutoFoiEscolhido,
             esquemaEscolhido,

@@ -1,16 +1,16 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
     <v-card height="fitContent">
-        <v-card-title class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
+        <v-card-title @click.prevent="console.log(produtos)" class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
         <v-card-text  class="px-0 py-2 mx-0">
             <v-data-table 
-                row-height="40px"
+                :row-height="50"
                 hover 
                 :items="produtos" 
                 fixed-footer 
                 v-model:expanded="expanded"
                 show-expand 
-                item-value="preco" 
+                item-value="id" 
                 :headers="tableHeaders"
                 class="mr-4"
                 height="fit-content" 

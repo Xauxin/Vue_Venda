@@ -3,24 +3,39 @@ import { IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import http from "@/http"
 import { defineStore } from 'pinia'
+import { useVendaStore } from './Vendas';
+import { useProdutoAbertoStore } from './ProdutoAberto';
 
 
 export const useVendaAbertaStore = defineStore('VendaAberta', {
   state: () => ({
     pessoas: [] as IPessoa[],
-    vendaAberta: [] as IVenda[],
+    vendaAberta: {} as IVenda,
     pessoaVenda: {} as IPessoa,
     pessoaFoiEscolhida: false as boolean,
-    produtos: [] as IProduto[] 
+    produtos: [] as IProduto[],
+    produtoFoiEscolhido: false as boolean
   }),
   getters: {
     getVendas: (state) => state.vendaAberta,
     getPessoas: (state) => state.pessoas,
     getpessoaVenda: (state) => state.pessoaVenda,
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
-    getProdutos: (state) => state.produtos
+    getProdutos: (state) => state.produtos,
+    getProdutosLength: (state) => state.produtos.length
   },
   actions:{
+    async AbrirVenda(id?:number){
+      if (id){
+        console.log('vendacomId')
+      }else{
+        await this.listPessoas()
+        const vendas = useVendaStore()
+        this.vendaAberta.id = vendas.getVendaLength + 1
+        const produAberto = useProdutoAbertoStore()
+        produAberto.abrirProduto
+      }
+    },
     async listPessoas(){
       try {
         const resposta = (await http.get('pessoas')).data as [IPessoa]
@@ -34,7 +49,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     },
     setPessoaVenda(pessoaNome:String){
       if(pessoaNome){
-        this.pessoas.forEach(pessoa => {
+        this.pessoas.forEach((pessoa:IPessoa)=> {
           if (pessoa.nome == pessoaNome){
             this.pessoaVenda = pessoa
             this.pessoaFoiEscolhida = true
@@ -46,7 +61,9 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       }
     },
     setProduto(Produto:IProduto){
-      this.produtos.push(Produto)
+        const id = this.produtos[this.produtos.length - 1].id + 1
+        Produto.id = id
+        this.produtos.push(Produto)
     }
   }
 })

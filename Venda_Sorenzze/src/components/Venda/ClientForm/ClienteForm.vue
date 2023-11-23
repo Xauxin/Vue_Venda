@@ -65,16 +65,14 @@ export default defineComponent({
   setup() {
         const storeVenda = useVendaAbertaStore()
         const pessoas = ref([] as IPessoa[])
-
         onMounted(async () => {
-                try {
-                    await storeVenda.listPessoas()
-                    pessoas.value = storeVenda.getPessoas as IPessoa[]
-                } catch (error) {
-                    console.log(error)
-                }
-            })
-
+          try{
+          storeVenda.AbrirVenda()
+          pessoas.value = storeVenda.getPessoas
+          }catch(error){
+            console.log(error)
+          }   
+        })
         return {
             storeVenda,
             pessoas,
