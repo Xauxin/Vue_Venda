@@ -1,12 +1,14 @@
 <template>
     <v-card class="ma-1">
-        <v-card-title class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
+        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state)" class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
         <v-divider></v-divider>
         <v-card-text class="px-0 py-2 mx-0">
             <BaseProduto
-                @set-nome="setState" 
+                ref="base"
+                @set-nome="setState"
+                @set-base="setState"
                 :opcoes-de-esquema="(opcoesDeEsquema as String[])"
-                :esquema-escolhido="esquemaEscolhido ? esquemaEscolhido : ({} as IEsquemaProduto )"
+                :esquema-escolhido="esquemaEscolhido ? esquemaEscolhido : ({} as IEsquemaProduto)"
                 >
             </BaseProduto>
             <v-container class="pa-0 ma-0" v-if="nomeProdutoFoiEscolhido">
@@ -30,7 +32,7 @@
             </v-container>
         </v-card-text>
         <v-card-actions v-if="nomeProdutoFoiEscolhido" class="px-0 mx-0">
-            <PrecoProduto class="px-5 py-1"/>
+            <PrecoProduto @reseta-produto="resetaProduto" class="px-5 py-1"/>
         </v-card-actions>
     </v-card>
 </template>
@@ -75,26 +77,37 @@ export default defineComponent({
         }
     },
     methods:{
-        setState(valor:string|IModelagem|IMedidas|IBordados|number, campo:string){
-            this.produtoAbertoStore.setter(campo, valor)
-            if(campo == 'nome'){
-                const id = (valor as string).split(" - ")[0] as string
-                this.esquemaStore.SetEscolhido(id)
-            }
+        setState(valor:string|IModelagem|IMedidas|IBordados|number|Object, campo:string){
+            if(campo == 'nome' && valor){
+                this.produtoAbertoStore.setter(campo, (valor as string))
+                this.esquemaStore.SetEscolhido(valor as string)
+            }else if(campo == 'nome' && !valor){
+                this.produtoAbertoStore.setter(campo, (valor as string))
+                this.esquemaStore.SetEscolhido("")
+            } 
+            if(campo == 'base'){
+                Object.entries(valor).forEach((dado:[string,string]) =>{
+                    const [key,value] = dado
+                    this.produtoAbertoStore.setter(key, (value as string))
+                })
+            }   
+        },
+        resetaProduto(){
+            (this.$refs  as typeof BaseProduto).base.reset()
         }
     },
     setup (){
         //Ascessa store de esquema e cria varia mutáveal ligada ao produtro que foi escolhido
         const esquemaStore = useEsquemaProdutoStore()
-        const esquemaEscolhido = ref(null as IEsquemaProduto| null)
+        const esquemaEscolhido = ref(null as IEsquemaProduto|null)
         watch(
-            () => esquemaStore.getEsquema,
+            () => esquemaStore.getEsquemaEscolhido,
             () => {
 
-                esquemaEscolhido.value = esquemaStore.getEsquema
+                esquemaEscolhido.value = esquemaStore.getEsquemaEscolhido
             }
         )
-       
+       ''
         //Ascessa store do produto aberto e cria varia mutáveal ligada ao produto que foi escolhido
         const produtoAbertoStore = useProdutoAbertoStore()
         const nomeProdutoFoiEscolhido = ref(false as boolean)
@@ -109,8 +122,7 @@ export default defineComponent({
         onMounted(async () => {
             opcoesDeEsquema.value = []
             try {
-                await esquemaStore.listOpcoes()
-                opcoesDeEsquema.value = esquemaStore.getOpcoesDeEsquema
+                opcoesDeEsquema.value = esquemaStore.getStrListEsquemas
             } catch (error) {
                 console.log(error)
             }

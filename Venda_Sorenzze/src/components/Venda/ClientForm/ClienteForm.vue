@@ -5,7 +5,14 @@
     <v-card-text class="px-3 py-2 mx-0">
       <v-row>
         <v-col >
-          <v-autocomplete  hide-details label="Cliente" density="compact" v-model="pessoaEscolhida" :items=nomesPessoas() variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete
+            hide-details label="Cliente"
+            density="compact" v-model="pessoaEscolhida"
+            :items=nomesPessoas() 
+            variant="outlined"
+            append-inner-icon="add"
+            auto-select-first 
+            menu-icon="">
           </v-autocomplete>
         </v-col>
         <v-col>
@@ -59,6 +66,7 @@ export default defineComponent({
   },
   watch:{
     pessoaEscolhida(){
+      console.log('oioi')
         this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
     }
   },

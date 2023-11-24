@@ -1,3 +1,4 @@
+import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IProduto } from './../interfaces/Produto';
 import { IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
@@ -31,9 +32,11 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       }else{
         await this.listPessoas()
         const vendas = useVendaStore()
+        const esquemas = useEsquemaProdutoStore()
         this.vendaAberta.id = vendas.getVendaLength + 1
         const produAberto = useProdutoAbertoStore()
-        produAberto.abrirProduto
+        produAberto.abrirProduto()
+        esquemas.listEsquemas()
       }
     },
     async listPessoas(){
@@ -61,8 +64,6 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       }
     },
     setProduto(Produto:IProduto){
-        const id = this.produtos[this.produtos.length - 1].id + 1
-        Produto.id = id
         this.produtos.push(Produto)
     }
   }

@@ -19,7 +19,7 @@
                 <template v-slot:expanded-row="{ columns, item }">
                     <tr>
                         <td :colspan="columns.length">
-                             {{ item.modelagem }}
+                            <p v-for="(value , key) in item.modelagem"  :key=key>{{ `${key}: ${value}` }}</p>
                         </td>
                     </tr>
                 </template>
@@ -34,6 +34,9 @@
                 </template>
                 <template v-slot:item.quantidade="{value}" >
                     <p class="text-center">{{ value }}</p>
+                </template>
+                <template v-slot:item.total="{ item }">
+                    <p class="text-center">{{ item ? (item.preco as number) * item.quantidade : "" }}</p>
                 </template>
                 <template v-slot:item.opcoes>
                     <v-row >
@@ -182,11 +185,19 @@ export default defineComponent({
         calculaTotal() {
             var totalVenda = 0 as number
             this.produtos.forEach((produto: IProduto) => {
-                totalVenda = totalVenda + produto.total
-                console.log(totalVenda, totalVenda)
+                totalVenda = totalVenda + ((produto.preco as number) * produto.quantidade)
             })
             if (this.switchFrete == 'Com' && this.valorFrete) {
                 totalVenda = totalVenda + parseInt(this.valorFrete)
+            }
+            if (this.switchDesconto == 'Porcentagem' && this.valorDesconto){
+                const porcentagem = parseFloat(this.valorDesconto.length == 1 ? `0.0${this.valorDesconto}` : `0.${this.valorDesconto}`)
+                console.log(porcentagem)
+                if (porcentagem != 100){
+                    totalVenda = totalVenda - ( totalVenda * porcentagem)          
+                }
+            } else if (this.switchDesconto == 'Valor' && this.valorDesconto){
+                totalVenda = totalVenda - parseInt(this.valorDesconto)
             }
             return totalVenda
         },

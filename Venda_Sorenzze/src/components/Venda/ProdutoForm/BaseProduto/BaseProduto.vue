@@ -9,7 +9,7 @@
                 </v-col>
                 <v-col class="py-1">
                     <v-autocomplete density="compact" v-model="cor" hide-details label="Cor"
-                        :items=esquemaEscolhido.cor variant="outlined" auto-select-first>
+                        :items="esquemaEscolhido.cor" variant="outlined" auto-select-first>
                     </v-autocomplete>
                 </v-col>
                 <v-col class="py-1">
@@ -17,7 +17,7 @@
                     hide-details variant="outlined" label="Tamanho"></v-autocomplete>
                 </v-col>
                 <v-col class="py-1">
-                    <v-autocomplete density="compact" :items=esquemaEscolhido.suprimentos v-model="tecido"
+                    <v-autocomplete density="compact" :items="esquemaEscolhido.suprimentos" v-model="tecido"
                     hide-details variant="outlined" label="Tecido"></v-autocomplete>
                 </v-col>
             </v-row>
@@ -41,7 +41,7 @@ export default defineComponent({
             required: true,
         },
         esquemaEscolhido:{
-            type: {} as () => IEsquemaProduto,
+            type: Object as () => IEsquemaProduto,
             required: true
         }
     },
@@ -52,7 +52,6 @@ export default defineComponent({
             tamanho : "" as string,
             tecido : "" as string,
             ultimaValidacaoBase: false as boolean,
-            oldNome: "" as string,
             cores: ['Branco', 'Preto', 'Azul-Noite', 'Verde Militar'],
             tecidos: ['Gabardine', 'Tricoline'],
         }
@@ -65,19 +64,35 @@ export default defineComponent({
             handler(){
                 this.$emit('setNome', this.nome, 'nome')
                 },
-        }
+        },
+        cor: 'handlerBase',
+        tamanho: 'handlerBase',
+        tecido: 'handlerBase',
     },
     methods: {
+        handlerBase(){
+                const objetoBase = {
+                    cor: this.cor,
+                    tamanho: this.tamanho,
+                    tecido: this.tecido
+                } as Object
+                this.$emit('setBase', objetoBase , 'base')
+ 
+        },
         primeiraLetraMaiuscula(palavra: string) {
             return palavra[0].toUpperCase() + palavra.substring(1);
+        },
+        reset(){
+            this.nome = ""
+            this.cor = ""
+            this.tamanho = ""
+            this.tecido = ""
         }
     },
     setup() {
         const opcaoEscolhida = ref({} as IEsquemaProduto)
         const store = useEsquemaProdutoStore()
         const ProdutoAberto = useProdutoAbertoStore()
-
-
         return {
             store,
             opcaoEscolhida,

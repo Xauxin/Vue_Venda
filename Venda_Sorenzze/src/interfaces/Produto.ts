@@ -4,7 +4,7 @@ import { IBordados } from "./Bordado"
 
 
 export interface IProduto {
-    [key: string]: number | string | IModelagem | IMedidas | IBordados | keyof IProduto | undefined;
+    [key: string]: number | string | IModelagem | IMedidas | IBordados | keyof IProduto | boolean | undefined;
     id: number
     nome: string
     cor: string
@@ -16,6 +16,7 @@ export interface IProduto {
     valor: number
     quantidade: number
     total: number
+    em_espera: boolean
 }
 
 export interface IModelagem{

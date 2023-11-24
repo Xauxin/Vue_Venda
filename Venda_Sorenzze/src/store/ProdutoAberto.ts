@@ -1,3 +1,4 @@
+import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IModelagem, IMedidas, IProduto} from '../interfaces/Produto';
 import { IBordados } from '../interfaces/Bordado';
 import { defineStore } from 'pinia'
@@ -22,8 +23,8 @@ export const useProdutoAbertoStore = defineStore(
       medidas: {} as IMedidas,
       bordados: {} as IBordados,
       valor: 0 as number,
-      quantidade: 1 as number
-      
+      quantidade: 1 as number,
+      em_espera: false as boolean
     }),
     actions: {
       abrirProduto(produto?:IProduto){
@@ -45,12 +46,26 @@ export const useProdutoAbertoStore = defineStore(
           }else{
             this.baseFoiEscolhida = false
           }
-          if (this.modelagem){
+          if (Object.values(this.modelagem).length != 0) {
             this.modelagemFoiEscolhida = true
           }else{
             this.modelagemFoiEscolhida = false
           }
         }
+      },
+      salvaProduto(){
+        const produto = {} as IProduto
+        Object.entries(this.$state).forEach((dado:[string, any ]) =>{
+          const [key, value] = dado
+          if(key != 'nomeFoiEscolhido' && key != 'baseFoiEscolhida' && key != 'modelagemFoiEscolhida')
+            produto[key]= value;
+        })
+        const venda = useVendaAbertaStore()
+        const esquema = useEsquemaProdutoStore()
+        venda.setProduto(produto)
+        this.$reset()
+        this.abrirProduto()
+        esquema.restartEsquemaEscolhido()
       }
     },
     getters: {

@@ -69,9 +69,10 @@ export default defineComponent({
             }
         },
         adicionarProduto(){
-            this.produtoAbertoStore.setPrecoEQuantidadeProduto(this.valorProduto, this.quantidadeProduto)
-            const produto = this.produtoAbertoStore.getProdutoInteiro
-            this.vendaAbertaStore.setProduto(produto)
+            this.produtoAbertoStore.setter('preco', this.valorProduto)
+            this.produtoAbertoStore.setter('quantidade', this.quantidadeProduto)
+            this.produtoAbertoStore.salvaProduto()
+            this.$emit('resetaProduto')
         }
     },
     watch:{
@@ -88,7 +89,7 @@ export default defineComponent({
         const vendaAbertaStore = useVendaAbertaStore()
         const escolhasValidas = ref(false as boolean)
         watch(
-            ([()=> produtoAbertoStore.getbaseFoiEscolhida, ()=> produtoAbertoStore.getmodelagemFoiEscolhida]),([newBase, newModelagem]) => {
+            ([()=> produtoAbertoStore.getBaseFoiEscolhida, ()=> produtoAbertoStore.getModelagemFoiEscolhida]),([newBase, newModelagem]) => {
                 if (newBase && newModelagem) {
                     console.log('escolhasValidas')
                     escolhasValidas.value = true
