@@ -54,9 +54,9 @@ export default defineComponent({
         const produtoAberto = useProdutoAbertoStore()
         let MedidasEscolhidas = ref({})
     watch(
-        () => produtoAberto.getmedidaProduto,
+        () => produtoAberto.getMedidas,
         () => {
-            MedidasEscolhidas.value = produtoAberto.getmedidaProduto
+            MedidasEscolhidas.value = produtoAberto.getMedidas
         }
     )
         return {

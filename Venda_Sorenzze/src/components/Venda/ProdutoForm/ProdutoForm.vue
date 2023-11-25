@@ -25,7 +25,10 @@
                             </MedidasProduto>
                         </v-col>
                         <v-col cols="8" class="pb-1">
-                            <BordadosProduto></BordadosProduto>
+                            <BordadosProduto
+                            :esquema-escolhido="esquemaEscolhido"
+                            @set-bordados="setState"
+                            ></BordadosProduto>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -90,6 +93,9 @@ export default defineComponent({
                     const [key,value] = dado
                     this.produtoAbertoStore.setter(key, (value as string))
                 })
+            }
+            if(campo == 'bordados'){
+                this.produtoAbertoStore.setter(campo, (valor as IBordados))
             }   
         },
         resetaProduto(){

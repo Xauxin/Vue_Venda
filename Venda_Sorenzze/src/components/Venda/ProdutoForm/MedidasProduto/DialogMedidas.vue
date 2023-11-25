@@ -114,7 +114,7 @@ export default defineComponent({
             this.dialog = !this.dialog
         },
         SalvarMedidas(){
-            this.produtoAberto.setMedidas(this.MedidasEscolhidas)
+            this.produtoAberto.setter('medidas' , this.MedidasEscolhidas )
             this.abreEFechaDialog()
         }
     },

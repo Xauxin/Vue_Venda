@@ -1,11 +1,13 @@
 <template>
     <div>
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
-            <BordadoNome :cores="['Preto', 'Dourado', 'Grafite']"
-                :fontes="['MontSerrat', 'Block', 'Monotype']"/>
+            <BordadoNome 
+                :cores="['Preto', 'Dourado', 'Grafite']"
+                :fontes="['MontSerrat', 'Block', 'Monotype']"
+                @set-nome-bordado="setNome"/>
             <v-divider class="mb-1 border-opacity-75"></v-divider>
             <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
-                :locais="produtoEscolhido ? locaisPossiveis((produtoEscolhido.locais_de_bordado as String[]), (locaisEscolhidos as String[])) : []"
+                :locais="esquemaEscolhido ? locaisPossiveis((esquemaEscolhido.locais_de_bordado as String[]), (locaisEscolhidos as String[])) : []"
                 @atualiza-locais-escolhidos="atualizaLocaisEscolhidos" @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
         <DialogEsolheBordado ref="dialog" :bordado-ascessado="(BordadoAscessado as string)"
@@ -15,14 +17,12 @@
 
 <script lang="ts">
 
-import { IBordado, IBordados } from '@/interfaces/Bordado'
-import { defineComponent, ref, watch } from 'vue'
+import { IBordado, IBordadoNome, IBordados } from '@/interfaces/Bordado'
+import { defineComponent} from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
-import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 import BordadoNome from './BordadoNome.vue'
 import BordadoCards from './BordadoCard.vue'
 import DialogEsolheBordado from './DialogEsolheBordado.vue'
-import { onMounted } from 'vue'
 
 
 
@@ -32,6 +32,12 @@ export default defineComponent({
         BordadoNome,
         BordadoCards,
         DialogEsolheBordado
+    },
+    props:{
+        esquemaEscolhido:{
+            type: Object as ()=> IEsquemaProduto | null,
+            required: true
+        }
     },
     data() {
         return {
@@ -48,7 +54,7 @@ export default defineComponent({
         bordadosEscolhidos:{
             handler(){
                 if(this.oldbordadosEscolhidos != this.bordadosEscolhidos){
-                    console.log(this.bordadosEscolhidos)
+                    this.$emit('setBordados', this.bordadosEscolhidos, 'bordados')
                 }
             },
             deep:true
@@ -73,26 +79,12 @@ export default defineComponent({
         adicionaBordado(bordado: IBordado) {
             this.bordadosEscolhidos[(this.BordadoAscessado as string)] = bordado;
             (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
-        }
-    },
-    setup() {
-        const storeEsquema = useEsquemaProdutoStore()
-        let produtoEscolhido = ref({} as IEsquemaProduto)
-        onMounted(()=>{
-            produtoEscolhido.value = storeEsquema.getEsquema
-        })
-        watch(
-            () => storeEsquema.getEsquema,
-            () => {
-                produtoEscolhido.value = storeEsquema.getEsquema
-                console.log(produtoEscolhido.value )
-            }
-        )
-        return {
-            produtoEscolhido: produtoEscolhido,
-
+        },
+        setNome(nome:IBordadoNome){
+            this.bordadosEscolhidos.nome = nome
         }
     }
+   
 })
 </script>
 

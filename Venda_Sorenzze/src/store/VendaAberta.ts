@@ -1,16 +1,20 @@
 import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IProduto } from './../interfaces/Produto';
-import { IVenda} from '@/interfaces/Venda';
+import { IStatus, IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
-import http from "@/http"
 import { defineStore } from 'pinia'
 import { useVendaStore } from './Vendas';
 import { useProdutoAbertoStore } from './ProdutoAberto';
+import { usePessoasStore } from './Pessoas';
+import { useDate } from 'vuetify/lib/framework.mjs';
 
 
 export const useVendaAbertaStore = defineStore('VendaAberta', {
   state: () => ({
-    pessoas: [] as IPessoa[],
+    id: null as number|null,
+    data__de_registro: null as Date|null,
+    tipo: null as string|null,
+    status: null as IStatus|null,
     vendaAberta: {} as IVenda,
     pessoaVenda: {} as IPessoa,
     pessoaFoiEscolhida: false as boolean,
@@ -18,51 +22,51 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     produtoFoiEscolhido: false as boolean
   }),
   getters: {
+    getId: (state) => state.id,
     getVendas: (state) => state.vendaAberta,
-    getPessoas: (state) => state.pessoas,
     getpessoaVenda: (state) => state.pessoaVenda,
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
     getProdutos: (state) => state.produtos,
-    getProdutosLength: (state) => state.produtos.length
+    getProdutosLength: (state) => state.produtos.length,
+    getDataEmString():String{
+      const date = useDate()
+      const data_string = date.format(this.data__de_registro, "keyboardDate").split("/") as String[] || []
+      return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
+    },
   },
   actions:{
     async AbrirVenda(id?:number){
       if (id){
         console.log('vendacomId')
       }else{
-        await this.listPessoas()
+        const pessoas = usePessoasStore()
         const vendas = useVendaStore()
         const esquemas = useEsquemaProdutoStore()
-        this.vendaAberta.id = vendas.getVendaLength + 1
-        const produAberto = useProdutoAbertoStore()
-        produAberto.abrirProduto()
+        const produtoAberto = useProdutoAbertoStore()
+        await pessoas.listPessoas()
+        produtoAberto.abrirProduto()
         esquemas.listEsquemas()
-      }
-    },
-    async listPessoas(){
-      try {
-        const resposta = (await http.get('pessoas')).data as [IPessoa]
-        resposta.forEach((pessoa: IPessoa)=>{
-          pessoa.data_de_cadastro = new Date(pessoa.data_de_cadastro)
-          pessoa.nascimento = new Date(pessoa.nascimento)
-          this.pessoas.push(pessoa)
-      })} catch (error) {
-        return error
+        this.id = vendas.getVendaLength + 1 ,
+        this.data__de_registro = new Date()
       }
     },
     setPessoaVenda(pessoaNome:String){
       if(pessoaNome){
-        this.pessoas.forEach((pessoa:IPessoa)=> {
-          if (pessoa.nome == pessoaNome){
-            this.pessoaVenda = pessoa
-            this.pessoaFoiEscolhida = true
-          }
-        })
+        const pessoas = usePessoasStore()
+        this.pessoaVenda = pessoas.getPessoaPorNome(pessoaNome)
+        this.pessoaFoiEscolhida = true
       }else{
         this.pessoaVenda = {} as IPessoa
+        const esquemaStore = useEsquemaProdutoStore()
+        const produtoAberto = useProdutoAbertoStore()
+        esquemaStore.$reset()
+        produtoAberto.$reset()
+        produtoAberto.abrirProduto()
+        esquemaStore.listEsquemas()
         this.pessoaFoiEscolhida = false
       }
     },
+    
     setProduto(Produto:IProduto){
         this.produtos.push(Produto)
     }

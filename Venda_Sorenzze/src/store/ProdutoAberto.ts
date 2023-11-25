@@ -66,6 +66,9 @@ export const useProdutoAbertoStore = defineStore(
         this.$reset()
         this.abrirProduto()
         esquema.restartEsquemaEscolhido()
+      },
+      clearMedidas(){
+        this.medidas = {} as IMedidas
       }
     },
     getters: {

@@ -1,6 +1,6 @@
 <template>
   <v-card class="ma-1" >
-    <v-card-title class="text-center text-body-1 py-0 tituloCard">Cliente</v-card-title>
+    <v-card-title @click="console.log(storeVenda.$state)" class="text-center text-body-1 py-0 tituloCard">Cliente</v-card-title>
     <v-divider></v-divider>
     <v-card-text class="px-3 py-2 mx-0">
       <v-row>
@@ -20,10 +20,10 @@
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-text-field  hide-details variant="outlined" density="compact" label="Venda" readonly model-value="Nº001"></v-text-field>
+          <v-text-field  hide-details variant="outlined" density="compact" label="Venda" prefix="N.º"  readonly :model-value="id"></v-text-field>
         </v-col>
         <v-col>
-          <v-text-field  hide-details readonly variant="outlined" density="compact" label="Dt.Registro" :model-value=data_em_string()></v-text-field>
+          <v-text-field  hide-details readonly variant="outlined" density="compact" label="Dt.Registro" :model-value="data"></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
@@ -32,9 +32,9 @@
     
 <script lang="ts">
 import { IPessoa } from '@/interfaces/Pessoas'
+import { usePessoasStore } from '@/store/Pessoas'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
 import { defineComponent, onMounted, ref } from 'vue'
-import { useDate } from 'vuetify/lib/framework.mjs'
 
 
 export default defineComponent({
@@ -44,18 +44,20 @@ export default defineComponent({
   },
   data() {
     return {
-      data : new Date(), 
       pessoaEscolhida: "" as string
 
     }
   },
-  methods:{
-    data_em_string():String{
-      const date = useDate()
-      let data_string = date.format(this.data, "keyboardDate").split("/") as String[] || []
-      return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
-    
+  computed:{
+    data(){
+      console.log(this.storeVenda.getDataEmString)
+      return this.storeVenda.getDataEmString
     },
+    id(){
+      return JSON.stringify(this.storeVenda.id)
+    }
+  },
+  methods:{
     nomesPessoas(){
       let lista = [] as String[]
       this.pessoas.forEach(pessoa =>{
@@ -66,17 +68,17 @@ export default defineComponent({
   },
   watch:{
     pessoaEscolhida(){
-      console.log('oioi')
         this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
     }
   },
   setup() {
         const storeVenda = useVendaAbertaStore()
+        const storePessoas = usePessoasStore()
         const pessoas = ref([] as IPessoa[])
         onMounted(async () => {
           try{
           storeVenda.AbrirVenda()
-          pessoas.value = storeVenda.getPessoas
+          pessoas.value = storePessoas.getPessoas
           }catch(error){
             console.log(error)
           }   
@@ -84,6 +86,7 @@ export default defineComponent({
         return {
             storeVenda,
             pessoas,
+
         }
     }
   })

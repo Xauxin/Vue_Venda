@@ -6,6 +6,7 @@ export interface IBordadoNome{
     nome: string
     fonte: string
     cor: string
+    [key:string]: string
 }
 
 export interface IBordado {

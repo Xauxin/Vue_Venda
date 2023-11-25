@@ -26,9 +26,7 @@
 </template>
   
 <script lang="ts">
-import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
-import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 
 
@@ -89,16 +87,7 @@ export default defineComponent({
             this.tecido = ""
         }
     },
-    setup() {
-        const opcaoEscolhida = ref({} as IEsquemaProduto)
-        const store = useEsquemaProdutoStore()
-        const ProdutoAberto = useProdutoAbertoStore()
-        return {
-            store,
-            opcaoEscolhida,
-            ProdutoAberto,
-        }
-    }
+    
 })
 </script>
   

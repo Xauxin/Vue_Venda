@@ -9,13 +9,25 @@
                 </v-switch>
             </v-col>
             <v-col cols="8" v-if="comNome">
-                <v-text-field single-line variant="solo" :disabled="!comNome" rows="1" hide-details v-model="nomeEscolhido"
+                <v-text-field :prepend-inner-icon="comPrefixo ? 'cancel': ''" single-line variant="solo" @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1" hide-details v-model="objetoNome.nome"
                     class="text-center pa-0 ma-0 nomeBordado" :style="{ ...estiloNome, fontSize: '40px' }" density="compact"
                     clearable>
-                    <template v-slot:prepend-inner="props">
-                        <v-icon v-bind="props" @click="comDr = !comDr" :color="estiloDr">
-                            <p class="Dra">Dr(a).</p>
-                        </v-icon>
+                    <template v-slot:prepend>
+                        <v-menu v-model="menuPrefixo" :close-on-content-click="false" location="end">
+                        <template v-slot:activator="{ props }">
+                            <v-btn :disabled="!comNome" v-bind="props" class="custom-btn-style" density="compact" size="xsmall" text="Pref">
+                            </v-btn>
+                        </template>
+                        <v-card max-width="150">
+                            <v-card-text>
+                                <v-row>
+                                    <v-col cols="4" v-for="(item, index) in prefixos" :key="index">
+                                        <v-btn class="custom-btn-style" density="compact" @click.prevent="adicionaPrefixo($event.target)" size="xsmall" :text="item"></v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-card-text>
+                        </v-card>
+                    </v-menu>
                     </template>
 
                 </v-text-field>
@@ -31,12 +43,12 @@
                         <v-card min-width="150">
                             <v-list>
                                 <v-list-item>
-                                    <v-select class="mt-2" label="Fonte" :items="fontes" v-model="objetoNome.fonte" hide-details
-                                        density="compact" variant="outlined"></v-select>
+                                    <v-select class="mt-2" label="Fonte" :items="fontes" v-model="objetoNome.fonte"
+                                        hide-details density="compact" variant="outlined"></v-select>
                                 </v-list-item>
                                 <v-list-item>
-                                    <v-text-field class="mt-2" variant="outlined" label="Cor" v-model="objetoNome.cor" hide-details
-                                        density="compact">
+                                    <v-text-field class="mt-2" variant="outlined" label="Cor" v-model="objetoNome.cor"
+                                        hide-details density="compact">
                                     </v-text-field>
                                 </v-list-item>
                             </v-list>
@@ -51,7 +63,7 @@
 <script lang="ts">
 import { IBordadoNome } from '@/interfaces/Bordado';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
-import { defineComponent, onMounted, ref, watch } from 'vue'
+import { defineComponent, onMounted, ref} from 'vue'
 
 export default defineComponent({
     name: 'BordadoNome',
@@ -82,58 +94,64 @@ export default defineComponent({
     },
     data() {
         return {
-            objetoNome: {
-                nome: this.nomeEscolhido,
-                fonte: '' as string,
-                cor: '' as string
-            } as unknown as IBordadoNome,
             comNome: false as boolean,
-            comDr: false as boolean,
+            comPrefixo: false as boolean,
+            indexPrefixo: 0 as number,
             estiloDr: "Grey" as string,
             fontWeight: "400" as string,
             fontSize: '40px' as string,
             menu: false as boolean,
+            menuPrefixo: false as boolean,
+            prefixos : [
+                'Dr(a)',
+                'Prof(a)',
+                'Tec.',
+                'Enf.',
+            ]
         }
     },
     watch: {
-        comDr() {
-            if (this.comDr) {
-                this.estiloDr = '#000000'
-                console.log(this.nomeEscolhido)
-            } else {
-                this.estiloDr = "#EEEEEE"
-
-            }
-        },
         comNome() {
             if (this.comNome) {
-                this.$emit(
-                    'setNomeBordado',
-                    {
-
-                    }
-                )
+                console.log('oi')
             }
+        },
+        objetoNome:{
+            handler(){
+                    this.$emit('setNomeBordado', this.objetoNome)
+            },
+            deep:true
         }
     },
     setup() {
         const VendaAbertastore = useVendaAbertaStore()
-        const NomepessoaVenda = ref("" as String)
-        const nomeEscolhido = ref("" as String)
+        const objetoNome = ref({
+                nome: "" as String,
+                fonte: 'MonoType' as string,
+                cor: 'Preto' as string
+            } as unknown as IBordadoNome,)
         onMounted(() => {
-            NomepessoaVenda.value = VendaAbertastore.getpessoaVenda.nome
-            nomeEscolhido.value = NomepessoaVenda.value
+            objetoNome.value.nome = VendaAbertastore.getpessoaVenda.nome.toString()
         })
-        watch(
-            () => VendaAbertastore.getpessoaVenda,
-            () => {
-                NomepessoaVenda.value = VendaAbertastore.getpessoaVenda.nome
-                nomeEscolhido.value = NomepessoaVenda.value
-            }
-        )
         return {
-            NomepessoaVenda,
-            nomeEscolhido
+            objetoNome
+        }
+    },
+    methods:{
+        adicionaPrefixo(target:HTMLElement){
+        if (this.comPrefixo){
+            this.objetoNome.nome = this.objetoNome.nome.slice(this.indexPrefixo)
+        }
+        const prefixo = target.textContent
+        this.indexPrefixo = prefixo? prefixo.length : 0;
+        this.objetoNome.nome = `${prefixo}${this.objetoNome.nome ? this.objetoNome.nome : ""}`
+        this.comPrefixo = true
+        this.menuPrefixo = false
+        
+        },
+        tiraPrefixo(){
+            this.objetoNome.nome = this.objetoNome.nome.slice(this.indexPrefixo)
+            this.comPrefixo = false
         }
     }
 })
@@ -152,10 +170,30 @@ export default defineComponent({
     word-break: keep-all;
 }
 
-.Dra {
-    font-size: 14px;
-    font-weight: bold;
-    font-style: none;
+
+.custom-btn-style {
+  font-family: 'Roboto', sans-serif;
+  font-size: 8px; /* Tamanho de fonte menor para um botão pequeno */
+  font-weight: 500;
+  text-transform: none;
+  white-space: nowrap;
+  line-height: 1.5;
+  letter-spacing: 0.00938em;
+  background-color: #1976d2;
+  color: #ffffff;
+  border-radius: 4px;
+  padding: 3px 6px; /* Ajuste o padding conforme necessário para um botão pequeno */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
+
+.custom-btn-style:hover {
+  background-color: #1565c0;
+}
+
+.custom-btn-style:active {
+  background-color: #0d47a1;
+}
+
 </style>
 

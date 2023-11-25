@@ -6,7 +6,7 @@ export interface IVenda {
     id : Number
     Pessoa: IPessoa
     Tipo: String
-    Fase: IStatus
+    status: IStatus
     Registro: Date
     Produtos: [IProduto]
     Valores: [IValores]
