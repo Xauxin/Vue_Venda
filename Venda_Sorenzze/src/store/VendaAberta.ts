@@ -3,7 +3,7 @@ import { IProduto } from './../interfaces/Produto';
 import { IStatus, IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import { defineStore } from 'pinia'
-import { useVendaStore } from './Vendas';
+import { useVendasStore } from './Vendas';
 import { useProdutoAbertoStore } from './ProdutoAberto';
 import { usePessoasStore } from './Pessoas';
 import { useDate } from 'vuetify/lib/framework.mjs';
@@ -40,7 +40,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         console.log('vendacomId')
       }else{
         const pessoas = usePessoasStore()
-        const vendas = useVendaStore()
+        const vendas = useVendasStore()
         const esquemas = useEsquemaProdutoStore()
         const produtoAberto = useProdutoAbertoStore()
         await pessoas.listPessoas()

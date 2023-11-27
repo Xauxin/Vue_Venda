@@ -9,7 +9,7 @@ export interface IVenda {
     status: IStatus
     Registro: Date
     Produtos: [IProduto]
-    Valores: [IValores]
+    Valores: IValores
     Adiantamentos: [IAdiantamentos]
 }
 
@@ -19,5 +19,16 @@ export interface IStatus{
     ordem: number
 }
 
-export interface IValores{}
-export interface IAdiantamentos{}
+export interface IValores{
+    valores_produtos: number,
+    valor_frete: number,
+    desconto: {
+        tipo: 'string',
+        valor: number,
+    }
+}
+export interface IAdiantamentos{
+    valor_pago : number,
+    data: Date,
+    tipo: string
+}

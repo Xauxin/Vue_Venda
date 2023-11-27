@@ -14,7 +14,6 @@
                 :headers="tableHeaders"
                 class="mr-4"
                 height="fit-content" 
-               
                 >
                 <template v-slot:expanded-row="{ columns, item }">
                     <tr>

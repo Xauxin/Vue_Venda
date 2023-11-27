@@ -532,19 +532,19 @@
       "modelagem": {
         "Trava": {
           "opcoes":{
-            "presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15
+            "Presa":0, "3tiras": 0, "4Tiras": 5, "Básica": 0, "Presa com Laço": 15
           },
           "required":true
         },
         "Gola": {
           "opcoes":{
-           "padre": 10, "Blaser": 0, "Smoking": 20
+           "Padre": 10, "Blaser": 0, "Smoking": 20
           },
           "required":true
         },
         "Manga": {
           "opcoes":{
-           "curta": -10, "cavada": -15, "franzida": 20, "Longa Basica": 0
+           "Curta": -10, "Cavada": -15, "Franzida": 20, "Longa Basica": 0
           },
           "required":true
         },
@@ -688,6 +688,85 @@
       "mais_medidas": ["de Cava ao Recorte", "De cava a Barra", "no Tecido das Costas"],
       "locais_de_bordado":["Manga Esquerda", "Manga Diereita", "Outro"],
       "valor": 155
+    }
+  ],
+  "Vendas":[
+    {
+      "id":1,
+      "PessoaId": 1,
+      "Tipo": "Venda",
+      "Status": {
+        "id": 3,
+        "opraoes": [],
+        "ordem": 5
+      },
+      "Registro": "27/10/2010",
+      "Produtos":[
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "50",
+          "tecido": "Gabardine",
+          "modelagem": {
+              "Trava": "Presa",
+              "Gola": "Padre",
+              "Manga": "Longa Basica",
+              "Punho": "Basico"
+          },
+          "medidas": {},
+          "bordados": {
+              "nome": {
+                  "nome": "Dalton Soriani Alves",
+                  "fonte": "MonoType",
+                  "cor": "Preto"
+              }
+          },
+          "valor": 0,
+          "quantidade": 1,
+          "em_espera": false,
+          "preco": "190"
+      },
+      {
+        "id": 2,
+        "nome": "Blusa Cirúgica Masculina",
+        "cor": "Preto",
+        "tamanho": "38",
+        "tecido": "Ibiza",
+        "modelagem": {
+            "Bolso Superior": "Com",
+            "Manga": "Longa",
+            "Gola": "Em V"
+        },
+        "medidas": {},
+        "bordados": {
+            "nome": {
+                "nome": "Dalton Soriani Alves",
+                "fonte": "MonoType",
+                "cor": "Preto"
+            }
+        },
+        "valor": 0,
+        "quantidade": 1,
+        "em_espera": false,
+        "preco": "150"
+    }
+    ],
+    "valores": {
+      "valores_produtos": 340,
+      "valor_frete": 0,
+      "desconto":{
+        "tipo": "",
+        "valor": 0
+      }
+    },
+    "adiantamentos":{
+      "valor_pago": 340,
+      "data": "27/10/2010",
+      "tipo" : "dinheiro"
+    }
+
+      
     }
   ]
 }

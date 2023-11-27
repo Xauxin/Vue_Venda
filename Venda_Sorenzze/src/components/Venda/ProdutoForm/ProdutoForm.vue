@@ -53,7 +53,6 @@ import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos';
 import { IBordados } from '@/interfaces/Bordado';
 import { IModelagem, IMedidas } from '@/interfaces/Produto';
 
-
 export default defineComponent({
     name: 'ProdutoForm',
     components: {

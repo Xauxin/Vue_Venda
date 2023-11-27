@@ -28,6 +28,16 @@ export const usePessoasStore = defineStore("Pessoas", {
         });
         return pessoaAchada
       },
+    getNomePorId(id:number):string{
+      console.log(id)
+      let nomeAchado = "" as string
+      this.pessoas.forEach((pessoa: IPessoa) => {
+        if (pessoa.id == id) {
+          nomeAchado = pessoa.nome
+        }
+      })
+      return nomeAchado
+    }
   },
   getters: {
     getPessoas: (state) => state.pessoas,

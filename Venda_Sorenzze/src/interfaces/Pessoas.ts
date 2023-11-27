@@ -1,6 +1,6 @@
 export interface IPessoa{
     id : Number
-    nome : String
+    nome : string
     especialidade : String
     telefone : String
     cpf_cnpj : String
