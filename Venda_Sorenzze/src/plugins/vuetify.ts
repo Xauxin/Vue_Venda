@@ -1,3 +1,4 @@
+
 /**
  * plugins/vuetify.ts
  *
@@ -20,6 +21,7 @@ export default createVuetify({
     sets:{
       md
     }
+
   },
   theme: {
     themes: {

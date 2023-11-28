@@ -8,9 +8,9 @@ export interface IVenda {
     Tipo: String
     status: IStatus
     Registro: Date
-    Produtos: [IProduto]
+    Produtos: IProduto[]
     valores: IValores
-    Adiantamentos: [IAdiantamentos]
+    adiantamentos: IAdiantamento[]
 }
 
 export interface IStatus{
@@ -27,7 +27,7 @@ export interface IValores{
         valor: number,
     }
 }
-export interface IAdiantamentos{
+export interface IAdiantamento{
     valor_pago : number,
     data: Date,
     tipo: string

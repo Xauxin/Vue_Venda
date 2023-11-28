@@ -111,14 +111,11 @@ export default defineComponent({
         }
     },
     watch: {
-        comNome() {
-            if (this.comNome) {
-                console.log('oi')
-            }
-        },
         objetoNome:{
             handler(){
+                if (this.comNome){
                     this.$emit('setNomeBordado', this.objetoNome)
+                }
             },
             deep:true
         }

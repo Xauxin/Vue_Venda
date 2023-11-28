@@ -7,7 +7,7 @@
         </v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions class="py-0">
-            <v-btn color="success" variant="flat">Salvar Venda</v-btn>
+            <v-btn color="success" @click.prevent="console.log(vendaAberta.$state)" variant="flat">Salvar Venda</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -36,7 +36,7 @@ export default defineComponent({
         }
     },
     setup(){
-        const vendaAberta = useVendaAbertaStore()
+        const vendaAberta = useVendaAbertaStore() as any
         const produtos = ref([] as IProduto[])
         watch(
             () => vendaAberta.getProdutos,
@@ -46,6 +46,7 @@ export default defineComponent({
             {deep:true}
         )
         return{
+            vendaAberta,
             produtos
         }
     }

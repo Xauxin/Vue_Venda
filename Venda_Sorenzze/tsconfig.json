@@ -28,6 +28,7 @@
     "src/**/*.vue",
     "src/interfaces/Interfaces",
     "src/store/*.ts",
+    "src/assets/CustomIcons/*.vue",
     "vite.config.ts"
   ]
 }
