@@ -9,7 +9,7 @@ export interface IVenda {
     status: IStatus
     Registro: Date
     Produtos: [IProduto]
-    Valores: IValores
+    valores: IValores
     Adiantamentos: [IAdiantamentos]
 }
 

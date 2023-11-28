@@ -66,7 +66,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         this.pessoaFoiEscolhida = false
       }
     },
-    
+
     setProduto(Produto:IProduto){
         this.produtos.push(Produto)
     }
