@@ -17,7 +17,7 @@
                             <v-text-field hide-details label="Data" density="compact" variant="outlined"></v-text-field>
                         </v-col>
                         <v-col cols='1' offset="3">
-                            <v-btn to="/Venda">Nova Venda</v-btn>
+                            <v-btn @click="AbreNovaVenda" to="/Venda">Nova Venda</v-btn>
                         </v-col>
                     </v-row>
 
@@ -63,14 +63,14 @@
                                         <template #title>
                                             <p class='text-center'><v-btn variant="plain" :ripple="false"
                                                     @click.prevent="maisInfoValores = !maisInfoValores">
-                                                    <v-icon v-if="!maisInfoValores">expand_more</v-icon>
+                                                    <v-icon >expand_more</v-icon>
                                                 </v-btn></p>
                                         </template>
-                                        <template #append v-if="!maisInfoValores">
-                                            <div>R${{ item.valores.valor_total.toFixed(2) }}</div>
+                                        <template #prepend v-if="item.valores.frete.valor || item.valores.desconto.valor">
+                                                <v-icon icon="error"></v-icon>
                                         </template>
-                                        <template #prepend v-if="item.valores.frete.valor | item.valores.desconto.valor">
-                                            <v-icon>Error</v-icon>
+                                        <template #append>
+                                            <div>R${{ item.valores.valor_total.toFixed(2) }}</div>
                                         </template>
                                     </v-list-item>
                                     <v-list-item v-else>
@@ -228,14 +228,11 @@
         <template v-slot:item.id="{ value }">
             <p class="text-center">{{ value }}</p>
         </template>
-        <template v-slot:header.PessoaId="{ }">
+        <template v-slot:header.pessoaId="{ }">
             <p class="text-center">Pessoa</p>
         </template>
-        <template v-slot:item.PessoaId="{ value }">
+        <template v-slot:item.pessoaId="{ value }">
             <p class="text-center">{{ idPorNome(value) }}</p>
-        </template>
-        <template v-slot:item.Status="{ }">
-            Entregue
         </template>
         <template v-slot:item.valores="{ value }">
             {{ value.valor_total.toFixed(2) }}
@@ -270,10 +267,10 @@ export default defineComponent({
             expanded: [],
             tableHeaders: [
                 { title: '#Nº', align: 'start', sortable: false, key: 'id' },
-                { title: 'Pessoa', align: 'start', sortable: false, key: 'PessoaId' },
-                { title: 'Tipo', align: 'center', sortable: false, key: 'Tipo' },
-                { title: 'Status', align: 'center', sortable: false, key: 'Status' },
-                { title: 'Data de Registro', align: 'center', sortable: false, key: 'Registro' },
+                { title: 'Pessoa', align: 'start', sortable: false, key: 'pessoaId' },
+                { title: 'Tipo', align: 'center', sortable: false, key: 'tipo' },
+                { title: 'Status', align: 'center', sortable: false, key: 'status' },
+                { title: 'Data de Registro', align: 'center', sortable: false, key: 'data_de_registro' },
                 { title: 'Valores', align: 'end', sortable: false, key: 'valores' },
                 { title: 'Adiantamentos', align: 'end', sortable: false, key: 'adiantamentos' },
                 { title: '', key: 'data-table-expand', align: 'end', sortable: false },
@@ -305,6 +302,9 @@ export default defineComponent({
             const listDiaMesAno = dataEmString.split('/')
             const diaEMesdeData = `${listDiaMesAno[0]}/${listDiaMesAno[1]}`
             return diaEMesdeData
+        },
+        AbreNovaVenda(){
+            console.log('oioi')
         }
     },
     setup() {

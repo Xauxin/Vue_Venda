@@ -1,6 +1,6 @@
 import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IProduto } from './../interfaces/Produto';
-import { IStatus, ITipoValor, IValores} from '@/interfaces/Venda';
+import { IStatus, ITipoValor, IValores, IVenda} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import { defineStore } from 'pinia'
 import { useVendasStore } from './Vendas';
@@ -19,15 +19,17 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     pessoaFoiEscolhida: false as boolean,
     produtos: [] as IProduto[],
     produtoFoiEscolhido: false as boolean,
-    valores: {valores_produtos:0} as IValores
+    valores: {valores_produtos:0, valor_total:0} as IValores
   }),
   getters: {
     getId: (state) => state.id,
     getTipoVenda: (state) => state.tipo,
     getpessoaVenda: (state) => state.pessoaVenda,
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
+    getprodutoFoiEscolhido: (state) => state.produtoFoiEscolhido,
     getProdutos: (state) => state.produtos,
     getProdutosLength: (state) => state.produtos.length,
+    getTotalVenda: (state) => state.valores.valor_total,
     getDataEmString():String{
       const date = useDate()
       const data_string = date.format(this.data__de_registro, "keyboardDate").split("/") as String[] || []
@@ -36,6 +38,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
   },
   actions:{
     async AbrirVenda(id?:number){
+      console.log('abriu venda')
       if (id){
         console.log('vendacomId')
       }else{
@@ -46,6 +49,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         await pessoas.listPessoas()
         produtoAberto.abrirProduto()
         esquemas.listEsquemas()
+        await vendas.listVendas()
         this.id = vendas.getVendaLength + 1 ,
         this.data__de_registro = new Date()
       }
@@ -72,18 +76,21 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     setProduto(Produto:IProduto){
       Object.entries(Produto).forEach((dado:[string,any])=>{
         const [key,value] = dado
-        console.log(key,value)
         if(key == 'valor' && value){
           this.valores.valores_produtos = this.valores.valores_produtos + value
         }
       })
         this.produtos.push(Produto)
         this.calculaTotal()
+        if (this.produtos.length > 0){
+          this.produtoFoiEscolhido = true
+        }
     },
     setValoresFreteDesconto(valores:IValores){
       Object.entries(valores).forEach((valor:[string,number|ITipoValor])=>{
         const [key, value] = valor
-        this.valores[key] = parseInt(value)
+        if (typeof value === 'object')
+        this.valores[key] = {valor: value.valor, tipo: value.tipo}
       })
       this.calculaTotal()
     },
@@ -91,7 +98,6 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       let total = 0 as number
       Object.entries(this.valores).forEach((valor:[string,number|ITipoValor])=>{
         const [key, value] = valor
-        console.log(key,value)
         if (key == 'valores_produtos'){
           total = total + (value as number)
         } else if (key == 'frete'  && typeof value === 'object'){
@@ -109,6 +115,33 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       })
       console.log(total)
       this.valores.valor_total = total
+    },
+    salvaVenda(){
+      const venda = {} as IVenda
+      Object.entries(this.$state).forEach((dado:[string, any ]) =>{
+        let [key, value] = dado
+        if(key != 'pessoaFoiEscolhida' && key != 'produtoFoiEscolhido'){
+          if(key == 'pessoaVenda'){
+            key = 'pessoaId'
+            value = value.id
+          }else if(key == 'data_de_registro'){
+            value == this.getDataEmString
+          }else if (key == 'valores'){
+            if (!value.frete){
+              value.frete = {tipo: "", valor: 0}
+            }
+            if (!value.desconto){
+              value.desconto = {tipo: "", valor: 0}
+            }
+          }
+          (venda as any)[key]= value;
+        }
+      })
+      venda.status = 'Aguardando Pagamento'
+      const vendas = useVendasStore()
+      vendas.createVenda(venda)
+      this.$reset()
+      vendas.listVendas()
     }
   }
 })

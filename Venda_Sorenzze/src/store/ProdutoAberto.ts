@@ -28,6 +28,7 @@ export const useProdutoAbertoStore = defineStore(
     }),
     actions: {
       abrirProduto(produto?:IProduto){
+        console.log('abriu produtos')
         if(produto){
           Object.entries(produto).forEach((dado:[string, any ]) =>{
             (this.$state as any)[dado[0]]= dado[1];

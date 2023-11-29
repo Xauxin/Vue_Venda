@@ -69,6 +69,7 @@ export default defineComponent({
             }
         },
         adicionarProduto(){
+            console.log(this.valorProduto)
             this.produtoAbertoStore.setter('valor', this.valorProduto)
             this.produtoAbertoStore.setter('quantidade', this.quantidadeProduto)
             this.produtoAbertoStore.salvaProduto()
@@ -91,7 +92,6 @@ export default defineComponent({
         watch(
             ([()=> produtoAbertoStore.getBaseFoiEscolhida, ()=> produtoAbertoStore.getModelagemFoiEscolhida]),([newBase, newModelagem]) => {
                 if (newBase && newModelagem) {
-                    console.log('escolhasValidas')
                     escolhasValidas.value = true
                 }else{
                     escolhasValidas.value = false

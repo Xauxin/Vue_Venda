@@ -3,9 +3,6 @@ import { IVenda } from '@/interfaces/Venda';
 import http from '@/http';
 
 
-
-
-
 export const useVendasStore = defineStore(
   'Vendas',
   {
@@ -14,6 +11,9 @@ export const useVendasStore = defineStore(
     }),
     actions: {
       async listVendas(){
+        if (this.vendas.length > 0){
+          this.vendas = []
+        }
         try {
           const resposta = (await http.get("vendas")).data as IVenda[];
           resposta.forEach((venda: IVenda) => {
@@ -22,6 +22,10 @@ export const useVendasStore = defineStore(
         } catch (error) {
           return error;
         }
+      },
+      async createVenda(venda:IVenda){
+        console.log(venda)
+        await http.post('vendas', venda)
       }
     },
     getters:{

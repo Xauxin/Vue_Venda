@@ -710,17 +710,13 @@
       "valor": 155
     }
   ],
-  "Vendas": [
+  "vendas": [
     {
       "id": 1,
-      "PessoaId": 1,
-      "Tipo": "Pedido",
-      "Status": {
-        "id": 3,
-        "opraoes": [],
-        "ordem": 5
-      },
-      "Registro": "27/10/2010",
+      "pessoaId": 1,
+      "tipo": "Pedido",
+      "status": "Entregue",
+      "data_de_registro": "27/10/2010",
       "Produtos": [
         {
           "id": 1,
@@ -773,18 +769,88 @@
       "valores": {
         "valores_produtos": 340,
         "frete": {
-          "tipo":"Entrega",
-          "valor":27.70
+          "tipo": "Entrega",
+          "valor": 0
         },
         "desconto": {
           "tipo": "Porcentagem",
           "valor": 0
         },
-        "valor_total": 367.7
+        "valor_total": 340
       },
-      "adiantamentos": [
-        
-      ]
+      "adiantamentos": []
+    },
+    {
+      "id": 2,
+      "data__de_registro": "29/11/2023",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 2,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190
+      }
+    },
+    {
+      "id": 3,
+      "data__de_registro": "2023-11-29T15:09:14.820Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "pessoaFoiEscolhida": true,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Gola": "Smoking",
+            "Trava": "Básica",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "produtoFoiEscolhido": true,
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
     }
   ]
 }

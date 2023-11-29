@@ -38,7 +38,10 @@ export default defineComponent({
             return val1 * val2 as number
         },
         salvarVenda(){
-            console.log(this.vendaAberta.$state)
+            console.log(this.vendaValida)
+            if (this.vendaValida){
+                this.vendaAberta.salvaVenda()
+            }
         },
         atualizaValores(objeto:ITipoValor){
             if (objeto.tipo == 'Porcentagem' || objeto.tipo == 'Valor'){
@@ -51,15 +54,15 @@ export default defineComponent({
     watch:{
         valores:{
             handler(){
-                console.log(this.valores)
                 this.vendaAberta.setValoresFreteDesconto(this.valores)
             },
             deep:true
         }
     },
     setup(){
-        const vendaAberta = useVendaAbertaStore() as any
+        const vendaAberta = useVendaAbertaStore()
         const produtos = ref([] as IProduto[])
+        const vendaValida = ref(false as boolean)
         watch(
             () => vendaAberta.getProdutos,
             () =>{
@@ -67,8 +70,19 @@ export default defineComponent({
             },
             {deep:true}
         )
+        watch(
+            ([()=> vendaAberta.getpessoaFoiEscolhida, ()=> vendaAberta.getprodutoFoiEscolhido]),([newpessoa, newproduto]) => {
+                console.log('pess',newpessoa,'prdo' ,newproduto)
+                if (newpessoa && newproduto) {
+                    vendaValida.value = true
+                }else{
+                    vendaValida.value = false
+                }
+            },
+            {deep: true})
         return{
             vendaAberta,
+            vendaValida,
             produtos
         }
     }

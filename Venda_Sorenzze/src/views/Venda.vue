@@ -1,5 +1,5 @@
 <template>
-  <v-row no-gutters>
+  <v-row no-gutters height="100%">
     <v-col cols="7" class="ma-0 pa-0">
       <v-row class="ma-0 pa-0">
         <v-col class="ma-0 pa-0">
@@ -12,7 +12,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="5" class="ma-0 pa-0">
+    <v-col cols="5" class="ma-0 pa-0" height="100%">
           <ResumoVenda></ResumoVenda>
     </v-col>
   </v-row>

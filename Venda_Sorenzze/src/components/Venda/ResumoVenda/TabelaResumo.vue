@@ -28,14 +28,15 @@
                 <template v-slot:item.tamanho="{value}" >
                     <p class="text-center">{{ value }}</p>
                 </template>
-                <template v-slot:item.preco="{value}" >
-                    <p class="text-center">{{ parseFloat(value).toFixed(2) }}</p>
+
+                <template v-slot:item.valor="{value}" >
+                    <p >{{ parseFloat(value).toFixed(2) }}</p>
                 </template>
                 <template v-slot:item.quantidade="{value}" >
                     <p class="text-center">{{ value }}</p>
                 </template>
                 <template v-slot:item.total="{ item }">
-                    <p class="text-center">{{ item ? (item.preco as number) * item.quantidade : "" }}</p>
+                    <p class="text-center">{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</p>
                 </template>
                 <template v-slot:item.opcoes>
                     <v-row >
@@ -53,8 +54,8 @@
                                         <template v-slot:activator="{ props }">
                                             <v-btn v-bind="props" density="compact"
                                                 :color="valorFrete && switchFrete == 'Com' ? 'green' : ''" size="large">
-                                                {{ valorFrete && switchFrete == 'Com' ?
-                                                    `R$${parseFloat(valorFrete).toFixed(2)}` : "Frete" }}
+                                                {{ valorFrete > 0 && switchFrete == 'Com' ?
+                                                    `R$${valorFrete.toFixed(2)}` : "Frete" }}
                                             </v-btn>
                                         </template>
                                         <v-card>
@@ -73,16 +74,16 @@
                                                         </v-select>
                                                     </v-list-item>
                                                     <v-list-item>
-                                                        <v-text-field v-model="valorFrete" density="compact"
-                                                            :disabled="!funcaoSwitchFrete || !tipoFrete" prefix="R$"
-                                                            variant="outlined" auto-select-first hide-details>
+                                                        <v-text-field @input="setValorStringEmNumeroNaVariavel($event.target.value, 'frete')" prefix="R$" density="compact"
+                                                            :disabled="!funcaoSwitchFrete || !tipoFrete" 
+                                                            variant="outlined"  hide-details>
                                                         </v-text-field>
                                                     </v-list-item>
                                                 </v-list>
                                             </v-card-text>
                                             <v-card-actions class="px-3 py-0 ma-0">
                                                 <v-btn variant="flat" @click.prevent="salvaFrete"
-                                                    :disabled="!funcaoSwitchFrete || valorFrete == ''" color="success"
+                                                    :disabled="!funcaoSwitchFrete || valorFrete == 0" color="success"
                                                     density="compact" size="small">Salvar
                                                 </v-btn>
                                                 <v-spacer></v-spacer>
@@ -111,15 +112,16 @@
                                                         </v-switch>
                                                     </v-list-item>
                                                     <v-list-item>
-                                                        <v-text-field v-model="valorDesconto" density="compact"
-                                                            :prefix="switchDesconto == 'Valor' ? 'R$' : '%'"
-                                                            variant="outlined" auto-select-first hide-details>
+                                                        <v-text-field @input="setValorStringEmNumeroNaVariavel($event.target.value, 'desconto')" :prefix="switchDesconto == 'Valor' ? 'R$' : '%'" density="compact"
+                                                            
+                                                            variant="outlined"  hide-details>
                                                         </v-text-field>
+                                                        
                                                     </v-list-item>
                                                 </v-list>
                                             </v-card-text>
                                             <v-card-actions class="px-3 py-0 ma-0">
-                                                <v-btn :disabled="!valorDesconto" @click.prevent="salvaDesconto"
+                                                <v-btn :disabled="valorDesconto == 0" @click.prevent="salvaDesconto"
                                                     variant="flat" color="success" density="compact"
                                                     size="small">Salvar</v-btn>
                                                 <v-spacer></v-spacer>
@@ -130,7 +132,7 @@
                                     </v-menu>
                                 </td>
                                 <td>
-                                    {{ calculaTotal }}
+                                    {{ vendaAberta.getTotalVenda.toFixed(2) }}
                                 </td>
                             </tr>
                         </tbody>
@@ -155,17 +157,17 @@ export default defineComponent({
             tipoFrete: "" as string,
             menuFrete: false as boolean,
             switchFrete: "Sem" as string,
-            valorFrete: "" as string,
+            valorFrete: 0 as number,
             menuDesconto: false as boolean,
             switchDesconto: "Valor" as string,
-            valorDesconto: "" as string,
+            valorDesconto: 0 as number,
             items: ['Correios', 'Entrega'] as String[],
             expanded: [],
             tableHeaders: [
                 { title: 'Produto', align: 'start', sortable: false, key: 'nome' },
-                { title: 'Tmn', key: 'tamanho', sortable: false },
-                { title: 'R$(UN)', key: 'valor'},
-                { title: 'Qtd', key: 'quantidade', sortable: false },
+                { title: 'Tmn', key: 'tamanho',align: 'center', sortable: false },
+                { title: 'R$(UN)', key: 'valor',align: 'end'},
+                { title: 'Qtd', key: 'quantidade', sortable: false,align: 'center' },
                 { title: 'Total', key: 'total', sortable: false },
                 { title: 'Opções', key: 'opcoes', sortable: false },
                 { title: '', key: 'data-table-expand', align: 'end', sortable: false },
@@ -186,24 +188,24 @@ export default defineComponent({
                 totalVenda = totalVenda + ((produto.valor as number) * produto.quantidade)
             })
             if (this.switchFrete == 'Com' && this.valorFrete) {
-                totalVenda = totalVenda + parseInt(this.valorFrete)
+                totalVenda = totalVenda + this.valorFrete
             }
             if (this.switchDesconto == 'Porcentagem' && this.valorDesconto){
-                const porcentagem = parseFloat(this.valorDesconto.length == 1 ? `0.0${this.valorDesconto}` : `0.${this.valorDesconto}`)
+                const porcentagem = parseFloat(JSON.stringify(this.valorDesconto).length == 1 ? `0.0${this.valorDesconto}` : `0.${this.valorDesconto}`)
                 console.log(porcentagem)
                 if (porcentagem != 100){
                     totalVenda = totalVenda - ( totalVenda * porcentagem)          
                 }
             } else if (this.switchDesconto == 'Valor' && this.valorDesconto){
-                totalVenda = totalVenda - parseInt(this.valorDesconto)
+                totalVenda = totalVenda - this.valorDesconto
             }
             return totalVenda
         },
         labelBotaoDesconto() {
-            if (this.valorDesconto && this.switchDesconto == 'Porcentagem') {
+            if (this.valorDesconto != 0 && this.switchDesconto == 'Porcentagem') {
                 return `Desc. ${this.valorDesconto}%`
-            } else if (this.valorDesconto && this.switchDesconto == 'Valor') {
-                return `Desc. R$${parseFloat(this.valorDesconto).toFixed(2)}`
+            } else if (this.valorDesconto != 0 && this.switchDesconto == 'Valor') {
+                return `Desc. R$${this.valorDesconto.toFixed(2)}`
             } else {
                 return 'Desconto'
             }
@@ -216,13 +218,21 @@ export default defineComponent({
         },
         cancelaFrete() {
             this.tipoFrete = ""
-            this.valorFrete = ""
+            this.valorFrete = 0
             this.switchFrete = "Sem"
             this.menuFrete = false
+            this.$emit('salvaFrete', {
+                valor : this.valorFrete,
+                tipo: this.switchFrete
+            })
         },
         cancelaDesconto() {
-            this.valorDesconto = ""
+            this.valorDesconto = 0
             this.menuDesconto = false
+            this.$emit('salvaDesconto', {
+                valor : this.valorDesconto,
+                tipo: this.switchDesconto
+            })
         },
         salvaFrete(){
             this.menuFrete = false
@@ -237,9 +247,17 @@ export default defineComponent({
                 valor : this.valorDesconto,
                 tipo: this.switchDesconto
             })
+        },
+        setValorStringEmNumeroNaVariavel(texto:string, contexto:string){
+            if(contexto == 'frete'){
+                this.valorFrete = parseFloat(texto)
+            }else if (contexto == 'desconto'){
+                console.log(texto)
+                this.valorDesconto = parseFloat(texto)
+                console.log(this.valorDesconto)
+            }
         }
     },
-
     setup() {
         const vendaAberta = useVendaAbertaStore()
         const produtos = ref([] as IProduto[])
@@ -251,6 +269,7 @@ export default defineComponent({
             { deep: true }
         )
         return {
+            vendaAberta,
             produtos
         }
     }
