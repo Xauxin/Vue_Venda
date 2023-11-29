@@ -12,7 +12,7 @@ import { useDate } from 'vuetify/lib/framework.mjs';
 export const useVendaAbertaStore = defineStore('VendaAberta', {
   state: () => ({
     id: null as number|null,
-    data__de_registro: null as Date|null,
+    data_de_registro: null as Date|null|string,
     tipo: "Pedido" as string,
     status: null as IStatus|null,
     pessoaVenda: {} as IPessoa,
@@ -32,7 +32,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     getTotalVenda: (state) => state.valores.valor_total,
     getDataEmString():String{
       const date = useDate()
-      const data_string = date.format(this.data__de_registro, "keyboardDate").split("/") as String[] || []
+      const data_string = date.format(this.data_de_registro, "keyboardDate").split("/") as String[] || []
       return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
     },
   },
@@ -51,7 +51,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         esquemas.listEsquemas()
         await vendas.listVendas()
         this.id = vendas.getVendaLength + 1 ,
-        this.data__de_registro = new Date()
+        this.data_de_registro = new Date()
       }
     },
     setPessoaVenda(pessoaNome:String){
@@ -141,7 +141,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       const vendas = useVendasStore()
       vendas.createVenda(venda)
       this.$reset()
-      vendas.listVendas()
+      vendas.limpaVendas()
     }
   }
 })

@@ -10,7 +10,7 @@
         </v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions class="py-0">
-            <v-btn color="success" @click.prevent="salvarVenda" variant="flat">Salvar Venda</v-btn>
+            <v-btn color="success" :disabled="!vendaValida" @click.prevent="salvarVenda" to="/vendas" variant="flat">Salvar Venda</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -42,6 +42,7 @@ export default defineComponent({
             if (this.vendaValida){
                 this.vendaAberta.salvaVenda()
             }
+            
         },
         atualizaValores(objeto:ITipoValor){
             if (objeto.tipo == 'Porcentagem' || objeto.tipo == 'Valor'){

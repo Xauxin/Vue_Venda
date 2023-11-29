@@ -7,8 +7,8 @@ export interface IVenda {
     Pessoa: IPessoa
     Tipo: String
     status: string
-    Registro: Date
-    Produtos: IProduto[]
+    data_de_registro: Date|string
+    produtos: IProduto[]
     valores: IValores
     adiantamentos: IAdiantamento[]
 }

@@ -713,79 +713,10 @@
   "vendas": [
     {
       "id": 1,
-      "pessoaId": 1,
-      "tipo": "Pedido",
-      "status": "Entregue",
-      "data_de_registro": "27/10/2010",
-      "Produtos": [
-        {
-          "id": 1,
-          "nome": "Jaleco Masculino",
-          "cor": "Branco",
-          "tamanho": "50",
-          "tecido": "Gabardine",
-          "modelagem": {
-            "Trava": "Presa",
-            "Gola": "Padre",
-            "Manga": "Longa Basica",
-            "Punho": "Basico"
-          },
-          "medidas": {},
-          "bordados": {
-            "nome": {
-              "nome": "Dalton Soriani Alves",
-              "fonte": "MonoType",
-              "cor": "Preto"
-            }
-          },
-          "quantidade": 1,
-          "em_espera": false,
-          "valor": 190
-        },
-        {
-          "id": 2,
-          "nome": "Blusa Cirúgica Masculina",
-          "cor": "Preto",
-          "tamanho": "38",
-          "tecido": "Ibiza",
-          "modelagem": {
-            "Bolso Superior": "Com",
-            "Manga": "Longa",
-            "Gola": "Em V"
-          },
-          "medidas": {},
-          "bordados": {
-            "nome": {
-              "nome": "Dalton Soriani Alves",
-              "fonte": "MonoType",
-              "cor": "Preto"
-            }
-          },
-          "quantidade": 1,
-          "em_espera": false,
-          "valor": 150
-        }
-      ],
-      "valores": {
-        "valores_produtos": 340,
-        "frete": {
-          "tipo": "Entrega",
-          "valor": 0
-        },
-        "desconto": {
-          "tipo": "Porcentagem",
-          "valor": 0
-        },
-        "valor_total": 340
-      },
-      "adiantamentos": []
-    },
-    {
-      "id": 2,
-      "data__de_registro": "29/11/2023",
+      "data_de_registro": "2023-11-29T17:22:08.766Z",
       "tipo": "Pedido",
       "status": "Aguardando Pagamento",
-      "pessoaId": 2,
+      "pessoaId": 1,
       "produtos": [
         {
           "id": 1,
@@ -794,13 +725,342 @@
           "tamanho": "38",
           "tecido": "Gabardine",
           "modelagem": {
-            "Manga": "Franzida",
+            "Gola": "Smoking",
+            "Trava": "4Tiras",
+            "Manga": "Longa Basica",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 1900,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 1900,
+        "valor_total": 1900,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 2,
+      "data_de_registro": "2023-11-29T17:24:04.013Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Blusa Cirúgica Masculina",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Ibiza",
+          "modelagem": {
+            "Gola": "Redonda",
+            "Bolso Superior": "Com",
+            "Manga": "curta"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "data__de_registro": "2023-11-29T17:42:41.403Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 3,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Longa Basica",
+            "Gola": "Blaser",
+            "Trava": "Presa",
+            "Punho": "Basico"
+          },
+          "medidas": {
+            "Busto": "+3",
+            "Comprimento": "+4"
+          },
+          "bordados": {
+            "nome": {
+              "nome": "Dr(a)João Pereira",
+              "fonte": "MontSerrat",
+              "cor": "Preto"
+            },
+            "Manga Esquerda": {
+              "id": 1,
+              "Nome": "Brasão da Turma XI de Medicina Uningá",
+              "Estilo": "Brasão",
+              "Núcleo": "Uningá",
+              "Particao": "Medicina XI",
+              "codigo": "B1UNI03_MEDXI",
+              "Imagem": "src/assets/B1UNI02_MEDXI.png",
+              "Preço": "25,00"
+            }
+          },
+          "valor": 190,
+          "quantidade": "2",
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 208.992,
+        "frete": {
+          "valor": 27.7,
+          "tipo": "Correios"
+        },
+        "desconto": {
+          "valor": 4,
+          "tipo": "Porcentagem"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "data_de_registro": "2023-11-29T18:10:59.456Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Longa Basica",
+            "Gola": "Padre",
+            "Trava": "Básica",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 120,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 120,
+        "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "data_de_registro": "2023-11-29T18:12:36.487Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 6,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Cavada",
+            "Gola": "Blaser",
+            "Trava": "4Tiras",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 210,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 210,
+        "valor_total": 240,
+        "frete": {
+          "valor": 30,
+          "tipo": "Correios"
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "data_de_registro": "2023-11-29T18:13:17.166Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Blusa Cirúgica Masculina",
+          "cor": "Grafite",
+          "tamanho": "38",
+          "tecido": "Ibiza",
+          "modelagem": {
+            "Gola": "Redonda",
+            "Manga": "Longa",
+            "Bolso Superior": "Sem"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "data_de_registro": "2023-11-29T18:15:39.214Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Longa Basica",
             "Gola": "Smoking",
             "Trava": "Presa com Laço",
             "Punho": "Ribana"
           },
           "medidas": {},
           "bordados": {},
+          "valor": 120,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 120,
+        "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 8,
+      "data_de_registro": "2023-11-29T18:17:21.478Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 5,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Biostretch",
+          "modelagem": {
+            "Gola": "Blaser",
+            "Manga": "Longa Basica",
+            "Trava": "Básica",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 456,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 456,
+        "valor_total": 456,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 9,
+      "data_de_registro": "2023-11-29T18:23:11.758Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Trava": "4Tiras",
+            "Gola": "Smoking",
+            "Manga": "Franzida",
+            "Punho": "Elastico"
+          },
+          "medidas": {},
+          "bordados": {},
           "valor": 190,
           "quantidade": 1,
           "em_espera": false
@@ -808,16 +1068,216 @@
       ],
       "valores": {
         "valores_produtos": 190,
-        "valor_total": 190
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
       }
     },
     {
-      "id": 3,
-      "data__de_registro": "2023-11-29T15:09:14.820Z",
+      "id": 10,
+      "data_de_registro": "2023-11-29T18:31:59.610Z",
       "tipo": "Pedido",
       "status": "Aguardando Pagamento",
       "pessoaId": 1,
-      "pessoaFoiEscolhida": true,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Grafite",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Trava": "Presa com Laço",
+            "Gola": "Blaser",
+            "Punho": "Elastico",
+            "Manga": "Longa Basica"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 11,
+      "data_de_registro": "2023-11-29T18:33:58.686Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Blusa Cirúgica Masculina",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Ibiza",
+          "modelagem": {
+            "Bolso Superior": "Com",
+            "Manga": "curta",
+            "Gola": "Redonda"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 210,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 210,
+        "valor_total": 210,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 12,
+      "data_de_registro": "2023-11-29T18:37:04.688Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Preto",
+          "tamanho": "38",
+          "tecido": "Biostretch",
+          "modelagem": {
+            "Manga": "Cavada",
+            "Gola": "Blaser",
+            "Trava": "Básica",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 120,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 120,
+        "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 13,
+      "data_de_registro": "2023-11-29T18:40:05.112Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Blusa Cirúgica Masculina",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Ibiza",
+          "modelagem": {
+            "Bolso Superior": "Com",
+            "Manga": "Longa",
+            "Gola": "Redonda"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 120,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 120,
+        "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 14,
+      "data_de_registro": "2023-11-29T18:42:52.624Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Blaser",
+            "Trava": "Presa com Laço",
+            "Punho": "Camisa",
+            "Manga": "Cavada"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 190,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 190,
+        "valor_total": 190,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 15,
+      "data_de_registro": "2023-11-29T18:45:07.170Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
       "produtos": [
         {
           "id": 1,
@@ -827,21 +1287,59 @@
           "tecido": "Gabardine",
           "modelagem": {
             "Manga": "Franzida",
-            "Gola": "Smoking",
-            "Trava": "Básica",
-            "Punho": "Camisa"
+            "Trava": "Presa com Laço",
+            "Punho": "Camisa",
+            "Gola": "Padre"
           },
           "medidas": {},
           "bordados": {},
-          "valor": 190,
+          "valor": 120,
           "quantidade": 1,
           "em_espera": false
         }
       ],
-      "produtoFoiEscolhido": true,
       "valores": {
-        "valores_produtos": 190,
-        "valor_total": 190,
+        "valores_produtos": 120,
+        "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 16,
+      "data_de_registro": "2023-11-29T18:45:50.678Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 4,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Longa Basica",
+            "Trava": "Básica",
+            "Gola": "Blaser",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 210,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 210,
+        "valor_total": 210,
         "frete": {
           "tipo": "",
           "valor": 0

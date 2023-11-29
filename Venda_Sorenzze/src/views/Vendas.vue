@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
-    <v-data-table-server height="h-100" :row-height="50" :items-length="0" :items="vendas" fixed-footer
+    <v-data-table-server ref="tabela" hover height="100%" :row-height="50" :items-length="0" :items="vendas" fixed-footer
         v-model:expanded="expanded" show-expand item-value="id" :headers="tableHeaders" class="mr-4">
         <template v-slot:top>
             <v-card>
@@ -20,7 +20,6 @@
                             <v-btn @click="AbreNovaVenda" to="/Venda">Nova Venda</v-btn>
                         </v-col>
                     </v-row>
-
                 </v-card-text>
             </v-card>
         </template>
@@ -34,9 +33,9 @@
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text class="pa-0 ma-0">
-                                <v-list density="compact" :items="item.Produtos">
+                                <v-list density="compact" :items="item.produtos">
                                     <template v-slot:title="{ item }">
-                                        <div>{{ `${item.nome} - ${item.cor}` }}</div>
+                                        <div>{{ `${item.quantidade} - ${item.nome} - ${item.cor}` }}</div>
                                     </template>
                                     <template v-slot:append="{ item }">
                                         <div>{{ item.tamanho }}</div>
@@ -52,7 +51,7 @@
                             </v-card-title>
                             <v-divider></v-divider>
                             <v-card-text class="pa-0 ma-0">
-                                <v-list density="compact" :items="item.Produtos">
+                                <v-list density="compact" :items="item.produtos">
                                     <template v-slot:append="{ item }">
                                         <div>R${{ item.valor.toFixed(2) }}</div>
                                     </template>
@@ -279,6 +278,12 @@ export default defineComponent({
             maisInfoValores: false as boolean
         }
     },
+    watch:{
+        expanded(){
+            if(this.expanded.length > 1)
+            this.expanded.shift()
+        }
+    },
     methods: {
         idPorNome(id: number) {
             let nome = ""
@@ -311,13 +316,15 @@ export default defineComponent({
         const vendasStore = useVendasStore()
         const pessoaStore = usePessoasStore()
         const vendas = ref([] as IVenda[])
+
         onMounted(async () => {
+            vendasStore.limpaVendas()
             await vendasStore.listVendas()
             await pessoaStore.listPessoas()
             vendas.value = vendasStore.getVendas
             console.log(vendas.value)
-        }
-        )
+        })
+
         return {
             pessoaStore,
             vendas

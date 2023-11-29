@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NavDrawer/>
-    <v-main>
+    <v-main >
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -24,3 +24,7 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+
+</style>
