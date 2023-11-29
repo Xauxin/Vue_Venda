@@ -11,7 +11,7 @@
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-autocomplete hide-details label="Tipo" density="compact" :items="['Pedido', 'Orçamento', 'Registro']"
+          <v-autocomplete hide-details label="Tipo" v-model="tipo" density="compact" :items="['Pedido', 'Orçamento', 'Registro']"
             variant="outlined" auto-select-first>
           </v-autocomplete>
         </v-col>
@@ -57,16 +57,21 @@ export default defineComponent({
   watch: {
     pessoaEscolhida() {
       this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
+    },
+    tipo(){
+      this.storeVenda.setTipo(this.tipo)
     }
   },
   setup() {
     const storeVenda = useVendaAbertaStore()
     const storePessoas = usePessoasStore()
     const pessoas = ref([] as IPessoa[])
+    const tipo = ref("" as string)
     onMounted(async () => {
       try {
         storeVenda.AbrirVenda()
         pessoas.value = storePessoas.getPessoas
+        tipo.value = storeVenda.getTipoVenda
       } catch (error) {
         console.log(error)
       }
@@ -74,6 +79,7 @@ export default defineComponent({
     const data = computed(() => storeVenda.getDataEmString as string)
     const id = computed(() => JSON.stringify(storeVenda.getId) as string)
     return {
+      tipo,
       data,
       id,
       storeVenda,

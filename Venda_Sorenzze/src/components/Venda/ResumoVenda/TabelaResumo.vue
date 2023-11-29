@@ -81,7 +81,7 @@
                                                 </v-list>
                                             </v-card-text>
                                             <v-card-actions class="px-3 py-0 ma-0">
-                                                <v-btn variant="flat" @click.prevent="menuFrete = false"
+                                                <v-btn variant="flat" @click.prevent="salvaFrete"
                                                     :disabled="!funcaoSwitchFrete || valorFrete == ''" color="success"
                                                     density="compact" size="small">Salvar
                                                 </v-btn>
@@ -119,7 +119,7 @@
                                                 </v-list>
                                             </v-card-text>
                                             <v-card-actions class="px-3 py-0 ma-0">
-                                                <v-btn :disabled="!valorDesconto" @click.prevent="menuDesconto = false"
+                                                <v-btn :disabled="!valorDesconto" @click.prevent="salvaDesconto"
                                                     variant="flat" color="success" density="compact"
                                                     size="small">Salvar</v-btn>
                                                 <v-spacer></v-spacer>
@@ -156,7 +156,6 @@ export default defineComponent({
             menuFrete: false as boolean,
             switchFrete: "Sem" as string,
             valorFrete: "" as string,
-            tipoDesconto: "" as string,
             menuDesconto: false as boolean,
             switchDesconto: "Valor" as string,
             valorDesconto: "" as string,
@@ -165,7 +164,7 @@ export default defineComponent({
             tableHeaders: [
                 { title: 'Produto', align: 'start', sortable: false, key: 'nome' },
                 { title: 'Tmn', key: 'tamanho', sortable: false },
-                { title: 'R$(UN)', key: 'preco'},
+                { title: 'R$(UN)', key: 'valor'},
                 { title: 'Qtd', key: 'quantidade', sortable: false },
                 { title: 'Total', key: 'total', sortable: false },
                 { title: 'Opções', key: 'opcoes', sortable: false },
@@ -184,7 +183,7 @@ export default defineComponent({
         calculaTotal() {
             var totalVenda = 0 as number
             this.produtos.forEach((produto: IProduto) => {
-                totalVenda = totalVenda + ((produto.preco as number) * produto.quantidade)
+                totalVenda = totalVenda + ((produto.valor as number) * produto.quantidade)
             })
             if (this.switchFrete == 'Com' && this.valorFrete) {
                 totalVenda = totalVenda + parseInt(this.valorFrete)
@@ -224,6 +223,20 @@ export default defineComponent({
         cancelaDesconto() {
             this.valorDesconto = ""
             this.menuDesconto = false
+        },
+        salvaFrete(){
+            this.menuFrete = false
+            this.$emit('salvaFrete', {
+                valor : this.valorFrete,
+                tipo: this.tipoFrete
+            })
+        },
+        salvaDesconto(){
+            this.menuDesconto = false
+            this.$emit('salvaDesconto', {
+                valor : this.valorDesconto,
+                tipo: this.switchDesconto
+            })
         }
     },
 

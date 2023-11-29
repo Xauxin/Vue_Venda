@@ -1,6 +1,6 @@
 import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IProduto } from './../interfaces/Produto';
-import { IStatus, IVenda} from '@/interfaces/Venda';
+import { IStatus, ITipoValor, IValores} from '@/interfaces/Venda';
 import { IPessoa } from '@/interfaces/Pessoas';
 import { defineStore } from 'pinia'
 import { useVendasStore } from './Vendas';
@@ -13,17 +13,17 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
   state: () => ({
     id: null as number|null,
     data__de_registro: null as Date|null,
-    tipo: null as string|null,
+    tipo: "Pedido" as string,
     status: null as IStatus|null,
-    vendaAberta: {} as IVenda,
     pessoaVenda: {} as IPessoa,
     pessoaFoiEscolhida: false as boolean,
     produtos: [] as IProduto[],
-    produtoFoiEscolhido: false as boolean
+    produtoFoiEscolhido: false as boolean,
+    valores: {valores_produtos:0} as IValores
   }),
   getters: {
     getId: (state) => state.id,
-    getVendas: (state) => state.vendaAberta,
+    getTipoVenda: (state) => state.tipo,
     getpessoaVenda: (state) => state.pessoaVenda,
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
     getProdutos: (state) => state.produtos,
@@ -66,9 +66,49 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
         this.pessoaFoiEscolhida = false
       }
     },
-
+    setTipo(tipo:string){
+      this.tipo = tipo
+    },
     setProduto(Produto:IProduto){
+      Object.entries(Produto).forEach((dado:[string,any])=>{
+        const [key,value] = dado
+        console.log(key,value)
+        if(key == 'valor' && value){
+          this.valores.valores_produtos = this.valores.valores_produtos + value
+        }
+      })
         this.produtos.push(Produto)
+        this.calculaTotal()
+    },
+    setValoresFreteDesconto(valores:IValores){
+      Object.entries(valores).forEach((valor:[string,number|ITipoValor])=>{
+        const [key, value] = valor
+        this.valores[key] = parseInt(value)
+      })
+      this.calculaTotal()
+    },
+    calculaTotal(){
+      let total = 0 as number
+      Object.entries(this.valores).forEach((valor:[string,number|ITipoValor])=>{
+        const [key, value] = valor
+        console.log(key,value)
+        if (key == 'valores_produtos'){
+          total = total + (value as number)
+        } else if (key == 'frete'  && typeof value === 'object'){
+          total = total + (value.valor as number)
+        } 
+        if (key == 'desconto' && typeof value === 'object'){
+          if (value.tipo == 'Porcentagem'){
+            const porcentagem = parseFloat(JSON.stringify(value.valor).length == 1 ? `0.0${value.valor}` : `0.${value.valor}`)
+            console.log(total * porcentagem)
+            if (porcentagem != 100){
+                total = total - ( total * porcentagem)          
+            }
+          }
+        }
+      })
+      console.log(total)
+      this.valores.valor_total = total
     }
   }
 })

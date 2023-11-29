@@ -3,11 +3,14 @@
         <v-card-title class="text-center text-body-1 py-0 tituloCard" color="secondary">Resumo</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-            <TabelaResumo></TabelaResumo>
+            <TabelaResumo
+            @salvaDesconto="atualizaValores"
+            @salvaFrete="atualizaValores"
+            ></TabelaResumo>
         </v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions class="py-0">
-            <v-btn color="success" @click.prevent="console.log(vendaAberta.$state)" variant="flat">Salvar Venda</v-btn>
+            <v-btn color="success" @click.prevent="salvarVenda" variant="flat">Salvar Venda</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -19,6 +22,7 @@ import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { ref, watch } from 'vue';
 import { defineComponent } from 'vue'
 import TabelaResumo from './TabelaResumo.vue'
+import { IValores, ITipoValor } from '@/interfaces/Venda';
 export default defineComponent({
     name: 'ResumoVenda',
     components:{
@@ -26,13 +30,31 @@ export default defineComponent({
     },
     data() {
         return {
-            switchFrete: false,
-            items: ['Correios', 'Entrega'] as String[],
+            valores : {} as IValores
         }
     },
     methods:{
         multiplica(val1:number, val2:number){
             return val1 * val2 as number
+        },
+        salvarVenda(){
+            console.log(this.vendaAberta.$state)
+        },
+        atualizaValores(objeto:ITipoValor){
+            if (objeto.tipo == 'Porcentagem' || objeto.tipo == 'Valor'){
+                this.valores.desconto = objeto 
+            }else{
+                this.valores.frete = objeto 
+            }
+        }
+    },
+    watch:{
+        valores:{
+            handler(){
+                console.log(this.valores)
+                this.vendaAberta.setValoresFreteDesconto(this.valores)
+            },
+            deep:true
         }
     },
     setup(){

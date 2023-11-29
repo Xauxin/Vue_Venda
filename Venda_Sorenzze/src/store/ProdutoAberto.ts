@@ -37,8 +37,11 @@ export const useProdutoAbertoStore = defineStore(
           this.$state.id = venda.getProdutosLength + 1
         }
       },
-      setter(campo:string, valor: string|IModelagem|IMedidas|IBordados|number){
-        (this.$state as any)[campo] = valor
+      setter(campo: string, valor: IModelagem | IMedidas | IBordados | number | string) {
+        if (campo == 'valor') {
+            valor = typeof valor === 'string' ? parseInt(valor) : valor;
+        }
+        (this.$state as any)[campo] = valor;
         if (this.nome){
           this.nomeFoiEscolhido = true
           if ( this.cor && this.tamanho && this.tecido){

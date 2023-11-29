@@ -21,14 +21,19 @@ export interface IStatus{
 
 export interface IValores{
     valores_produtos: number,
-    valor_frete: number,
-    desconto: {
-        tipo: 'string',
-        valor: number,
-    }
+    frete: ITipoValor,
+    desconto: ITipoValor,
+    valor_total: number
+    [key:string]:number|ITipoValor
 }
 export interface IAdiantamento{
     valor_pago : number,
     data: Date,
     tipo: string
+}
+
+export interface ITipoValor {
+    tipo: string,
+    valor: number,
+    [key:string]:string|number
 }

@@ -714,7 +714,7 @@
     {
       "id": 1,
       "PessoaId": 1,
-      "Tipo": "Venda",
+      "Tipo": "Pedido",
       "Status": {
         "id": 3,
         "opraoes": [],
@@ -742,10 +742,9 @@
               "cor": "Preto"
             }
           },
-          "valor": 0,
           "quantidade": 1,
           "em_espera": false,
-          "preco": "190"
+          "valor": 190
         },
         {
           "id": 2,
@@ -766,36 +765,25 @@
               "cor": "Preto"
             }
           },
-          "valor": 0,
           "quantidade": 1,
           "em_espera": false,
-          "preco": "150"
+          "valor": 150
         }
       ],
       "valores": {
         "valores_produtos": 340,
-        "valor_frete": 0,
+        "frete": {
+          "tipo":"Entrega",
+          "valor":27.70
+        },
         "desconto": {
-          "tipo": "",
+          "tipo": "Porcentagem",
           "valor": 0
-        }
+        },
+        "valor_total": 367.7
       },
       "adiantamentos": [
-        {
-          "valor_pago": 113.333,
-          "data": "27/10/2010",
-          "tipo": "dinheiro"
-        },
-        {
-          "valor_pago": 113.333,
-          "data": "27/10/2010",
-          "tipo": "pix"
-        },
-        {
-          "valor_pago": 113.333,
-          "data": "27/10/2010",
-          "tipo": "cartao"
-        }
+        
       ]
     }
   ]
