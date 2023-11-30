@@ -1,49 +1,53 @@
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
     <v-card height="fitContent">
-        <v-card-title @click.prevent="console.log(produtos)" class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
-        <v-card-text  class="px-0 py-2 mx-0">
-            <v-data-table 
-                :row-height="50"
-                hover 
-                :items="produtos" 
-                fixed-footer 
-                v-model:expanded="expanded"
-                show-expand 
-                item-value="id" 
-                :headers="tableHeaders"
-                class="mr-4"
-                height="fit-content" 
-                >
-                <template v-slot:expanded-row="{ columns, item }">
+        <v-card-title @click.prevent="console.log(produtos)"
+            class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
+        <v-card-text class="px-0 py-2 mx-0">
+            <v-data-table hover :items="produtos" fixed-footer v-model:expanded="expanded" item-value="id"
+                :headers="tableHeaders" class="mr-4" height="100%">
+                <template v-slot:expanded-row="{ item }">
                     <tr>
-                        <td :colspan="columns.length">
-                            <p v-for="(value , key) in item.modelagem"  :key=key>{{ `${key}: ${value}` }}</p>
-                        </td>
+                        <v-row>
+                            <v-col>
+                                <v-card class="py-1 ma-1">
+                                    <v-card-title class="pa-0 text-center"
+                                        style="fontWeight:Normal; background-color: #e5e0ff; ">Modelagem</v-card-title>
+                                    <v-divider></v-divider>
+                                    <v-card-text class="pa-1">
+                                        <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.modelagem"
+                                            :key="key">
+                                            <div class="d-flex align-center justify-space-between">
+                                                <p class="text-left" style="fontWeight: bold">{{ key }}</p>
+                                                <p class="text-right no-wrap">{{ value }}</p>
+                                            </div>
+                                            <!-- Adiciona v-divider se não for o último item -->
+                                            <v-divider v-if="index < Object.keys(item.modelagem).length - 1"></v-divider>
+                                        </v-container>
+
+                                    </v-card-text>
+                                </v-card>
+
+                            </v-col>
+                        </v-row>
+
                     </tr>
                 </template>
-                <template v-slot:item.nome="{value}" >
-                    <p class="text-center overflow-x-hidden text-no-wrap" style="width: 60px;">{{ value }}</p>
-                </template>
-                <template v-slot:item.tamanho="{value}" >
-                    <p class="text-center">{{ value }}</p>
-                </template>
-
-                <template v-slot:item.valor="{value}" >
-                    <p >{{ parseFloat(value).toFixed(2) }}</p>
-                </template>
-                <template v-slot:item.quantidade="{value}" >
-                    <p class="text-center">{{ value }}</p>
-                </template>
-                <template v-slot:item.total="{ item }">
-                    <p class="text-center">{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</p>
-                </template>
-                <template v-slot:item.opcoes>
-                    <v-row >
-                        <v-col cols="1"><v-btn size="xsmall" icon="content_copy"></v-btn></v-col>
-                        <v-col cols="1"><v-btn size="xsmall" icon="edit"></v-btn></v-col>
-                        <v-col cols="1"><v-btn size="xsmall" icon="delete"></v-btn></v-col>
-                    </v-row>
+                <template #item="{ item, isExpanded }">
+                    <tr @click.prevent="expandRow(item.id)" :ref="JSON.stringify(item.id)">
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.tamanho }}</td>
+                        <td>{{ item.valor }}</td>
+                        <td>{{ item.quantidade }}</td>
+                        <td>{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</td>
+                        <td>
+                            <v-row class="text-center">
+                                <v-col cols="1"><v-btn @click="console.log(isExpanded)" size="xsmall" icon="content_copy"></v-btn></v-col>
+                                <v-col cols="1"><v-btn size="xsmall" icon="edit"></v-btn></v-col>
+                                <v-col cols="1"><v-btn size="xsmall" icon="delete"></v-btn></v-col>
+                            </v-row>
+                        </td>
+                    </tr>
                 </template>
                 <template v-slot:bottom>
                     <v-table>
@@ -74,9 +78,11 @@
                                                         </v-select>
                                                     </v-list-item>
                                                     <v-list-item>
-                                                        <v-text-field @input="setValorStringEmNumeroNaVariavel($event.target.value, 'frete')" prefix="R$" density="compact"
-                                                            :disabled="!funcaoSwitchFrete || !tipoFrete" 
-                                                            variant="outlined"  hide-details>
+                                                        <v-text-field
+                                                            @input="setValorStringEmNumeroNaVariavel($event.target.value, 'frete')"
+                                                            prefix="R$" density="compact"
+                                                            :disabled="!funcaoSwitchFrete || !tipoFrete" variant="outlined"
+                                                            hide-details>
                                                         </v-text-field>
                                                     </v-list-item>
                                                 </v-list>
@@ -112,11 +118,12 @@
                                                         </v-switch>
                                                     </v-list-item>
                                                     <v-list-item>
-                                                        <v-text-field @input="setValorStringEmNumeroNaVariavel($event.target.value, 'desconto')" :prefix="switchDesconto == 'Valor' ? 'R$' : '%'" density="compact"
-                                                            
-                                                            variant="outlined"  hide-details>
+                                                        <v-text-field
+                                                            @input="setValorStringEmNumeroNaVariavel($event.target.value, 'desconto')"
+                                                            :prefix="switchDesconto == 'Valor' ? 'R$' : '%'"
+                                                            density="compact" variant="outlined" hide-details>
                                                         </v-text-field>
-                                                        
+
                                                     </v-list-item>
                                                 </v-list>
                                             </v-card-text>
@@ -147,7 +154,7 @@
 
 import { IProduto } from '@/interfaces/Produto';
 import { useVendaAbertaStore } from '@/store/VendaAberta'
-import { ref, watch } from 'vue';
+import {  ref, watch } from 'vue';
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -162,15 +169,14 @@ export default defineComponent({
             switchDesconto: "Valor" as string,
             valorDesconto: 0 as number,
             items: ['Correios', 'Entrega'] as String[],
-            expanded: [],
+            expanded: [] as string[],
             tableHeaders: [
                 { title: 'Produto', align: 'start', sortable: false, key: 'nome' },
-                { title: 'Tmn', key: 'tamanho',align: 'center', sortable: false },
-                { title: 'R$(UN)', key: 'valor',align: 'end'},
-                { title: 'Qtd', key: 'quantidade', sortable: false,align: 'center' },
+                { title: 'Tmn', key: 'tamanho', align: 'center', sortable: false },
+                { title: 'R$(UN)', key: 'valor', align: 'end' },
+                { title: 'Qtd', key: 'quantidade', sortable: false, align: 'center' },
                 { title: 'Total', key: 'total', sortable: false },
-                { title: 'Opções', key: 'opcoes', sortable: false },
-                { title: '', key: 'data-table-expand', align: 'end', sortable: false },
+                { title: 'Opções', key: 'opcoes', align: 'end', sortable: false },
             ] as unknown as []
         }
     },
@@ -190,13 +196,13 @@ export default defineComponent({
             if (this.switchFrete == 'Com' && this.valorFrete) {
                 totalVenda = totalVenda + this.valorFrete
             }
-            if (this.switchDesconto == 'Porcentagem' && this.valorDesconto){
+            if (this.switchDesconto == 'Porcentagem' && this.valorDesconto) {
                 const porcentagem = parseFloat(JSON.stringify(this.valorDesconto).length == 1 ? `0.0${this.valorDesconto}` : `0.${this.valorDesconto}`)
                 console.log(porcentagem)
-                if (porcentagem != 100){
-                    totalVenda = totalVenda - ( totalVenda * porcentagem)          
+                if (porcentagem != 100) {
+                    totalVenda = totalVenda - (totalVenda * porcentagem)
                 }
-            } else if (this.switchDesconto == 'Valor' && this.valorDesconto){
+            } else if (this.switchDesconto == 'Valor' && this.valorDesconto) {
                 totalVenda = totalVenda - this.valorDesconto
             }
             return totalVenda
@@ -222,7 +228,7 @@ export default defineComponent({
             this.switchFrete = "Sem"
             this.menuFrete = false
             this.$emit('salvaFrete', {
-                valor : this.valorFrete,
+                valor: this.valorFrete,
                 tipo: this.switchFrete
             })
         },
@@ -230,31 +236,41 @@ export default defineComponent({
             this.valorDesconto = 0
             this.menuDesconto = false
             this.$emit('salvaDesconto', {
-                valor : this.valorDesconto,
+                valor: this.valorDesconto,
                 tipo: this.switchDesconto
             })
         },
-        salvaFrete(){
+        salvaFrete() {
             this.menuFrete = false
             this.$emit('salvaFrete', {
-                valor : this.valorFrete,
+                valor: this.valorFrete,
                 tipo: this.tipoFrete
             })
         },
-        salvaDesconto(){
+        salvaDesconto() {
             this.menuDesconto = false
             this.$emit('salvaDesconto', {
-                valor : this.valorDesconto,
+                valor: this.valorDesconto,
                 tipo: this.switchDesconto
             })
         },
-        setValorStringEmNumeroNaVariavel(texto:string, contexto:string){
-            if(contexto == 'frete'){
+        setValorStringEmNumeroNaVariavel(texto: string, contexto: string) {
+            if (contexto == 'frete') {
                 this.valorFrete = parseFloat(texto)
-            }else if (contexto == 'desconto'){
+            } else if (contexto == 'desconto') {
                 console.log(texto)
                 this.valorDesconto = parseFloat(texto)
                 console.log(this.valorDesconto)
+            }
+        },
+        expandRow(id: number) {
+            if (!this.expanded.includes(id)) {
+                console.log(this.expanded)
+                this.expanded.pop()
+                this.expanded.push(id);
+                (this.$refs[id.toString()] as HTMLElement).classList.add = 'selectedRow'
+            } else {
+                this.expanded.pop()
             }
         }
     },
@@ -275,4 +291,10 @@ export default defineComponent({
     }
 })
 </script>
+
+<style lang="scss">
+.selectedRow{
+    background-color: pink;
+}
+</style>
   

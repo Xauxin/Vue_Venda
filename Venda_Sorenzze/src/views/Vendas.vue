@@ -280,6 +280,7 @@ export default defineComponent({
     },
     watch:{
         expanded(){
+            console.log(this.expanded)
             if(this.expanded.length > 1)
             this.expanded.shift()
         }
