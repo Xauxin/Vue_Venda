@@ -73,7 +73,6 @@ export default defineComponent({
         )
         watch(
             ([()=> vendaAberta.getpessoaFoiEscolhida, ()=> vendaAberta.getprodutoFoiEscolhido]),([newpessoa, newproduto]) => {
-                console.log('pess',newpessoa,'prdo' ,newproduto)
                 if (newpessoa && newproduto) {
                     vendaValida.value = true
                 }else{

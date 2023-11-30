@@ -1,50 +1,69 @@
+<!-- eslint-disable vue/no-useless-template-attributes -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
     <v-card height="fitContent">
         <v-card-title @click.prevent="console.log(produtos)"
             class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
         <v-card-text class="px-0 py-2 mx-0">
-            <v-data-table hover :items="produtos" fixed-footer v-model:expanded="expanded" item-value="id"
+            <v-data-table :on-update:expanded='($event) => teste($event)' @on-update:expanded="teste($event.target)" hover :items="produtos" fixed-footer v-model:expanded="expanded" item-value="id"
                 :headers="tableHeaders" class="mr-4" height="100%">
-                <template v-slot:expanded-row="{ item }">
+                <template v-slot:expanded-row="{ item, columns }" height="100%">
                     <tr>
-                        <v-row>
-                            <v-col>
-                                <v-card class="py-1 ma-1">
-                                    <v-card-title class="pa-0 text-center"
-                                        style="fontWeight:Normal; background-color: #e5e0ff; ">Modelagem</v-card-title>
-                                    <v-divider></v-divider>
-                                    <v-card-text class="pa-1">
-                                        <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.modelagem"
-                                            :key="key">
-                                            <div class="d-flex align-center justify-space-between">
-                                                <p class="text-left" style="fontWeight: bold">{{ key }}</p>
-                                                <p class="text-right no-wrap">{{ value }}</p>
-                                            </div>
-                                            <!-- Adiciona v-divider se não for o último item -->
-                                            <v-divider v-if="index < Object.keys(item.modelagem).length - 1"></v-divider>
-                                        </v-container>
-
-                                    </v-card-text>
-                                </v-card>
-
-                            </v-col>
-                        </v-row>
-
+                        <td :colspan="columns.length">
+                            <v-row>
+                                <v-col cols="4">
+                                    <v-card class="py-1 ma-1">
+                                        <v-card-title class="pa-0 text-center"
+                                            style="fontWeight:Normal; background-color: #e5e0ff; ">Modelagem</v-card-title>
+                                        <v-divider></v-divider>
+                                        <v-card-text class="pa-1">
+                                            <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.modelagem"
+                                                :key="key">
+                                                <div class="d-flex align-center justify-space-between">
+                                                    <p class="text-left mr-2" style="fontWeight: bold">{{ key }}</p>
+                                                    <p class="text-right no-wrap" style="textWrap:nowrap; overflow: hidden;">{{ value }}</p>
+                                                </div>
+                                                <v-divider v-if="index < Object.keys(item.modelagem).length - 1"></v-divider>
+                                            </v-container>
+    
+                                        </v-card-text>
+                                    </v-card>
+                                </v-col>
+                                <v-col>
+                                    <v-card class="py-1 ma-1">
+                                        <v-card-title @click="console.log(item.bordados)" class="pa-0 text-center"
+                                            style="fontWeight:Normal; background-color: #e5e0ff; ">Bordados</v-card-title>
+                                        <v-divider></v-divider>
+                                        <v-card-text class="pa-1">
+                                            <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.bordados" 
+                                                :key="key">
+                                                <div class="d-flex align-center justify-space-between">
+                                                    <p class="text-left" style="fontWeight: bold">{{ key }}</p>
+                                                    <p class="text-right no-wrap">{{ value }}</p>
+                                                </div>
+                                                <!-- Adiciona v-divider se não for o último item -->
+                                                <v-divider v-if="index < Object.keys(item.bordados).length - 1"></v-divider>
+                                            </v-container>
+    
+                                        </v-card-text>
+                                    </v-card>
+                                </v-col>
+                            </v-row>
+                        </td>
                     </tr>
                 </template>
                 <template #item="{ item, isExpanded }">
                     <tr @click.prevent="expandRow(item.id)" :ref="JSON.stringify(item.id)">
-                        <td>{{ item.nome }}</td>
-                        <td>{{ item.tamanho }}</td>
-                        <td>{{ item.valor }}</td>
-                        <td>{{ item.quantidade }}</td>
-                        <td>{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</td>
+                        <td><p class="" style="textWrap: nowrap;">{{ item.nome }}</p></td>
+                        <td><p class="text-center">{{ item.tamanho }}</p></td>
+                        <td><p class="text-right">{{ (item.valor).toFixed(2) }}</p></td>
+                        <td><p class="text-center">{{ item.quantidade }}</p></td>
+                        <td><p class="">{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</p></td>
                         <td>
-                            <v-row class="text-center">
-                                <v-col cols="1"><v-btn @click="console.log(isExpanded)" size="xsmall" icon="content_copy"></v-btn></v-col>
-                                <v-col cols="1"><v-btn size="xsmall" icon="edit"></v-btn></v-col>
-                                <v-col cols="1"><v-btn size="xsmall" icon="delete"></v-btn></v-col>
+                            <v-row class="text-center" no-gutters align="center">
+                                <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false" @click="console.log(isExpanded)" size="small" icon="content_copy"></v-btn></v-col>
+                                <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false" size="small" icon="edit"></v-btn></v-col>
+                                <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false" size="small" icon="delete"></v-btn></v-col>
                             </v-row>
                         </td>
                     </tr>
@@ -169,7 +188,7 @@ export default defineComponent({
             switchDesconto: "Valor" as string,
             valorDesconto: 0 as number,
             items: ['Correios', 'Entrega'] as String[],
-            expanded: [] as string[],
+            expanded: [] as any[],
             tableHeaders: [
                 { title: 'Produto', align: 'start', sortable: false, key: 'nome' },
                 { title: 'Tmn', key: 'tamanho', align: 'center', sortable: false },
@@ -219,6 +238,9 @@ export default defineComponent({
 
     },
     methods: {
+        teste(target:any){
+            console.log(target)
+        },
         multiplica(val1: number, val2: number) {
             return val1 * val2 as number
         },
@@ -268,9 +290,18 @@ export default defineComponent({
                 console.log(this.expanded)
                 this.expanded.pop()
                 this.expanded.push(id);
-                (this.$refs[id.toString()] as HTMLElement).classList.add = 'selectedRow'
+                (this.$refs[id.toString()] as HTMLElement).classList.add('selectedRow');
+                const colunaDeBotoes = (this.$refs[id.toString()] as HTMLElement).lastElementChild?.lastElementChild?.querySelectorAll('div')
+                colunaDeBotoes?.forEach(btn =>{
+                    btn.lastElementChild?.classList.add('selectedRow')
+                })
             } else {
-                this.expanded.pop()
+                this.expanded.pop();
+                (this.$refs[id.toString()] as HTMLElement).classList.remove('selectedRow')
+                const colunaDeBotoes = (this.$refs[id.toString()] as HTMLElement).lastElementChild?.lastElementChild?.querySelectorAll('div')
+                colunaDeBotoes?.forEach(btn =>{
+                    btn.lastElementChild?.classList.remove('selectedRow')
+                })
             }
         }
     },
@@ -294,7 +325,9 @@ export default defineComponent({
 
 <style lang="scss">
 .selectedRow{
-    background-color: pink;
+   background: rgb(221,221,221);
+   animation: none
 }
+
 </style>
   

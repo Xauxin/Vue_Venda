@@ -69,7 +69,7 @@ export default defineComponent({
             }
         },
         adicionarProduto(){
-            console.log(this.valorProduto)
+           
             this.produtoAbertoStore.setter('valor', this.valorProduto)
             this.produtoAbertoStore.setter('quantidade', this.quantidadeProduto)
             this.produtoAbertoStore.salvaProduto()

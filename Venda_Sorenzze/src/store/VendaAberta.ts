@@ -38,7 +38,6 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
   },
   actions:{
     async AbrirVenda(id?:number){
-      console.log('abriu venda')
       if (id){
         console.log('vendacomId')
       }else{
@@ -113,7 +112,6 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
           }
         }
       })
-      console.log(total)
       this.valores.valor_total = total
     },
     salvaVenda(){

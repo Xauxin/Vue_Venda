@@ -4,8 +4,15 @@ export interface IBordados{
 
 export interface IBordadoNome{
     nome: string
+    abaixo_do_nome: IAbaixoDoNome
     fonte: string
     cor: string
+    [key:string]: string | IAbaixoDoNome
+}
+
+export interface IAbaixoDoNome{
+    text: string
+    font: string
     [key:string]: string
 }
 
