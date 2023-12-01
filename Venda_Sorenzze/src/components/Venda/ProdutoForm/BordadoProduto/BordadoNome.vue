@@ -10,15 +10,16 @@
                 </v-switch>
             </v-col>
             <v-col cols="8" v-if="comNome">
-                <v-text-field :prepend-inner-icon="comPrefixo ? 'cancel' : ''" single-line variant="solo"
+                <v-text-field solo :prepend-inner-icon="comPrefixo ? 'cancel' : ''" single-line variant="solo"
                     @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1" v-model="objetoNome.nome"
-                    class="text-center pa-0 ma-0 nomeBordado" center-affix :style="{ ...estiloNome, fontSize: '40px' }" density="compact"
+                    class="text-center pa-0 ma-0 nomeBordado text-field-center" center-affix :style="estiloNome" density="compact"
                     clearable>
                     <template #loader class="pa-0 ma-0 text-center" >
                         <p class="text-center" :style="fontFamilyAbaixoDoNome">
                             {{ objetoNome.abaixo_do_nome.text == 'Sem'  ? '' : objetoNome.abaixo_do_nome.text }}
                         </p>
                     </template>
+
                     <template v-slot:prepend>
                         <v-container style="display: flex;flex-direction: column;" class="pa-0 ma-0">
                             <v-menu v-model="menuPrefixo" :close-on-content-click="false" location="end">
@@ -124,7 +125,7 @@ export default defineComponent({
     },
     computed: {
         estiloNome(): { [key: string]: string } {
-            const estilo: { [key: string]: string } = {
+            const estilo : { [key: string]: string } = {
                 fontFamily: this.objetoNome.fonte,
                 color: this.objetoNome.cor,
                 fontSize: this.fontSize
@@ -136,7 +137,7 @@ export default defineComponent({
             }
             return estilo as { [key: string]: string };
         },
-        fontFamilyAbaixoDoNome(){
+        fontFamilyAbaixoDoNome():{ [key: string]: string }{
             return {fontFamily : this.objetoNome.abaixo_do_nome.font}
         }
     },
@@ -260,6 +261,10 @@ export default defineComponent({
 
 .custom-btn-style:active {
     background-color: #0d47a1;
+}
+
+.text-field-center :deep(input){
+    text-align: center;
 }
 </style>
 

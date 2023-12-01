@@ -81,7 +81,7 @@ export default defineComponent({
             (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
         },
         setNome(nome:IBordadoNome){
-            this.bordadosEscolhidos.nome = nome
+            this.bordadosEscolhidos.bordado_do_nome = nome
         }
     }
    

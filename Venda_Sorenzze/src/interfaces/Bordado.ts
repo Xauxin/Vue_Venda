@@ -1,5 +1,12 @@
 export interface IBordados{
-    [local:string]: IBordado | IBordadoNome
+    bordado_do_nome: IBordadoNome
+    manga_esquerda: IBordado
+    manga_direita: IBordado
+    outro: {
+        contexto: string,
+        bordado: IBordado
+    },
+    [key:string]: IBordado | IBordadoNome | {[key:string]: string|IBordado}
 }
 
 export interface IBordadoNome{

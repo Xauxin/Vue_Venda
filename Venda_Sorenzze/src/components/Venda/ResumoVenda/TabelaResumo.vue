@@ -5,7 +5,7 @@
         <v-card-title @click.prevent="console.log(produtos)"
             class="text-center text-body-1 py-0 tituloCard">Produtos</v-card-title>
         <v-card-text class="px-0 py-2 mx-0">
-            <v-data-table :on-update:expanded='($event) => teste($event)' @on-update:expanded="teste($event.target)" hover :items="produtos" fixed-footer v-model:expanded="expanded" item-value="id"
+            <v-data-table  :items="produtos" fixed-footer v-model:expanded="expanded" item-value="id"
                 :headers="tableHeaders" class="mr-4" height="100%">
                 <template v-slot:expanded-row="{ item, columns }" height="100%">
                     <tr>
@@ -13,8 +13,8 @@
                             <v-row>
                                 <v-col cols="4">
                                     <v-card class="py-1 ma-1">
-                                        <v-card-title class="pa-0 text-center"
-                                            style="fontWeight:Normal; background-color: #e5e0ff; ">Modelagem</v-card-title>
+                                        <v-card-title class="pa-0 text-center font-weight-regular"
+                                            style=" background-color: #e5e0ff; ">Modelagem</v-card-title>
                                         <v-divider></v-divider>
                                         <v-card-text class="pa-1">
                                             <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.modelagem"
@@ -29,22 +29,39 @@
                                         </v-card-text>
                                     </v-card>
                                 </v-col>
-                                <v-col>
+                                <v-col cols="8">
                                     <v-card class="py-1 ma-1">
-                                        <v-card-title @click="console.log(item.bordados)" class="pa-0 text-center"
-                                            style="fontWeight:Normal; background-color: #e5e0ff; ">Bordados</v-card-title>
+                                        <v-card-title @click="console.log(item.bordados)" class="pa-0 text-center font-weight-regular" 
+                                             style='background-color: #e5e0ff' >Bordados</v-card-title>
                                         <v-divider></v-divider>
                                         <v-card-text class="pa-1">
-                                            <v-container class="pa-0 ma-0" v-for="(value, key, index) in item.bordados" 
-                                                :key="key">
-                                                <div class="d-flex align-center justify-space-between">
-                                                    <p class="text-left" style="fontWeight: bold">{{ key }}</p>
-                                                    <p class="text-right no-wrap">{{ value }}</p>
+                                            <v-container v-if="item.bordados.bordado_do_nome" class="pa-0 ma-0">
+                                                <div>
+                                                    <p class="text-center pa-0 ma-0" :style="fontNomeBordado(item.bordados.bordado_do_nome)" >{{ item.bordados.bordado_do_nome.nome }}</p>
+                                                    <p class="text-center pa-0 ma-0" :style="fontEmBaixoDoNome(item.bordados.bordado_do_nome.abaixo_do_nome)" v-if="!(item.bordados.bordado_do_nome.abaixo_do_nome.text == 'Sem')" >{{ item.bordados.bordado_do_nome.abaixo_do_nome.text }}</p>
                                                 </div>
-                                                <!-- Adiciona v-divider se não for o último item -->
-                                                <v-divider v-if="index < Object.keys(item.bordados).length - 1"></v-divider>
                                             </v-container>
-    
+                                            <v-container v-else class="pa-0 ma-0 d-flex align-center  justify-center">
+                                                <p class="font-weight-bold text-center">Sem bordado do nome</p>
+                                            </v-container>
+                                            <v-divider></v-divider>
+                                            <v-container v-if="item.bordados.manga_direita || item.bordados.manga_esquerda || item.bordados.outro" class="pa-0 ma-0 d-flex  justify-center">
+                                                <v-card v-for="(value, key) in bordadosSemONome(item.bordados)" :key="key" variant="flat">
+                                                <v-card-title class="pa-0 text-center font-weight-regular text-overline " v-if="key != 'bordado_do_nome'">
+                                                    {{ value.codigo }}
+                                                </v-card-title>
+                                                <v-card-subtitle>
+                                                    {{ key }}
+                                                </v-card-subtitle>
+                                                <v-card-text class="pa-0 ma-0">
+                                                    <v-img :src="(value.Imagem as string)" height="40px"></v-img>
+                                                </v-card-text>
+                                                </v-card>
+                                            </v-container>
+                                            <v-container v-else class="pa-0 ma-0 d-flex  align-center justify-center">
+
+                                                <p class="font-weight-bold text-center ma-4">Sem bordados</p>
+                                            </v-container>
                                         </v-card-text>
                                     </v-card>
                                 </v-col>
@@ -171,6 +188,7 @@
   
 <script lang="ts">
 
+import { IAbaixoDoNome, IBordadoNome, IBordados } from '@/interfaces/Bordado';
 import { IProduto } from '@/interfaces/Produto';
 import { useVendaAbertaStore } from '@/store/VendaAberta'
 import {  ref, watch } from 'vue';
@@ -238,8 +256,21 @@ export default defineComponent({
 
     },
     methods: {
-        teste(target:any){
-            console.log(target)
+        bordadosSemONome(bordados:IBordados){
+            const bordadosNovo = {} as IBordados
+            Object.entries(bordados).forEach(bordado => {
+                const [key, value] = bordado
+                if (key != "bordado_do_nome"){
+                    bordadosNovo[key] = value
+                }
+            })
+            return bordadosNovo
+        },
+        fontNomeBordado(bordado_do_nome:IBordadoNome){
+            return {fontFamily : bordado_do_nome.fonte}
+        },
+        fontEmBaixoDoNome(abaixo_do_nome:IAbaixoDoNome){
+            return {fontFamily : abaixo_do_nome.font}
         },
         multiplica(val1: number, val2: number) {
             return val1 * val2 as number
@@ -324,10 +355,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.selectedRow{
+.selectedRow {
    background: rgb(221,221,221);
    animation: none
 }
 
 </style>
-  

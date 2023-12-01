@@ -619,9 +619,9 @@
         "no Tecido das Costas"
       ],
       "locais_de_bordado": [
-        "Manga Esquerda",
-        "Manga Diereita",
-        "Outro"
+        "manga_esquerda",
+        "manga_direita",
+        "outro"
       ],
       "valor": 155
     },
