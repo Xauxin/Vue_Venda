@@ -1,6 +1,6 @@
 <template>
     <v-card class="d-flex flex-column ma-1 pa-0" bordered height="100%">
-        <v-card-title class="text-center text-body-1 py-0 tituloCard" color="secondary">Resumo</v-card-title>
+        <v-card-title class="text-center text-body-1 py-0 tituloCard" color="secondary" @click="console.log(vendaAberta.$state)">Resumo</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <TabelaResumo
