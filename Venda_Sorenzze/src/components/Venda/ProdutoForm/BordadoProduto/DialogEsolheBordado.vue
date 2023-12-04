@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
+    <v-dialog attach="body" v-model="dialog" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
             <v-row>
                 <v-col cols="12">
                     <v-card>

@@ -1,7 +1,7 @@
 <template>
-    <v-dialog v-model="dialog" location="center" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
+    <v-dialog v-model="dialog" attach="body" location="center" no-click-animation close-on-back close-delay="0" open-delay="0" contained>
             <v-row justify="center">
-                <v-sheet width="60%" class="pa-2">
+                <v-sheet width="40%" class="pa-2">
                     <v-row>
                         <v-col cols="10">
                             <p class="text-h4">Medidas</p>
