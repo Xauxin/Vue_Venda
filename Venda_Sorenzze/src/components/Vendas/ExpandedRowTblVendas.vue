@@ -1,43 +1,63 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <!-- eslint-disable vue/no-useless-template-attributes -->
 <template>
     <td class="pa-1" :colspan="columns.length">
         <v-row no-gutters aling="top">
             <v-col cols="8">
                 <v-card class="ma-1 pa-1" height="99%">
-                <v-data-table :items="item.produtos">
-                   <template #headers></template>
-                   <template #bottom></template>
-                   <template #item="{ item }">
-                    <tr>
-                        <td><p>{{ item.quantidade }}</p></td>
-                        <td class="d-flex align-center justify-space-between">
-                            <p>{{ item.nome}}</p>
-                            <v-tooltip>
-                                <template #default>
-                                    <div class="d-flex align-center justify-space-between" v-for="(value, key) in item.modelagem" :key="key">
-                                        <p>{{ key }}:</p>
-                                        <p>{{ value }}</p>
-                                    </div>
-                                </template>
-                                <template #activator="{props}">
-                                    <v-icon v-bind="props">more</v-icon>
-                                </template>
-                            </v-tooltip>
-                        </td>
-                        <td><p>{{ item.tamanho }}</p></td>
-                        <td><p>{{ item.cor }}</p></td>
-                        <td>
-                            <p v-if="Object.entries(item.medidas).length > 0">{{ `Com Medidas e Alterações` }}</p>
-                            <p v-else>Padrão</p>
-                        </td>
-                        <td>
-                            <p v-if="Object.entries(item.bordados).length > 0">{{ `Com ${Object.entries(item.bordados).length} Bordado`}}</p>
-                            <p v-else>Sem Bordados</p>
-                        </td>
-                        <td><p>R${{ item.valor.toFixed(2) }}</p></td>
-                    </tr>
-                    </template>
-                </v-data-table>    
+                    <v-data-table :items="item.produtos">
+                        <template #headers></template>
+                        <template #bottom></template>
+                        <template #item="{ item }">
+                            <tr>
+                                <td>
+                                    <p>{{ item.quantidade }}</p>
+                                </td>
+                                <td class="d-flex align-center justify-space-between">
+                                    <p>{{ item.nome }}</p>
+                                    <v-tooltip>
+                                        <template #default>
+                                            <div class="d-flex align-center justify-space-between"
+                                                v-for="(value, key) in item.modelagem" :key="key">
+                                                <p>{{ key }} : {{ value }}</p>
+                                                <p></p>
+                                            </div>
+                                        </template>
+                                        <template #activator="{ props }">
+                                            <v-icon v-bind="props">more</v-icon>
+                                        </template>
+                                    </v-tooltip>
+                                </td>
+                                <td>
+                                    <p>{{ item.tamanho }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ item.cor }}</p>
+                                </td>
+                                <td>
+                                    <p v-if="Object.entries(item.medidas).length > 0">{{ `Com Medidas e Alterações` }}</p>
+                                    <p v-else>Padrão</p>
+                                </td>
+                                <td>
+                                    <v-tooltip v-if="Object.entries(item.bordados).length > 0" location="top">
+                                        <template #activator="{ props }">
+                                            <p v-bind="props">{{ `Com ${Object.entries(item.bordados).length} Bordado` }}</p>
+                                        </template>
+                                        <template #default>
+                                            <p v-for="(value, key) in item.bordados" class="text-capitalize" :key="key">{{
+                                                (key as string).includes('outro') ? (key as string).split('/')[1] : (key as
+                                                    string).replace("_", ' ').replace("_", ' ') }}</p>
+                                        </template>
+                                    </v-tooltip>
+                                    <p v-else-if="item.bordados.bordado_dnome">Com bordado do Nome</p>
+                                    <p v-else>Sem Bordados</p>
+                                </td>
+                                <td>
+                                    <p>R${{ item.valor.toFixed(2) }}</p>
+                                </td>
+                            </tr>
+                        </template>
+                    </v-data-table>
                 </v-card>
             </v-col>
             <v-col cols="3">
@@ -141,6 +161,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { IVenda } from "@/interfaces/Venda";
+
 
 export default defineComponent({
     name: "ExpandedRowTblVendas",

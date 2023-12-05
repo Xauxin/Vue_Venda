@@ -26,9 +26,6 @@
         <template v-slot:item.adiantamentos="{ value }">
             {{ somaAdiantamentos(value).toFixed(2) }}
         </template>
-
-
-
     </v-data-table-server>
 </template>
   
@@ -42,7 +39,7 @@ import PesquisaHeaderTblVendas from './PesquisaHeaderTblVendas.vue';
 import ExpandedRowTblVendas from './ExpandedRowTblVendas.vue';
 
 export default defineComponent({
-    name: 'Vendas',
+    name: 'TabelaVendas',
     components: {
         PesquisaHeaderTblVendas,
         ExpandedRowTblVendas
@@ -85,8 +82,6 @@ export default defineComponent({
             }
             return valorTotal
         },
-
-
     },
     setup() {
         const vendasStore = useVendasStore()
@@ -94,11 +89,7 @@ export default defineComponent({
         const vendas = ref([] as IVenda[])
 
         onMounted(async () => {
-            vendasStore.limpaVendas()
-            await vendasStore.listVendas()
-            await pessoaStore.listPessoas()
             vendas.value = vendasStore.getVendas
-            console.log(vendas.value)
         })
 
         return {

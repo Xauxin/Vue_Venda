@@ -3,19 +3,19 @@
         <v-col cols="4" v-for="(item, index) in locaisEscolhidos" :key="index">
             <v-card density="compact" height="100%" min-height="235" color="primary">
                 <v-card-title class="pa-0 text-center text-caption text-capitalize">
-                    <p v-if="item != 'outro'">{{ !item.includes('outro') ? item.replace("_", " ") : item.split('/')[1] }}</p>
+                    <p>{{ !item.includes('outro') ? item.replace("_", " ") : contexto }}</p>
                 </v-card-title>
                 <v-card-subtitle class="text-center text-caption">{{ (bordadosEscolhidos[(item as string)] ?
-                    bordadosEscolhidos[(item as string)].codigo : "B1ABC00.ABC") }}</v-card-subtitle>
+                    (item.includes('outro')? bordadosEscolhidos[(item as string)].bordado.codigo : bordadosEscolhidos[(item as string)].codigo) : "B1ABC00.ABC") }}</v-card-subtitle>
                 <v-divider class="mx-2 my-1"></v-divider>
                 <v-card-text class="pa-0">
                     <v-img v-bind:item="item"
-                        :src="bordadosEscolhidos[(item as string)] ? bordadosEscolhidos[(item as string)].Imagem : ''"
+                        :src="bordadosEscolhidos[(item as string)] ? (item.includes('outro')? bordadosEscolhidos[(item as string)].bordado.Imagem : bordadosEscolhidos[(item as string)].Imagem) : ''"
                         min-height="100" height="100" aspect-ratio="1/1">
                     </v-img>
                     <v-divider class="mx-2 my-1"></v-divider>
-                    <p height="24px" class="mt-1 text-center text-body-1">{{ (bordadosEscolhidos[(item as string)] ?
-                        `R$${bordadosEscolhidos[(item as string)].Preço}` : "ㅤ") }}</p>
+                    <p height="24px" class="mt-1 text-center text-body-1">R${{ (bordadosEscolhidos[(item as string)] ?
+                        ((item.includes('outro') ? bordadosEscolhidos[(item as string)].bordado.preco : bordadosEscolhidos[(item as string)].preco )) : "ㅤ") }}</p>
                 </v-card-text>
                 <v-divider class="mx-2"></v-divider>
                 <v-card-actions align-self="bo">
@@ -94,7 +94,7 @@ export default defineComponent({
         adicionaBordado(item: String) {
                 if(item == 'outro'){
                     this.$emit('atualizaLocaisEscolhidos', ( item as String), this.contexto)
-                    this.locaisEscolhidos.push(`${item}/${this.contexto}`)
+                    this.locaisEscolhidos.push(item)
                     this.menuLocais = false
                 }else{
                     this.locaisEscolhidos.push(item)

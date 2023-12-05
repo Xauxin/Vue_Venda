@@ -48,6 +48,7 @@ export interface IEsquemaModelagem{
 export interface IEsquemaOpcaoModelagem{
     opcoes: { [key: string]: Number };
     required: boolean
+    type: string
 }
 
 export interface IEsquemaMedidas{

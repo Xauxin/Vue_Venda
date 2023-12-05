@@ -35,7 +35,9 @@
           "Básica": 0,
           "Presa com Laço": 15
         },
-        "required": true
+        "required": true,
+        "type": "Choices"
+
       },
       "Gola": {
         "opcoes": {
@@ -43,7 +45,8 @@
           "Blaser": 0,
           "Smoking": 20
         },
-        "required": true
+        "required": true,
+        "type": "Choices"
       },
       "Manga": {
         "opcoes": {
@@ -52,7 +55,8 @@
           "Franzida": 20,
           "Longa Basica": 0
         },
-        "required": true
+        "required": true,
+        "type": "Choices"
       },
       "Punho": {
         "opcoes": {
@@ -61,7 +65,8 @@
           "Ribana": 10,
           "Elastico": 10
         },
-        "required": true
+        "required": true,
+        "type": "Choices"
       },
       "Vivo": {
         "opcoes": [
@@ -69,7 +74,8 @@
           "Punho",
           "Frente"
         ],
-        "required": false
+        "required": false,
+        "type": "ChoicesOn/Off"
       }
     },
     "medidas": {
@@ -100,4 +106,4 @@
       "outro"
     ],
     "valor": 155
-  }}
+  }

@@ -2,11 +2,14 @@ export interface IBordados{
     bordado_do_nome: IBordadoNome
     manga_esquerda: IBordado
     manga_direita: IBordado
-    outro: {
-        contexto: string,
-        bordado: IBordado
-    },
+    outro: IOutroBordado
     [key:string]: IBordado | IBordadoNome | {[key:string]: string|IBordado}
+}
+
+export interface IOutroBordado{
+    contexto: string,
+    bordado: IBordado
+    [key:string]:string|IBordado
 }
 
 export interface IBordadoNome{
@@ -30,5 +33,5 @@ export interface IBordado {
     Particao: string;
     codigo: string;
     Imagem: string;
-    Preço: string;
+    preco: string;
 }

@@ -43,6 +43,7 @@ export default defineComponent({
         return {
             BordadoPreSelecionado: {} as IBordado,
             BordadoAscessado: "" as String,
+            contextoParaOutroBordado: "" as string,
             bordadosEscolhidos: {
             } as IBordados,
             oldbordadosEscolhidos: {
@@ -75,17 +76,20 @@ export default defineComponent({
         },
         atualizaLocaisEscolhidos(localEscolhido: String, contexto?:string) {
             if (contexto){
-                this.locaisEscolhidos.push(`${localEscolhido}//${contexto}`)
+                this.locaisEscolhidos.push(localEscolhido)
+                this.contextoParaOutroBordado = contexto
             }else{
                 this.locaisEscolhidos.push(localEscolhido)
             }
         },
         adicionaBordado(bordado: IBordado) {
             if(this.BordadoAscessado.includes('outro')){
-                this.bordadosEscolhidos.outro = {bordado: bordado, contexto: this.BordadoAscessado.split('/')[1] }
+                this.bordadosEscolhidos.outro = {bordado: bordado, contexto: this.contextoParaOutroBordado };
+                (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
+            }else{
+                this.bordadosEscolhidos[(this.BordadoAscessado as string)] = bordado;
+                (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
             }
-            this.bordadosEscolhidos[(this.BordadoAscessado as string)] = bordado;
-            (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
         },
         setNome(nome:IBordadoNome){
             this.bordadosEscolhidos.bordado_do_nome = nome

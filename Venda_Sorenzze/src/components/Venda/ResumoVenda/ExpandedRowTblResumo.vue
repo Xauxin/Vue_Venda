@@ -1,3 +1,4 @@
+
 <template>
     <tr class="pa-0 ma-0">
                         <td :colspan="columns.length" class="pa-0 ma-0">
@@ -52,14 +53,14 @@
                                                         v-for="(value, key) in bordadosSemONome(item.bordados)" :key="key">
                                                         <v-card variant="flat" class="ma-1">
                                                             <v-card-text class="pa-0 ma-1">
-                                                                <v-tooltip :text="(value.codigo as string)" location="top">
+                                                                <v-tooltip location="top">
                                                                     <template v-slot:activator="{ props }">
-                                                                        <v-img v-bind="props" :src="(value.Imagem as string)"
+                                                                        <v-img v-bind="props" :src="((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).Imagem : value.Imagem as string)"
                                                                             height="60px"></v-img>
                                                                     </template>
                                                                     <template v-slot:default>
-                                                                        <p>{{ value.Nome as string }}</p>
-                                                                        <p class="text-center">{{ value.codigo as string }}</p>
+                                                                        <p>{{ ((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).Nome : value.Nome as string) }}</p>
+                                                                        <p class="text-center">{{ ((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).codigo : value.codigo as string) }}</p>
                                                                     </template>
 
                                                                 </v-tooltip>
@@ -105,7 +106,8 @@
 </template>
   
 <script lang="ts">
-import { IAbaixoDoNome, IBordadoNome, IBordados } from "@/interfaces/Bordado";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados, IOutroBordado } from "@/interfaces/Bordado";
 import { IProduto } from "@/interfaces/Produto";
 import { defineComponent } from "vue";
 

@@ -438,7 +438,7 @@
       "Particao": "Medicina XI",
       "codigo": "B1UNI03_MEDXI",
       "Imagem": "src/assets/B1UNI02_MEDXI.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 2,
@@ -448,7 +448,7 @@
       "Particao": "Liga de Nefrologia",
       "codigo": "B1UNI01_NEFRO",
       "Imagem": "src/assets/B1UNI01_NEFRO.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 3,
@@ -458,7 +458,7 @@
       "Particao": "Curso de Medicina",
       "codigo": "B1UNI03_MED0",
       "Imagem": "src/assets/B1UNI03_MED0.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 4,
@@ -468,7 +468,7 @@
       "Particao": "Medicina X",
       "codigo": "B1CES02_MEDX",
       "Imagem": "src/assets/B1CES02_MEDX.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 5,
@@ -478,7 +478,7 @@
       "Particao": "Liga de Cardiologia",
       "codigo": "B1CES01_CARDIO",
       "Imagem": "src/assets/B1CES01_CARDIO.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 6,
@@ -488,7 +488,7 @@
       "Particao": "Curso Medicina",
       "codigo": "B1CES03_MED0",
       "Imagem": "src/assets/B1CES03_MED0.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 7,
@@ -498,7 +498,7 @@
       "Particao": "Vitally",
       "codigo": "B2CLI00_VITALLY",
       "Imagem": "src/assets/B2CLI00_VITAL.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 8,
@@ -508,7 +508,7 @@
       "Particao": "Prevenpet",
       "codigo": "B2CLI00_PREVEN",
       "Imagem": "src/assets/B2CLI00_PREVEN.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     },
     {
       "id": 9,
@@ -518,7 +518,7 @@
       "Particao": "Santa Rita",
       "codigo": "B2HOS00_VASCSR",
       "Imagem": "src/assets/B2HOS00_VASCSR.png",
-      "Preço": "25,00"
+      "preco": "25,00"
     }
   ],
   "esquema_produto": [
@@ -559,7 +559,8 @@
             "Básica": 0,
             "Presa com Laço": 15
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Gola": {
           "opcoes": {
@@ -567,7 +568,8 @@
             "Blaser": 0,
             "Smoking": 20
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Manga": {
           "opcoes": {
@@ -576,7 +578,8 @@
             "Franzida": 20,
             "Longa Basica": 0
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Punho": {
           "opcoes": {
@@ -585,7 +588,8 @@
             "Ribana": 10,
             "Elastico": 10
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Vivo": {
           "opcoes": [
@@ -593,7 +597,8 @@
             "Punho",
             "Frente"
           ],
-          "required": false
+          "required": false,
+          "type": "ChoicesOn/Off"
         }
       },
       "medidas": {
@@ -663,21 +668,24 @@
             "Em V": 0,
             "Redonda": 0
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Manga": {
           "opcoes": {
             "curta": 0,
             "Longa": 10
           },
-          "required": true
+          "required": true,
+          "type": "Choices"
         },
         "Bolso Superior": {
           "opcoes": {
             "Com": 10,
             "Sem": 0
           },
-          "required": true
+          "required": true,
+          "type": "On/Off"
         }
       },
       "medidas": {
@@ -705,7 +713,7 @@
       "locais_de_bordado": [
         "Manga Esquerda",
         "Manga Diereita",
-        "Outro"
+        "outro"
       ],
       "valor": 155
     }
@@ -924,6 +932,361 @@
               "Preço": "25,00"
             }
           },
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 5,
+      "data_de_registro": "2023-12-05T17:06:08.334Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 3,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Biostretch",
+          "modelagem": {
+            "Trava": "4Tiras",
+            "Gola": "Padre",
+            "Manga": "Franzida",
+            "Punho": "Elastico"
+          },
+          "medidas": {
+            "Busto": "sdf"
+          },
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Dr(a)João Pereira",
+              "fonte": "MonoType",
+              "abaixo_do_nome": {
+                "text": "Medicina",
+                "font": "MontSerrat"
+              },
+              "cor": "Preto"
+            },
+            "outro": {
+              "bordado": {
+                "id": 3,
+                "Nome": "Brasão do Curso de Medicina Uningá",
+                "Estilo": "Brasão",
+                "Núcleo": "Uningá",
+                "Particao": "Curso de Medicina",
+                "codigo": "B1UNI03_MED0",
+                "Imagem": "src/assets/B1UNI03_MED0.png",
+                "Preço": "25,00"
+              },
+              "contexto": "Chnfro"
+            },
+            "outro/Chnfro": {
+              "id": 3,
+              "Nome": "Brasão do Curso de Medicina Uningá",
+              "Estilo": "Brasão",
+              "Núcleo": "Uningá",
+              "Particao": "Curso de Medicina",
+              "codigo": "B1UNI03_MED0",
+              "Imagem": "src/assets/B1UNI03_MED0.png",
+              "Preço": "25,00"
+            }
+          },
+          "valor": 520,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 520,
+        "valor_total": 520,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 6,
+      "data_de_registro": "2023-12-05T17:08:39.206Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 5,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Gola": "Blaser",
+            "Trava": "Básica",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Carlos Santos",
+              "fonte": "MonoType",
+              "abaixo_do_nome": {
+                "text": "Médica",
+                "font": "Block"
+              },
+              "cor": "Preto"
+            },
+            "manga_direita": {
+              "id": 3,
+              "Nome": "Brasão do Curso de Medicina Uningá",
+              "Estilo": "Brasão",
+              "Núcleo": "Uningá",
+              "Particao": "Curso de Medicina",
+              "codigo": "B1UNI03_MED0",
+              "Imagem": "src/assets/B1UNI03_MED0.png",
+              "Preço": "25,00"
+            },
+            "outro": {
+              "bordado": {
+                "id": 4,
+                "Nome": "Brasão da Turma X de Medicina Unicesumar",
+                "Estilo": "Brasão",
+                "Núcleo": "Unicesumar",
+                "Particao": "Medicina X",
+                "codigo": "B1CES02_MEDX",
+                "Imagem": "src/assets/B1CES02_MEDX.png",
+                "preco": "25,00"
+              },
+              "contexto": "Sanfro"
+            }
+          },
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 7,
+      "data_de_registro": "2023-12-05T17:41:56.701Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Trava": "Básica",
+            "Gola": "Smoking",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {
+            "outro": {
+              "bordado": {
+                "id": 6,
+                "Nome": "Brasão do Curso de Medicina Unicesumar",
+                "Estilo": "Brasão",
+                "Núcleo": "Unicesumar",
+                "Particao": "Curso Medicina",
+                "codigo": "B1CES03_MED0",
+                "Imagem": "src/assets/B1CES03_MED0.png",
+                "preco": "25,00"
+              },
+              "contexto": "12"
+            }
+          },
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 8,
+      "data_de_registro": "2023-12-05T19:47:13.018Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Ribana",
+            "Manga": "Longa Basica"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 9,
+      "data_de_registro": "2023-12-05T20:21:12.133Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Blaser",
+            "Trava": "Presa com Laço",
+            "Punho": "Ribana",
+            "Manga": "Franzida"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 10,
+      "data_de_registro": "2023-12-05T20:28:44.086Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 6,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Trava": "4Tiras",
+            "Gola": "Padre",
+            "Punho": "Elastico",
+            "Manga": "Longa Basica"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 11,
+      "data_de_registro": "2023-12-05T20:44:15.257Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Camisa",
+            "Manga": "Franzida"
+          },
+          "medidas": {},
+          "bordados": {},
           "valor": 12,
           "quantidade": 1,
           "em_espera": false

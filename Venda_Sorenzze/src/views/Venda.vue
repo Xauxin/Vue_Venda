@@ -34,6 +34,9 @@ export default defineComponent({
     // TabelaProdutos
     ResumoVenda
   },
+  beforeRouteLeave(){
+    
+  },
   setup() {
     //Ascessa store de venda e cria varia mutáveal ligada ao cliente que foi escolhido
     const vendaAbertaStore = useVendaAbertaStore()

@@ -1,3 +1,4 @@
+
 import { defineStore } from 'pinia'
 import { IVenda } from '@/interfaces/Venda';
 import http from '@/http';
@@ -9,6 +10,7 @@ export const useVendasStore = defineStore(
   {
     state: () => ({
       vendas : [] as IVenda[],
+      ultimaVendaAdicionada: {} as IVenda,
       date: useDate()
     }),
     actions: {
@@ -34,11 +36,16 @@ export const useVendasStore = defineStore(
         }
       },
       async createVenda(venda:IVenda){
-        console.log(venda)
-        await http.post('vendas', venda)
+        try{
+          await http.post('vendas', venda)
+          this.ultimaVendaAdicionada = venda
+        }catch(erro){
+          console.log(erro)
+        }
       }
     },
     getters:{
+        getUltimaVendaAdicionada: (state) => state.ultimaVendaAdicionada,
         getVendas: (state) => state.vendas,
         getVendaLength: (state) => state.vendas.length
     } 
