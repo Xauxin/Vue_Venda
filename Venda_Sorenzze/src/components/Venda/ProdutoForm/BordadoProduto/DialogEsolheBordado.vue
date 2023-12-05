@@ -8,7 +8,7 @@
                                 <p class="text-h4">{{ BordadoAscessado.replace("_", " ") }}</p>
                             </v-col>
                             <v-col justify-self="end">
-                                <v-btn icon="close" @click.prevent="$emit('fechaDialog')" density="compact" rounded
+                                <v-btn icon="close" @click.prevent="dialog = false" density="compact" rounded
                                     variant="tonal"></v-btn>
                             </v-col>
                         </v-row>

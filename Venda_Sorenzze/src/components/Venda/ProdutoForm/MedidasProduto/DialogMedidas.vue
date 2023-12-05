@@ -22,8 +22,9 @@
                         <v-col cols="7" class="px-4 py-4">
                             <v-row>
                                 <v-col dense cols="6" v-for="(value, key) in esquemaMedidasEscolhidas" :key="key" class="pa-1">
-                                    <v-text-field 
-                                        v-model="MedidasEscolhidas[(key as string)]" 
+                                    <v-text-field
+                                        
+                                        v-model="MedidasEscolhidas[(key as string)]"
                                         density="compact" 
                                         :label=key.toString()
                                         hide-details
@@ -75,7 +76,8 @@ export default defineComponent({
         return {
             dialog: false,
             possiveisMedidasEscolhidas: [] as string[],
-            MedidasEscolhidas: {} as IMedidas
+            MedidasEscolhidas: {} as IMedidas,
+            
         }
     },
     props:{
@@ -107,6 +109,16 @@ export default defineComponent({
         }
     },
     methods: {
+        // regrasInput(key:string|number, regex:RegExp){
+        //     @input="regrasInput(key, new RegExp(/([+])?(\d{1,3})?/))"
+        //     console.log(regex.exec(this.MedidasEscolhidas[key]))
+        //     const teste = regex.exec(this.MedidasEscolhidas[key])
+        //     if (!teste){
+        //         this.MedidasEscolhidas[key] = this.MedidasEscolhidas[key].substring(0, this.MedidasEscolhidas[key].length-1)
+        //     } else{
+        //         this.MedidasEscolhidas[key] = teste[0]
+        //     }
+        // },
         apagaMedidas() {
             this.MedidasEscolhidas =  {}
         },

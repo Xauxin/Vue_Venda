@@ -690,7 +690,7 @@
         "Cintura": {},
         "Elastico": {},
         "Quadril": {},
-        "Mnaga Longa": {},
+        "Manga Longa": {},
         "Punho": {},
         "Cava": {},
         "Bordado": {},
@@ -788,6 +788,150 @@
       "valores": {
         "valores_produtos": 120,
         "valor_total": 120,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "data_de_registro": "2023-12-05T12:55:50.556Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 6,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Trava": "3tiras",
+            "Gola": "Padre",
+            "Manga": "Cavada",
+            "Punho": "Ribana"
+          },
+          "medidas": {
+            "Busto": "+",
+            "Ombro": "+",
+            "Costa": "+",
+            "Frente": "+",
+            "Decote": "+1+1",
+            "Comprimento": "1",
+            "Cintura": "+1",
+            "Elastico": "+1",
+            "Quadril": "+1",
+            "Mnaga Longa": "+1",
+            "Punho": "+1",
+            "Cava": "+1"
+          },
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Dr(a)Juliana Rodrigues",
+              "fonte": "MonoType",
+              "abaixo_do_nome": {
+                "text": "Médica",
+                "font": "Block"
+              },
+              "cor": "Preto"
+            },
+            "manga_esquerda": {
+              "id": 9,
+              "Nome": "Logo da Cirurgia Vascular Hospital Santa Rita",
+              "Estilo": "Logo",
+              "Núcleo": "Hospital",
+              "Particao": "Santa Rita",
+              "codigo": "B2HOS00_VASCSR",
+              "Imagem": "src/assets/B2HOS00_VASCSR.png",
+              "Preço": "25,00"
+            }
+          },
+          "valor": 230,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 230,
+        "valor_total": 230,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 4,
+      "data_de_registro": "2023-12-05T14:58:56.926Z",
+      "tipo": "Pedido",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Gola": "Blaser",
+            "Trava": "Básica",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Dalton Soriani Alves",
+              "fonte": "MonoType",
+              "abaixo_do_nome": {
+                "text": "Sem",
+                "font": "Block"
+              },
+              "cor": "Preto"
+            },
+            "outro": {
+              "bordado": {
+                "id": 3,
+                "Nome": "Brasão do Curso de Medicina Uningá",
+                "Estilo": "Brasão",
+                "Núcleo": "Uningá",
+                "Particao": "Curso de Medicina",
+                "codigo": "B1UNI03_MED0",
+                "Imagem": "src/assets/B1UNI03_MED0.png",
+                "Preço": "25,00"
+              },
+              "contexto": "Bolso"
+            },
+            "outro/Bolso": {
+              "id": 3,
+              "Nome": "Brasão do Curso de Medicina Uningá",
+              "Estilo": "Brasão",
+              "Núcleo": "Uningá",
+              "Particao": "Curso de Medicina",
+              "codigo": "B1UNI03_MED0",
+              "Imagem": "src/assets/B1UNI03_MED0.png",
+              "Preço": "25,00"
+            }
+          },
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 12,
+        "valor_total": 12,
         "frete": {
           "tipo": "",
           "valor": 0

@@ -2,128 +2,46 @@
 <template>
     <td class="pa-1" :colspan="columns.length">
         <v-row no-gutters aling="top">
-            <v-col cols="6">
+            <v-col cols="8">
                 <v-card class="ma-1 pa-1" height="99%">
-                    <v-card-title class="text-center text-caption pa-0">
-                        Produtos
-                    </v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text class="pa-0 ma-0">
-                        <v-list density="compact" :items="item.produtos">
-                            <template #prepend="{item}">
-                                <v-tooltip >
-                                <template #activator="{ props }">
-                                    <v-icon v-bind="props" icon="info"/>    
-                                    </template>
-                                <template #default width="500px" height="500px" style="height: 500px">
-                                    <v-list>
-                                        <v-list-item>
-                                            <v-list-item-title>Jaleco</v-list-item-title>
-                                            <v-list-item-subtitle>
-                                                <p v-for="(value, key) in item.modelagem" :key="key">{{ key }}</p>
-
-                                            </v-list-item-subtitle>
-                                        </v-list-item>
-                                    </v-list>
+                <v-data-table :items="item.produtos">
+                   <template #headers></template>
+                   <template #bottom></template>
+                   <template #item="{ item }">
+                    <tr>
+                        <td><p>{{ item.quantidade }}</p></td>
+                        <td class="d-flex align-center justify-space-between">
+                            <p>{{ item.nome}}</p>
+                            <v-tooltip>
+                                <template #default>
+                                    <div class="d-flex align-center justify-space-between" v-for="(value, key) in item.modelagem" :key="key">
+                                        <p>{{ key }}:</p>
+                                        <p>{{ value }}</p>
+                                    </div>
                                 </template>
-                                </v-tooltip>
-                                
-
-
-                            </template>
-                            <template v-slot:title="{ item }">
-                                <div>{{ `${item.quantidade} - ${item.nome} - ${item.cor}` }}</div>
-                            </template>
-                            <template v-slot:append="{ item }">
-                                <div>{{ item.tamanho }}</div>
-                            </template>
-                        </v-list>
-                    </v-card-text>
+                                <template #activator="{props}">
+                                    <v-icon v-bind="props">more</v-icon>
+                                </template>
+                            </v-tooltip>
+                        </td>
+                        <td><p>{{ item.tamanho }}</p></td>
+                        <td><p>{{ item.cor }}</p></td>
+                        <td>
+                            <p v-if="Object.entries(item.medidas).length > 0">{{ `Com Medidas e Alterações` }}</p>
+                            <p v-else>Padrão</p>
+                        </td>
+                        <td>
+                            <p v-if="Object.entries(item.bordados).length > 0">{{ `Com ${Object.entries(item.bordados).length} Bordado`}}</p>
+                            <p v-else>Sem Bordados</p>
+                        </td>
+                        <td><p>R${{ item.valor.toFixed(2) }}</p></td>
+                    </tr>
+                    </template>
+                </v-data-table>    
                 </v-card>
             </v-col>
             <v-col cols="3">
-                <v-card class="ma-1 pa-1" height="99%">
-                    <v-card-title class="text-center text-caption pa-0">
-                        Valores
-                    </v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-text class="pa-0 ma-0">
-                        <v-list density="compact" :items="item.produtos">
-                            <template v-slot:append="{ item }">
-                                <div>R${{ item.valor.toFixed(2) }}</div>
-                            </template>
-                        </v-list>
-                        <v-divider></v-divider>
-                        <v-list density="compact">
-                            <v-list-item v-if="!maisInfoValores">
-                                <template #title>
-                                    <p class='text-center'><v-btn variant="plain" :ripple="false"
-                                            @click.prevent="maisInfoValores = !maisInfoValores">
-                                            <v-icon>expand_more</v-icon>
-                                        </v-btn></p>
-                                </template>
-                                <template #prepend v-if="item.valores.frete.valor || item.valores.desconto.valor">
-                                    <v-icon icon="error"></v-icon>
-                                </template>
-                                <template #append>
-                                    <div>R${{ item.valores.valor_total.toFixed(2) }}</div>
-                                </template>
-                            </v-list-item>
-                            <v-list-item v-else>
-                                <v-list density="compact" class="pa-0 ma-0">
-                                    <v-list-item class="pa-0 ma-0">
-                                        <template #title>
-                                            Total Dos Produtos
-                                        </template>
-                                        <template #append>
-                                            R${{ item.valores.valores_produtos.toFixed(2) }}
-                                        </template>
-                                    </v-list-item>
-                                    <v-list-item class="pa-0 ma-0">
-                                        <template #title>
-                                            Frete
-                                        </template>
-                                        <template #append>
-                                            R${{ item.valores.frete.valor.toFixed(2) }}
-                                        </template>
-                                    </v-list-item>
-                                    <v-list-item class="pa-0 ma-0">
-                                        <template #title>
-                                            Desconto
-                                        </template>
-                                        <template #append>
-                                            <p>
-                                                {{ item.valores.desconto.tipo == 'Porcentagem' ?
-                                                    `${item.valores.desconto.valor}%` :
-                                                    `R$${item.valores.desconto.valor.toFixed(2)}` }}
-                                            </p>
-                                        </template>
-                                    </v-list-item>
-                                    <v-divider></v-divider>
-                                    <v-list-item class="pa-0 ma-0">
-                                        <template #title>
-                                            Total
-                                        </template>
-                                        <template #append>
-                                            R${{ item.valores.valor_total.toFixed(2) }}
-                                        </template>
-                                    </v-list-item>
-                                    <v-list-item class="pa-0 ma-0">
-                                        <template #title>
-                                            <p class='text-center'><v-btn variant="plain" :ripple="false"
-                                                    @click.prevent="maisInfoValores = !maisInfoValores">
-                                                    <v-icon>expand_less</v-icon>
-                                                </v-btn></p>
-                                        </template>
-                                    </v-list-item>
-                                </v-list>
-                            </v-list-item>
-                        </v-list>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-            <v-col cols="2">
-                <v-card class="ma-1 pa-1" height="99%">
+                <v-card class="ma-1 pa-1 d-flex-column justify-end" height="99%">
                     <v-card-title class="text-center text-caption pa-0">
                         Pagamentos
                     </v-card-title>
@@ -147,9 +65,9 @@
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
-                        <v-btn size="small" density='comfortable' color="primary" variant="flat">Faturar</v-btn>
+                        <v-btn size="small" density="comfortable" color="primary" variant="flat">Faturar</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn size="small" density='comfortable' color="yellow" variant="flat">Adiant...</v-btn>
+                        <v-btn size="small" density="comfortable" color="yellow" variant="flat">Adiant...</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -180,7 +98,7 @@
                                             icon="more_horiz">
                                         </v-btn>
                                     </template>
-                                    <v-card style="overflow-y: hidden;" class="cardBotoes">
+                                    <v-card style="overflow-y: hidden" class="cardBotoes">
                                         <v-card-text class="ma-0 pa-1">
                                             <v-row no-gutters>
                                                 <v-col class="ma-0 pa-1" cols="4"><v-btn icon="delete" variant="tonal"
@@ -219,38 +137,37 @@
         </v-row>
     </td>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent } from "vue";
-import { IVenda } from '@/interfaces/Venda';
+import { IVenda } from "@/interfaces/Venda";
 
 export default defineComponent({
-    name: 'ExpandedRowTblVendas',
+    name: "ExpandedRowTblVendas",
     props: {
         item: {
             type: Object as () => IVenda,
-            required: true
+            required: true,
         },
         columns: {
             type: Array,
-            required: true
-        }
+            required: true,
+        },
     },
     data() {
         return {
             menuMaisOpcoesPedido: false as boolean,
-            maisInfoValores: false as boolean
-        }
+            maisInfoValores: false as boolean,
+        };
     },
     methods: {
         diaEMesdeData(dataEmString: string) {
-            const listDiaMesAno = dataEmString.split('/')
-            const diaEMesdeData = `${listDiaMesAno[0]}/${listDiaMesAno[1]}`
-            return diaEMesdeData
+            const listDiaMesAno = dataEmString.split("/");
+            const diaEMesdeData = `${listDiaMesAno[0]}/${listDiaMesAno[1]}`;
+            return diaEMesdeData;
         },
-    }
+    },
 });
 </script>
 
 <style type="text/css"></style>
-  

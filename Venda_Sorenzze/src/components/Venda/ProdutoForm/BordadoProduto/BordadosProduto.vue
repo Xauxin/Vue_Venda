@@ -73,10 +73,17 @@ export default defineComponent({
             console.log(key);
             (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog()
         },
-        atualizaLocaisEscolhidos(localEscolhido: String) {
-            this.locaisEscolhidos.push(localEscolhido)
+        atualizaLocaisEscolhidos(localEscolhido: String, contexto?:string) {
+            if (contexto){
+                this.locaisEscolhidos.push(`${localEscolhido}//${contexto}`)
+            }else{
+                this.locaisEscolhidos.push(localEscolhido)
+            }
         },
         adicionaBordado(bordado: IBordado) {
+            if(this.BordadoAscessado.includes('outro')){
+                this.bordadosEscolhidos.outro = {bordado: bordado, contexto: this.BordadoAscessado.split('/')[1] }
+            }
             this.bordadosEscolhidos[(this.BordadoAscessado as string)] = bordado;
             (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
         },

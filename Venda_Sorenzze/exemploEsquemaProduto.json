@@ -1,0 +1,103 @@
+{
+    "id": 1,
+    "nome": "Jaleco Masculino",
+    "tamanhos": [
+      "38",
+      "40",
+      "42",
+      "44",
+      "46",
+      "48",
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ],
+    "cor": [
+      "Branco",
+      "Preto",
+      "Grafite",
+      "Bordo",
+      "Azul Escuro"
+    ],
+    "suprimentos": [
+      "Gabardine",
+      "Biostretch"
+    ],
+    "modelagem": {
+      "Trava": {
+        "opcoes": {
+          "Presa": 0,
+          "3tiras": 0,
+          "4Tiras": 5,
+          "Básica": 0,
+          "Presa com Laço": 15
+        },
+        "required": true
+      },
+      "Gola": {
+        "opcoes": {
+          "Padre": 10,
+          "Blaser": 0,
+          "Smoking": 20
+        },
+        "required": true
+      },
+      "Manga": {
+        "opcoes": {
+          "Curta": -10,
+          "Cavada": -15,
+          "Franzida": 20,
+          "Longa Basica": 0
+        },
+        "required": true
+      },
+      "Punho": {
+        "opcoes": {
+          "Basico": 0,
+          "Camisa": 10,
+          "Ribana": 10,
+          "Elastico": 10
+        },
+        "required": true
+      },
+      "Vivo": {
+        "opcoes": [
+          "Gola",
+          "Punho",
+          "Frente"
+        ],
+        "required": false
+      }
+    },
+    "medidas": {
+      "Busto": {},
+      "Ombro": {},
+      "Costa": {},
+      "Frente": {},
+      "Decote": {},
+      "Comprimento": {},
+      "Cintura": {},
+      "Elastico": {},
+      "Quadril": {},
+      "Mnaga Longa": {},
+      "Punho": {},
+      "Cava": {},
+      "Bordado": {},
+      "Trava": {},
+      "Botão": {}
+    },
+    "mais_medidas": [
+      "de Cava ao Recorte",
+      "De cava a Barra",
+      "no Tecido das Costas"
+    ],
+    "locais_de_bordado": [
+      "manga_esquerda",
+      "manga_direita",
+      "outro"
+    ],
+    "valor": 155
+  }}
