@@ -85,7 +85,7 @@
                     </v-card-text>
                     <v-divider></v-divider>
                     <v-card-actions>
-                        <v-btn size="small" density="comfortable" color="primary" variant="flat">Faturar</v-btn>
+                        <v-btn size="swmall" density="comfortable" color="primary" variant="flat">Faturar</v-btn>
                         <v-spacer></v-spacer>
                         <v-btn size="small" density="comfortable" color="yellow" variant="flat">Adiant...</v-btn>
                     </v-card-actions>
@@ -102,7 +102,7 @@
                             <v-list-item class="text-center">
                                 <v-tooltip text="Editar Venda">
                                     <template v-slot:activator="{ props }">
-                                        <v-btn icon="edit" v-bind="props" density="comfortable" rounded class="px-6"
+                                        <v-btn :to="`/venda/${item.id}`" icon="edit" v-bind="props" density="comfortable" rounded class="px-6"
                                             variant="tonal"></v-btn>
                                     </template>
                                 </v-tooltip>

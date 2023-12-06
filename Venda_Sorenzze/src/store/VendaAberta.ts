@@ -10,6 +10,7 @@ import { useDate } from 'vuetify/lib/framework.mjs';
 
 
 export const useVendaAbertaStore = defineStore('VendaAberta', {
+  
   state: () => ({
     id: null as number|null,
     data_de_registro: null as Date|null|string,
@@ -38,11 +39,15 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
   },
   actions:{
     async AbrirVenda(id?:number){
+      const vendas = useVendasStore()
       if (id){
-        console.log('vendacomId')
+        const vendaEscolhida = vendas.getVendaPorId(id)
+        Object.entries(vendaEscolhida).forEach(campo => {
+          let [key, value] = campo
+          console.log(campo)
+        })
       }else{
         const pessoas = usePessoasStore()
-        const vendas = useVendasStore()
         const esquemas = useEsquemaProdutoStore()
         const produtoAberto = useProdutoAbertoStore()
         await pessoas.listPessoas()

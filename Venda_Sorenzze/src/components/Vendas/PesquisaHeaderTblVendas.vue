@@ -12,7 +12,7 @@
                     <v-text-field hide-details label="Data" density="compact" variant="outlined"></v-text-field>
                 </v-col>
                 <v-col cols='1' offset="3">
-                    <v-btn to="/Venda">Nova Venda</v-btn>
+                    <v-btn to="venda">Nova Venda</v-btn>
                 </v-col>
             </v-row>
         </v-card-text>

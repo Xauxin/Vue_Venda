@@ -11,7 +11,7 @@
         <v-divider></v-divider>
         <v-list density="compact" nav>
             <v-list-item prepend-icon="home" title="Página Inicial" value="home" to="/"/>
-            <v-list-item prepend-icon="sell" title="Vendas" value="vendas" to="vendas"/>
+            <v-list-item prepend-icon="sell" title="Vendas" value="vendas" to="/vendas"/>
             <v-list-item prepend-icon="attach_money" title="Finanças" value="financas"/>
         </v-list>
     </v-navigation-drawer>

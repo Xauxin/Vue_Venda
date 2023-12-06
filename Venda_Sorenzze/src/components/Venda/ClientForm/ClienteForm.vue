@@ -69,7 +69,7 @@ export default defineComponent({
     const tipo = ref("" as string)
     onMounted(async () => {
       try {
-        storeVenda.AbrirVenda()
+
         pessoas.value = storePessoas.getPessoas
         tipo.value = storeVenda.getTipoVenda
       } catch (error) {

@@ -42,7 +42,16 @@ export const useVendasStore = defineStore(
         }catch(erro){
           console.log(erro)
         }
-      }
+      },
+      getVendaPorId(id:number){
+        let vendaComOId = {} as IVenda 
+        this.vendas.forEach(venda => {
+          if (venda.id == id){
+            vendaComOId = venda
+          }
+        })
+        return vendaComOId
+      },
     },
     getters:{
         getUltimaVendaAdicionada: (state) => state.ultimaVendaAdicionada,
