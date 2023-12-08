@@ -11,7 +11,6 @@ export const useVendasStore = defineStore(
     state: () => ({
       vendas : [] as IVenda[],
       ultimaVendaAdicionada: {} as IVenda,
-      date: useDate()
     }),
     actions: {
       limpaVendas(){
@@ -27,12 +26,13 @@ export const useVendasStore = defineStore(
           console.log(this.vendas)
           const resposta = (await http.get("vendas")).data as IVenda[];
           resposta.forEach((venda: IVenda) => {
-            const dataFormatada = this.date.format(venda.data_de_registro, 'keyboardDate').split('/')
+            const date = useDate()
+            const dataFormatada = date.format(venda.data_de_registro, 'keyboardDate').split('/')
             venda.data_de_registro =  `${dataFormatada[1]}/${dataFormatada[0]}/${dataFormatada[2]}`
             this.vendas.push(venda);
           });
         } catch (error) {
-          return error;
+          console.log(error)
         }
       },
       async createVenda(venda:IVenda){

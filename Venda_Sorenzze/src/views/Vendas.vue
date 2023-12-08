@@ -37,19 +37,21 @@ export default defineComponent({
     },
     data(){
         return{
-            dialog: true as boolean,
+            dialog: false as boolean,
             ultimaVenda: {} as IVenda
         }
     },
     async beforeRouteEnter(to, from, next){
         const vendasStore = useVendasStore()
         const pessoasStore = usePessoasStore()
+        vendasStore.$reset()
         await vendasStore.listVendas()
         await pessoasStore.listPessoas()
-        if (from.name == "Venda"){
+        const ultimaVenda = vendasStore.getUltimaVendaAdicionada
+        if (from.name == "Venda" && ultimaVenda.id){
             next(vm => {
+              (vm as any).ultimaVenda = ultimaVenda;
               (vm as any).dialog = true;
-              (vm as any).ultimaVenda = vendasStore.getUltimaVendaAdicionada;
             })
         }else{
             next()

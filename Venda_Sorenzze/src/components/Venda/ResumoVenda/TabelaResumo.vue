@@ -52,7 +52,6 @@
 
 import ExapandedRowTblResumo from './ExpandedRowTblResumo.vue'
 import BottomTblResumo from './BottomTblResumo.vue'
-import { IProduto } from '@/interfaces/Produto';
 import { useVendaAbertaStore } from '@/store/VendaAberta'
 import { ref, watch } from 'vue';
 import { defineComponent } from 'vue'
@@ -107,7 +106,7 @@ export default defineComponent({
     },
     setup() {
         const vendaAberta = useVendaAbertaStore()
-        const produtos = ref([] as IProduto[])
+        const produtos = ref(vendaAberta.getProdutos)
         watch(
             () => vendaAberta.getProdutos,
             () => {

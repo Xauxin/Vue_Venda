@@ -42,7 +42,7 @@ export default defineComponent({
   },
   data() {
     return {
-      pessoaEscolhida: "" as string,
+      
     }
   },
   methods: {
@@ -67,9 +67,12 @@ export default defineComponent({
     const storePessoas = usePessoasStore()
     const pessoas = ref([] as IPessoa[])
     const tipo = ref("" as string)
+    const pessoaEscolhida = ref("" as string)
     onMounted(async () => {
       try {
-
+        if (storeVenda.getpessoaFoiEscolhida){
+          pessoaEscolhida.value = storeVenda.getpessoaVenda.nome
+        }
         pessoas.value = storePessoas.getPessoas
         tipo.value = storeVenda.getTipoVenda
       } catch (error) {
@@ -79,6 +82,7 @@ export default defineComponent({
     const data = computed(() => storeVenda.getDataEmString as string)
     const id = computed(() => JSON.stringify(storeVenda.getId) as string)
     return {
+      pessoaEscolhida,
       tipo,
       data,
       id,

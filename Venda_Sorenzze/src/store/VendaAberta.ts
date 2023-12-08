@@ -40,30 +40,37 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
   actions:{
     async AbrirVenda(id?:number){
       const vendas = useVendasStore()
+      const esquemas = useEsquemaProdutoStore()
+      const produtoAberto = useProdutoAbertoStore()
+      const pessoas = usePessoasStore()
+      await pessoas.listPessoas()
+      produtoAberto.abrirProduto()
+      esquemas.listEsquemas()
       if (id){
         const vendaEscolhida = vendas.getVendaPorId(id)
-        Object.entries(vendaEscolhida).forEach(campo => {
-          let [key, value] = campo
-          console.log(campo)
+        Object.entries(vendaEscolhida).forEach((campo:[string,any]) => {
+          const [key,value] = campo;
+          if(key == 'pessoaId'){
+            this.setPessoaVenda('',value)
+          }
+          (this.$state as any)[key] = value
         })
       }else{
-        const pessoas = usePessoasStore()
-        const esquemas = useEsquemaProdutoStore()
-        const produtoAberto = useProdutoAbertoStore()
-        await pessoas.listPessoas()
-        produtoAberto.abrirProduto()
-        esquemas.listEsquemas()
-        await vendas.listVendas()
+
         this.id = vendas.getVendaLength + 1 ,
         this.data_de_registro = new Date()
       }
     },
-    setPessoaVenda(pessoaNome:String){
+    setPessoaVenda(pessoaNome?:String,id?:number){
+      const pessoas = usePessoasStore()
       if(pessoaNome){
-        const pessoas = usePessoasStore()
         this.pessoaVenda = pessoas.getPessoaPorNome(pessoaNome)
         this.pessoaFoiEscolhida = true
-      }else{
+      }else if(id){
+        this.pessoaVenda = pessoas.getPessoaPorId(id)
+        this.pessoaFoiEscolhida = true
+      }
+      else{
         this.pessoaVenda = {} as IPessoa
         const esquemaStore = useEsquemaProdutoStore()
         const produtoAberto = useProdutoAbertoStore()

@@ -12,12 +12,12 @@ const routes: RouteRecordRaw[] =[
   },
   {
     path: '/vendas',
-    name: "Vendas",
+    name: "vendas",
     component: Vendas
   },
   {
     path: '/venda/:id?',
-    name: "Venda",
+    name: "venda",
     component: Venda
   }
 ] 

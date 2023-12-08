@@ -35,17 +35,27 @@ export default defineComponent({
     // TabelaProdutos
     ResumoVenda
   },
+  beforeRouteEnter(to, from, next){
+    if(from.name != "vendas"){
+      console.log(from, to)
+      next({ path: '/vendas' });
+    }else{
+      next()
+    }
+  },
   setup() {
     //Ascessa store de venda e cria varia mutáveal ligada ao cliente que foi escolhido
     const route = useRoute()
     const id = parseInt(route.params.id as string)
     const vendaAbertaStore = useVendaAbertaStore()
+    vendaAbertaStore.$reset()
+    const clienteFoiEscolhido = ref(false as boolean)
     if (id){
       vendaAbertaStore.AbrirVenda(id)
+      clienteFoiEscolhido.value = true
     }else{
       vendaAbertaStore.AbrirVenda()
     }
-    const clienteFoiEscolhido = ref(false as boolean)
     watch(
       () => vendaAbertaStore.getpessoaFoiEscolhida,
       () => {
