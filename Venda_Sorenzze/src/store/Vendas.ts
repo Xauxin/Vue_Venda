@@ -2,7 +2,7 @@
 import { defineStore } from 'pinia'
 import { IVenda } from '@/interfaces/Venda';
 import http from '@/http';
-import { useDate } from 'vuetify/lib/framework.mjs';
+import moment from 'moment';
 
 
 export const useVendasStore = defineStore(
@@ -26,9 +26,8 @@ export const useVendasStore = defineStore(
           console.log(this.vendas)
           const resposta = (await http.get("vendas")).data as IVenda[];
           resposta.forEach((venda: IVenda) => {
-            const date = useDate()
-            const dataFormatada = date.format(venda.data_de_registro, 'keyboardDate').split('/')
-            venda.data_de_registro =  `${dataFormatada[1]}/${dataFormatada[0]}/${dataFormatada[2]}`
+            const dataFormatada = moment(venda.data_de_registro).format('DD/MM/YYYY')
+            venda.data_de_registro =  dataFormatada
             this.vendas.push(venda);
           });
         } catch (error) {

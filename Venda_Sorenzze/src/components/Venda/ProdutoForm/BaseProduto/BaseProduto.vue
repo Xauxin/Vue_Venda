@@ -26,8 +26,9 @@
 </template>
   
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 
 
 
@@ -46,7 +47,6 @@ export default defineComponent({
     data() {
         return {
             nome : "" as string,
-            cor : "" as string,
             tamanho : "" as string,
             tecido : "" as string,
             ultimaValidacaoBase: false as boolean,
@@ -63,7 +63,7 @@ export default defineComponent({
                 this.$emit('setNome', this.nome, 'nome')
                 },
         },
-        cor: 'handlerBase',
+        // cor: 'handlerBase',
         tamanho: 'handlerBase',
         tecido: 'handlerBase',
     },
@@ -87,6 +87,13 @@ export default defineComponent({
             this.tecido = ""
         }
     },
+    setup(){
+        const produtoAberto = useProdutoAbertoStore()
+        const cor = ref(produtoAberto.cor)
+        return{
+            cor
+        }
+    }
     
 })
 </script>

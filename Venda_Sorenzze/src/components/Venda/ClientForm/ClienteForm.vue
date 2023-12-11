@@ -6,7 +6,7 @@
     <v-card-text class="px-3 py-2 mx-0">
       <v-row>
         <v-col>
-          <v-autocomplete hide-details label="Cliente" density="compact" v-model="pessoaEscolhida" :items=nomesPessoas()
+          <v-autocomplete hide-details label="Cliente" density="compact" v-model="pessoaEscolhidaNome()"  :items=nomesPessoas()
             variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
           </v-autocomplete>
         </v-col>
@@ -45,6 +45,9 @@ export default defineComponent({
       
     }
   },
+  computed:{
+    pessoaE
+  },
   methods: {
     nomesPessoas() {
       let lista = [] as String[]
@@ -56,7 +59,7 @@ export default defineComponent({
   },
   watch: {
     pessoaEscolhida() {
-      this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
+      // this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
     },
     tipo(){
       this.storeVenda.setTipo(this.tipo)
@@ -67,19 +70,16 @@ export default defineComponent({
     const storePessoas = usePessoasStore()
     const pessoas = ref([] as IPessoa[])
     const tipo = ref("" as string)
-    const pessoaEscolhida = ref("" as string)
+    const pessoaEscolhida = ref(storeVenda.getpessoaVenda as IPessoa )
     onMounted(async () => {
       try {
-        if (storeVenda.getpessoaFoiEscolhida){
-          pessoaEscolhida.value = storeVenda.getpessoaVenda.nome
-        }
         pessoas.value = storePessoas.getPessoas
         tipo.value = storeVenda.getTipoVenda
       } catch (error) {
         console.log(error)
       }
     })
-    const data = computed(() => storeVenda.getDataEmString as string)
+    const data = ref(storeVenda.getData_de_registro)
     const id = computed(() => JSON.stringify(storeVenda.getId) as string)
     return {
       pessoaEscolhida,

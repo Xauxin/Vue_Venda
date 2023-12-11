@@ -6,7 +6,7 @@ import { defineStore } from 'pinia'
 import { useVendasStore } from './Vendas';
 import { useProdutoAbertoStore } from './ProdutoAberto';
 import { usePessoasStore } from './Pessoas';
-import { useDate } from 'vuetify/lib/framework.mjs';
+import moment from 'moment';
 
 
 export const useVendaAbertaStore = defineStore('VendaAberta', {
@@ -31,11 +31,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     getProdutos: (state) => state.produtos,
     getProdutosLength: (state) => state.produtos.length,
     getTotalVenda: (state) => state.valores.valor_total,
-    getDataEmString():String{
-      const date = useDate()
-      const data_string = date.format(this.data_de_registro, "keyboardDate").split("/") as String[] || []
-      return `${data_string[1]}/${data_string[0]}/${data_string[2]}`
-    },
+    getData_de_registro: (state) => state.data_de_registro
   },
   actions:{
     async AbrirVenda(id?:number){
@@ -135,7 +131,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
             key = 'pessoaId'
             value = value.id
           }else if(key == 'data_de_registro'){
-            value == this.getDataEmString
+            value == this.data_de_registro
           }else if (key == 'valores'){
             if (!value.frete){
               value.frete = {tipo: "", valor: 0}
