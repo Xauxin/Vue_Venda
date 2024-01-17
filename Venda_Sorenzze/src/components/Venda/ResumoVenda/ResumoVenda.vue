@@ -42,7 +42,6 @@ export default defineComponent({
             if (this.vendaValida){
                 this.vendaAberta.salvaVenda()
             }
-            
         },
         atualizaValores(objeto:ITipoValor){
             if (objeto.tipo == 'Porcentagem' || objeto.tipo == 'Valor'){

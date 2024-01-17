@@ -23,10 +23,9 @@ export const useVendasStore = defineStore(
               this.vendas.pop()
             }
           }
-          console.log(this.vendas)
           const resposta = (await http.get("vendas")).data as IVenda[];
           resposta.forEach((venda: IVenda) => {
-            const dataFormatada = moment(venda.data_de_registro).format('DD/MM/YYYY')
+            const dataFormatada = moment(new Date(venda.data_de_registro)).format('DD/MM/YYYY')
             venda.data_de_registro =  dataFormatada
             this.vendas.push(venda);
           });
@@ -39,6 +38,14 @@ export const useVendasStore = defineStore(
           await http.post('vendas', venda)
           this.ultimaVendaAdicionada = venda
         }catch(erro){
+          console.log(erro)
+        }
+      },
+      async updateVenda(venda: IVenda) {
+        try {
+          await http.patch(`vendas/${venda.id}`, venda)
+          this.ultimaVendaAdicionada = venda
+        } catch(erro) {
           console.log(erro)
         }
       },

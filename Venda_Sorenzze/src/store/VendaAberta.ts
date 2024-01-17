@@ -9,6 +9,7 @@ import { usePessoasStore } from './Pessoas';
 import moment from 'moment';
 
 
+
 export const useVendaAbertaStore = defineStore('VendaAberta', {
   
   state: () => ({
@@ -20,7 +21,8 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     pessoaFoiEscolhida: false as boolean,
     produtos: [] as IProduto[],
     produtoFoiEscolhido: false as boolean,
-    valores: {valores_produtos:0, valor_total:0} as IValores
+    valores: {valores_produtos:0, valor_total:0} as IValores,
+    novaVenda: true as boolean
   }),
   getters: {
     getId: (state) => state.id,
@@ -43,6 +45,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       produtoAberto.abrirProduto()
       esquemas.listEsquemas()
       if (id){
+        this.novaVenda = false
         const vendaEscolhida = vendas.getVendaPorId(id)
         Object.entries(vendaEscolhida).forEach((campo:[string,any]) => {
           const [key,value] = campo;
@@ -52,9 +55,8 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
           (this.$state as any)[key] = value
         })
       }else{
-
         this.id = vendas.getVendaLength + 1 ,
-        this.data_de_registro = new Date()
+        this.data_de_registro = moment(new Date()).format("DD/MM/YYYY")
       }
     },
     setPessoaVenda(pessoaNome?:String,id?:number){
@@ -126,7 +128,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       const venda = {} as IVenda
       Object.entries(this.$state).forEach((dado:[string, any ]) =>{
         let [key, value] = dado
-        if(key != 'pessoaFoiEscolhida' && key != 'produtoFoiEscolhido'){
+        if(key != 'pessoaFoiEscolhida' && key != 'produtoFoiEscolhido' && key != 'novaVenda'){
           if(key == 'pessoaVenda'){
             key = 'pessoaId'
             value = value.id
@@ -140,12 +142,17 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
               value.desconto = {tipo: "", valor: 0}
             }
           }
+          console.log(key, value);
           (venda as any)[key]= value;
         }
       })
-      venda.status = 'Aguardando Pagamento'
+      venda.status = venda.status ? venda.status : 'Aguardando Pagamento'
       const vendas = useVendasStore()
-      vendas.createVenda(venda)
+      if (this.novaVenda){
+        vendas.createVenda(venda)
+      }else{
+        vendas.updateVenda(venda)
+      }
       this.$reset()
       vendas.limpaVendas()
     }

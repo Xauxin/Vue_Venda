@@ -22,10 +22,10 @@
 import { defineComponent, ref, watch } from 'vue'
 import ClientForm from "@/components/Venda/ClientForm/ClienteForm.vue"
 import ProdutoForm from '@/components/Venda/ProdutoForm/ProdutoForm.vue';
-// import TabelaProdutos from '@/components/Venda/ResumoVenda/TabelaProdutos.vue';
 import ResumoVenda from '@/components/Venda/ResumoVenda/ResumoVenda.vue';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { useRoute } from 'vue-router';
+import { useEsquemaProdutoStore } from '@/store/EsquemaProduto';
 
 export default defineComponent({
   name: 'Venda',
@@ -37,17 +37,16 @@ export default defineComponent({
   },
   beforeRouteEnter(to, from, next){
     if(from.name != "vendas"){
-      console.log(from, to)
       next({ path: '/vendas' });
     }else{
       next()
     }
   },
   setup() {
-    //Ascessa store de venda e cria varia mutáveal ligada ao cliente que foi escolhido
     const route = useRoute()
     const id = parseInt(route.params.id as string)
     const vendaAbertaStore = useVendaAbertaStore()
+    const esquemaStore = ref(useEsquemaProdutoStore())
     vendaAbertaStore.$reset()
     const clienteFoiEscolhido = ref(false as boolean)
     if (id){
@@ -63,6 +62,7 @@ export default defineComponent({
       }
     )
     return {
+      esquemaStore,
       clienteFoiEscolhido
     }
   }

@@ -6,13 +6,14 @@
     <v-card-text class="px-3 py-2 mx-0">
       <v-row>
         <v-col>
-          <v-autocomplete hide-details label="Cliente" density="compact" v-model="pessoaEscolhidaNome()"  :items=nomesPessoas()
-            variant="outlined" append-inner-icon="add" auto-select-first menu-icon="">
+          <v-autocomplete hide-details hide-spin-buttons label="Cliente" density="compact" v-model="storeVenda.pessoaVenda.nome" 
+            :items=pessoas variant="outlined" append-inner-icon="add" auto-select-first item-title="nome" @update:modelValue="setPessoa($event)"
+            item-children="nome" :readonly="!storeVenda.novaVenda">
           </v-autocomplete>
         </v-col>
         <v-col>
-          <v-autocomplete hide-details label="Tipo" v-model="tipo" density="compact" :items="['Pedido', 'Orçamento', 'Registro']"
-            variant="outlined" auto-select-first>
+          <v-autocomplete hide-details label="Tipo" v-model="storeVenda.tipo" density="compact" :readonly="!storeVenda.novaVenda"
+            :items="['Pedido', 'Orçamento', 'Registro']" variant="outlined" auto-select-first>
           </v-autocomplete>
         </v-col>
         <v-col>
@@ -32,7 +33,8 @@
 import { IPessoa } from '@/interfaces/Pessoas'
 import { usePessoasStore } from '@/store/Pessoas'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
+
 
 
 export default defineComponent({
@@ -42,11 +44,7 @@ export default defineComponent({
   },
   data() {
     return {
-      
     }
-  },
-  computed:{
-    pessoaE
   },
   methods: {
     nomesPessoas() {
@@ -55,34 +53,25 @@ export default defineComponent({
         lista.push(pessoa.nome)
       })
       return lista
+    },
+    setPessoa(nome:string){
+      this.storeVenda.setPessoaVenda(nome)
     }
   },
   watch: {
-    pessoaEscolhida() {
-      // this.storeVenda.setPessoaVenda(this.pessoaEscolhida)
-    },
-    tipo(){
+    tipo() {
       this.storeVenda.setTipo(this.tipo)
     }
   },
   setup() {
     const storeVenda = useVendaAbertaStore()
     const storePessoas = usePessoasStore()
-    const pessoas = ref([] as IPessoa[])
-    const tipo = ref("" as string)
-    const pessoaEscolhida = ref(storeVenda.getpessoaVenda as IPessoa )
-    onMounted(async () => {
-      try {
-        pessoas.value = storePessoas.getPessoas
-        tipo.value = storeVenda.getTipoVenda
-      } catch (error) {
-        console.log(error)
-      }
-    })
-    const data = ref(storeVenda.getData_de_registro)
-    const id = computed(() => JSON.stringify(storeVenda.getId) as string)
+    const pessoas = ref(storePessoas.getPessoas as IPessoa[])
+    const tipo = computed(() => storeVenda.getTipoVenda)
+    const data = computed(() => storeVenda.getData_de_registro)
+    const id = computed(() => storeVenda.getId)
     return {
-      pessoaEscolhida,
+      // pessoaEscolhida,
       tipo,
       data,
       id,

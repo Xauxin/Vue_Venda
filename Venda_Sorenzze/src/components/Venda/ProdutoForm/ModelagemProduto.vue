@@ -7,7 +7,7 @@
                         <p class="text-center">{{ key }}</p>
                         <v-switch v-model="vivoOn" hide-details density="compact" color="primary">
                             <template v-slot:label>
-                                <v-btn-toggle color="primary" v-model="modelagemEscolhida[key]" multiple :disabled="!vivoOn"
+                                <v-btn-toggle color="primary" v-model="modelagemEscolhida2[key]" multiple :disabled="!vivoOn"
                                     density="compact" elevation="2" rounded >
                                     <v-btn prevent :value="iten" class="px-1 py-2"  size="x-small" v-for="(iten, index) in item.opcoes" border
                                         :key="index">
@@ -20,7 +20,7 @@
                     <v-container v-else class="pa-0 ma-1">
                         <p class="text-center">{{ key }}</p>
                         <v-btn-toggle color="primary" density="compact" elevation="2" rounded mandatory
-                            v-model="modelagemEscolhida[key]">
+                            v-model="modelagemEscolhida2[key]">
                             <v-btn prevent :value="key" class="px-1 py-2" size="x-small" v-for="(iten, key) in item.opcoes" border
                                 :key="key">
                                 {{ key }}
@@ -87,12 +87,13 @@ export default defineComponent({
     setup() {
         const storeProdutoAberto = useProdutoAbertoStore()
         const modelagemEscolhida = ref({} as IModelagem)
-
+        const modelagemEscolhida2 = ref(storeProdutoAberto.modelagem)
 
        
         return {
             storeProdutoAberto,
-            modelagemEscolhida
+            modelagemEscolhida,
+            modelagemEscolhida2,
         }
     }
 })

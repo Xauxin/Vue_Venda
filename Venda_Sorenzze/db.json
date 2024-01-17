@@ -721,7 +721,7 @@
   "vendas": [
     {
       "id": 1,
-      "data_de_registro": "2023-11-30T12:49:44.318Z",
+      "data_de_registro": "30/11/2023",
       "tipo": "Pedido",
       "status": "Aguardando Pagamento",
       "pessoaId": 1,
@@ -742,11 +742,29 @@
           "valor": 190,
           "quantidade": 1,
           "em_espera": false
+        },
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Camisa",
+            "Manga": "Longa Basica"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
         }
       ],
       "valores": {
-        "valores_produtos": 190,
-        "valor_total": 190,
+        "valores_produtos": 202,
+        "valor_total": 202,
         "frete": {
           "tipo": "",
           "valor": 0
@@ -759,7 +777,7 @@
     },
     {
       "id": 2,
-      "data_de_registro": "2023-11-30T20:28:59.258Z",
+      "data_de_registro": "Invalid date",
       "tipo": "Pedido",
       "status": "Aguardando Pagamento",
       "pessoaId": 1,
@@ -791,11 +809,128 @@
           "valor": 120,
           "quantidade": 1,
           "em_espera": false
+        },
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Blaser",
+            "Trava": "Presa com Laço",
+            "Punho": "Elastico",
+            "Manga": "Longa Basica"
+          },
+          "medidas": {},
+          "bordados": {},
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
+        },
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Cavada",
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Camisa"
+          },
+          "medidas": {},
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Dalton Soriani Alves",
+              "fonte": "MonoType",
+              "abaixo_do_nome": {
+                "text": "Sem",
+                "font": "Block"
+              },
+              "cor": "Preto"
+            }
+          },
+          "valor": 121,
+          "quantidade": 1,
+          "em_espera": false
+        },
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "40",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Franzida",
+            "Trava": "3tiras",
+            "Punho": "Basico"
+          },
+          "medidas": {},
+          "bordados": {
+            "bordado_do_nome": {
+              "abaixo_do_nome": {
+                "text": "Sem"
+              }
+            }
+          },
+          "valor": 12,
+          "quantidade": 1,
+          "em_espera": false
         }
       ],
       "valores": {
-        "valores_produtos": 120,
-        "valor_total": 120,
+        "valores_produtos": 265,
+        "valor_total": 265,
+        "frete": {
+          "tipo": "",
+          "valor": 0
+        },
+        "desconto": {
+          "tipo": "",
+          "valor": 0
+        }
+      }
+    },
+    {
+      "id": 3,
+      "data_de_registro": "12/12/2023",
+      "tipo": "Orçamento",
+      "status": "Aguardando Pagamento",
+      "pessoaId": 1,
+      "produtos": [
+        {
+          "id": 1,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "42",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Trava": "3tiras",
+            "Gola": "Padre",
+            "Punho": "Elastico",
+            "Manga": "Cavada"
+          },
+          "medidas": {
+            "Busto": "12"
+          },
+          "bordados": {
+            "bordado_do_nome": {
+              "abaixo_do_nome": {
+                "text": "Sem"
+              },
+              "nome": "Dr(a)Ana Souza"
+            }
+          },
+          "valor": 210,
+          "quantidade": "4",
+          "em_espera": false
+        }
+      ],
+      "valores": {
+        "valores_produtos": 210,
+        "valor_total": 210,
         "frete": {
           "tipo": "",
           "valor": 0

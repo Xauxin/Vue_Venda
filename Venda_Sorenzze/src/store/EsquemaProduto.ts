@@ -4,8 +4,6 @@ import { IBordado } from "@/interfaces/Bordado";
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos';
 import { defineStore } from 'pinia'
 
-
-
 export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
   state: () => ({
     esquemas: [] as IEsquemaProduto[],
@@ -27,12 +25,16 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
       try {
         if (escolhido == ""){
           this.esquema_escolhido = {}  as IEsquemaProduto
+        }else{
+          this.esquemas.forEach(esquema =>{
+            if (esquema.nome == escolhido){
+              this.esquema_escolhido = esquema
+              Object.entries(this.esquema_escolhido).forEach(
+                ([x,y]) => console.log(x,y)
+              )
+            }
+          })
         }
-        this.esquemas.forEach(esquema =>{
-          if (esquema.nome == escolhido){
-            this.esquema_escolhido = esquema
-          }
-        })
       } catch (error) {
         console.log(error)
       }
@@ -69,4 +71,5 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
       return strEsquemas
     }
   }
-})
+}
+)

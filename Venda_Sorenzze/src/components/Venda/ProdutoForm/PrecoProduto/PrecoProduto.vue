@@ -69,7 +69,6 @@ export default defineComponent({
             }
         },
         adicionarProduto(){
-           
             this.produtoAbertoStore.setter('valor', this.valorProduto)
             this.produtoAbertoStore.setter('quantidade', this.quantidadeProduto)
             this.produtoAbertoStore.salvaProduto()

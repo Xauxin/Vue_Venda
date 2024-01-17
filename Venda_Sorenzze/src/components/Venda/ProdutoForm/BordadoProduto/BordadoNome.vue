@@ -109,7 +109,7 @@
 <script lang="ts">
 import { IAbaixoDoNome, IBordadoNome } from '@/interfaces/Bordado';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent,  ref } from 'vue'
 
 export default defineComponent({
     name: 'BordadoNome',
@@ -174,7 +174,7 @@ export default defineComponent({
         },
         comNome() {
             if (this.comNome) {
-                this.objetoNome.nome = this.holdnome
+                this.objetoNome.nome = this.VendaAbertastore.pessoaVenda.nome
             } else {
                 this.objetoNome = {
                     abaixo_do_nome: {text : "Sem"}
@@ -212,10 +212,8 @@ export default defineComponent({
             } as IAbaixoDoNome,
             cor: 'Preto' as string
         } as unknown as IBordadoNome,)
-        onMounted(() => {
-            holdnome.value = VendaAbertastore.getpessoaVenda.nome.toString()
-        })
         return {
+            VendaAbertastore,
             holdnome,
             objetoNome
         }

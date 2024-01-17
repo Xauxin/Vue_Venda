@@ -24,11 +24,11 @@ import { registerPlugins } from '@/plugins'
 
 
 
-const app = createApp(App)
-app.component('WhatsIcon', whatsAppIcon)
-app.component('CreditCardIcon', CreditCard)
-app.component('PixIcon', PixIcon)
-registerPlugins(app)
+const app = createApp(App);
+registerPlugins(app);
+app.mount('#app');
+app.component('WhatsIcon', whatsAppIcon);
+app.component('CreditCardIcon', CreditCard);
+app.component('PixIcon', PixIcon);
 
 
-app.mount('#app')

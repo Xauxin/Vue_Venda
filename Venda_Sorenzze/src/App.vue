@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <NavDrawer/>
+    <NavDrawer  ref="drawer"/>
     <v-main >
       <router-view></router-view>
     </v-main>
