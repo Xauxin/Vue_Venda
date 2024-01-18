@@ -7,10 +7,10 @@
                         <p class="text-center">{{ key }}</p>
                         <v-switch v-model="vivoOn" hide-details density="compact" color="primary">
                             <template v-slot:label>
-                                <v-btn-toggle color="primary" v-model="modelagemEscolhida2[key]" multiple :disabled="!vivoOn"
-                                    density="compact" elevation="2" rounded >
-                                    <v-btn prevent :value="iten" class="px-1 py-2"  size="x-small" v-for="(iten, index) in item.opcoes" border
-                                        :key="index">
+                                <v-btn-toggle color="primary" v-model="modelagem[key]" multiple :disabled="!vivoOn"
+                                    density="compact" elevation="2" rounded>
+                                    <v-btn prevent :value="iten" class="px-1 py-2" size="x-small"
+                                        v-for="(iten, index) in item.opcoes" border :key="index">
                                         {{ iten }}
                                     </v-btn>
                                 </v-btn-toggle>
@@ -20,9 +20,9 @@
                     <v-container v-else class="pa-0 ma-1">
                         <p class="text-center">{{ key }}</p>
                         <v-btn-toggle color="primary" density="compact" elevation="2" rounded mandatory
-                            v-model="modelagemEscolhida2[key]">
-                            <v-btn prevent :value="key" class="px-1 py-2" size="x-small" v-for="(iten, key) in item.opcoes" border
-                                :key="key">
+                            v-model="modelagem[key]">
+                            <v-btn prevent :value="key" class="px-1 py-2" size="x-small" v-for="(iten, key) in item.opcoes"
+                                border :key="key">
                                 {{ key }}
                             </v-btn>
                         </v-btn-toggle>
@@ -35,65 +35,53 @@
   
 <script lang="ts">
 import { IEsquemaModelagem } from '@/interfaces/EsquemaProdutos'
-import { IModelagem } from '@/interfaces/Produto'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
-import { defineComponent, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import {  defineComponent,  watch } from 'vue'
 
 
 export default defineComponent({
     name: 'ModelagemProduto',
-    props:{
-        esquemaModelagemEscolhida:{
+    props: {
+        esquemaModelagemEscolhida: {
             type: Object as () => IEsquemaModelagem,
             required: true
         },
-        modelagemObrigatorias:{
-            type: Object as () => {[key:string]: boolean},
+        modelagemObrigatorias: {
+            type: Object as () => { [key: string]: boolean },
             required: true
         }
     },
     data() {
         return {
-            oldModelagemEscolhido: {} as IModelagem,
             densidade: "compact" as String,
             vivoOn: false as boolean,
             labelVivo: "Vivo" as string,
-            valid : false,
+            valid: false,
         }
     },
     watch: {
         vivoOn() {
             if (this.vivoOn == false) {
-                this.modelagemEscolhida['Vivo'] = []
+                delete this.modelagem.Vivo
             }
-        },
-        modelagemEscolhida:{
-            handler(){
-                if(this.modelagemEscolhida != this.oldModelagemEscolhido){
-                    this.oldModelagemEscolhido = { ...this.modelagemEscolhida }
-                    for(const [key, value] of Object.entries(this.esquemaModelagemEscolhida)){
-                        if(!this.modelagemEscolhida[key] && value.required ){
-                            return false
-                        }
-                    }
-                    this.valid = true
-                    this.storeProdutoAberto.setter('modelagem', this.modelagemEscolhida)
-                }
-            },
-            deep:true
         }
     },
-    
+
     setup() {
         const storeProdutoAberto = useProdutoAbertoStore()
-        const modelagemEscolhida = ref({} as IModelagem)
-        const modelagemEscolhida2 = ref(storeProdutoAberto.modelagem)
-
-       
+        const { modelagem } = storeToRefs(storeProdutoAberto)
+        watch(
+            modelagem, () => {
+           
+            }, 
+            { 
+                deep: true 
+            }
+        )
         return {
             storeProdutoAberto,
-            modelagemEscolhida,
-            modelagemEscolhida2,
+            modelagem,
         }
     }
 })

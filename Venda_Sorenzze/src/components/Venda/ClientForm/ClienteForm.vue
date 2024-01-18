@@ -22,7 +22,7 @@
         </v-col>
         <v-col>
           <v-text-field hide-details readonly variant="outlined" density="compact" label="Dt.Registro"
-            :model-value="data"></v-text-field>
+            :model-value="data_de_registro"></v-text-field>
         </v-col>
       </v-row>
     </v-card-text>
@@ -33,7 +33,8 @@
 import { IPessoa } from '@/interfaces/Pessoas'
 import { usePessoasStore } from '@/store/Pessoas'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
-import { computed, defineComponent, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { defineComponent, ref } from 'vue'
 
 
 
@@ -67,13 +68,12 @@ export default defineComponent({
     const storeVenda = useVendaAbertaStore()
     const storePessoas = usePessoasStore()
     const pessoas = ref(storePessoas.getPessoas as IPessoa[])
-    const tipo = computed(() => storeVenda.getTipoVenda)
-    const data = computed(() => storeVenda.getData_de_registro)
-    const id = computed(() => storeVenda.getId)
+    const {tipo, data_de_registro, id} = storeToRefs(storeVenda)
+
     return {
       // pessoaEscolhida,
       tipo,
-      data,
+      data_de_registro,
       id,
       storeVenda,
       pessoas,

@@ -29,9 +29,6 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
           this.esquemas.forEach(esquema =>{
             if (esquema.nome == escolhido){
               this.esquema_escolhido = esquema
-              Object.entries(this.esquema_escolhido).forEach(
-                ([x,y]) => console.log(x,y)
-              )
             }
           })
         }

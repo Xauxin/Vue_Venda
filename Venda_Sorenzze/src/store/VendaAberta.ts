@@ -28,6 +28,18 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     getId: (state) => state.id,
     getTipoVenda: (state) => state.tipo,
     getpessoaVenda: (state) => state.pessoaVenda,
+    getIdDoProximoProduto (): number{
+      if(!this.produtos){
+        return 1
+      }
+      let maiorId = 0 as number
+      this.produtos.forEach(produto => {
+        if (produto.id > maiorId){
+          maiorId = produto.id
+        }
+      })
+      return maiorId + 1
+    },
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
     getprodutoFoiEscolhido: (state) => state.produtoFoiEscolhido,
     getProdutos: (state) => state.produtos,
@@ -53,6 +65,8 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
             this.setPessoaVenda('',value)
           }
           (this.$state as any)[key] = value
+          this.pessoaFoiEscolhida = true
+          this.produtoFoiEscolhido =  true
         })
       }else{
         this.id = vendas.getVendaLength + 1 ,

@@ -25,7 +25,7 @@
                                 density="compact" color="secondary" bg-color="info"></v-btn>
                         </v-col>
                         <v-col cols="4" offset="4">
-                            <v-btn variant="flat" density="compact" rounded icon="delete" @click="console.log(locaisEscolhidos)" color="secondary"
+                            <v-btn variant="flat" density="compact" rounded icon="delete" color="secondary"
                                 bg-color="danger"></v-btn>
                         </v-col>
                     </v-row>

@@ -10,13 +10,13 @@
                 <template v-slot:expanded-row="{ item, columns }" height="100%">
                     <ExapandedRowTblResumo :item="item" :columns="columns"></ExapandedRowTblResumo>
                 </template>
-                <template #item="{ item, isExpanded }">
-                    <tr @click.prevent="expandRow(item.id)" :ref="JSON.stringify(item.id)">
+                <template #item="{ item }">
+                    <tr @click.prevent="expandRow(item.id, $event)" :ref="JSON.stringify(item.id)">
                         <td>
                             <p class="" style="textWrap: nowrap;">{{ item.nome }}</p>
                         </td>
                         <td>
-                            <p class="text-center">{{ item.tamanho }}</p>
+                            <p class="text-center"  >{{ item.tamanho }}</p>
                         </td>
                         <td>
                             <p class="text-right">{{ (item.valor).toFixed(2) }}</p>
@@ -27,10 +27,10 @@
                         <td>
                             <p class="">{{ item ? ((item.valor as number) * item.quantidade).toFixed(2) : "" }}</p>
                         </td>
-                        <td class="pa-1 text-right">
-                            <v-row class="d-flex align-center justify-space-between" no-gutters align="center">
-                                <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false"
-                                        @click="console.log(isExpanded)" size="regular" icon="content_copy"></v-btn></v-col>
+                        <td class="pa-1 text-right opcoes">
+                            <v-row class="d-flex align-center justify-space-between opcoes" no-gutters align="center">
+                                <v-col cols="2" class="mx-1 opcoes"><v-btn class="opcoes" variant="flat" :ripple="false" :hover="false"
+                                        size="regular" icon="content_copy"></v-btn></v-col>
                                 <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false"
                                         size="regular" icon="edit"></v-btn></v-col>
                                 <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false"
@@ -41,7 +41,7 @@
                 </template>
                 <template v-slot:bottom>
                     <BottomTblResumo @salvaDesconto="salvaDesconto" @salvaFrete="salvaFrete"
-                        :total-venda="vendaAberta.getTotalVenda"></BottomTblResumo>
+                        :total-venda="valores.valor_total"></BottomTblResumo>
                 </template>
             </v-data-table>
         </v-card-text>
@@ -53,9 +53,10 @@
 import ExapandedRowTblResumo from './ExpandedRowTblResumo.vue'
 import BottomTblResumo from './BottomTblResumo.vue'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
-import { ref, watch } from 'vue';
-import { defineComponent } from 'vue'
+import { defineComponent, watch } from 'vue'
 import { ITipoValor } from '@/interfaces/Venda';
+import { IProduto } from '@/interfaces/Produto';
+import { storeToRefs } from 'pinia';
 
 export default defineComponent({
     name: 'TabelaResumo',
@@ -79,14 +80,24 @@ export default defineComponent({
 
     methods: {
         salvaFrete(objeto: ITipoValor) {
-            this.$emit('salvaFrete',objeto)
+            this.valores.frete = objeto
         },
         salvaDesconto(objeto: ITipoValor) {
-            this.$emit('salvaDesconto',objeto)
+            this.valores.desconto = objeto
         },
-        expandRow(id: number) {
-            if (!this.expanded.includes(id)) {
-                console.log(this.expanded)
+            expandRow(id: number, event:Event) {
+                const ElementoClickado = event.target as HTMLElement
+                if (ElementoClickado.closest('.opcoes')){
+                    if(ElementoClickado.innerHTML.includes('copy')){
+                        const produtoCopiado = Object.assign({}, this.produtos.find(produto => produto.id == id)) as IProduto;
+                        produtoCopiado.id = this.vendaAberta.getIdDoProximoProduto
+                        this.produtos.push(produtoCopiado)
+                    }else if (ElementoClickado.innerHTML.includes('edit')){
+                        console.log('Editar Produto')
+                    }else if (ElementoClickado.innerHTML.includes('delete')){
+                        this.produtos = this.produtos.filter(produto => produto.id != id)
+                    }
+            }else if (!this.expanded.includes(id)) {
                 this.expanded.pop()
                 this.expanded.push(id);
                 (this.$refs[id.toString()] as HTMLElement).classList.add('selectedRow');
@@ -106,16 +117,45 @@ export default defineComponent({
     },
     setup() {
         const vendaAberta = useVendaAbertaStore()
-        const produtos = ref(vendaAberta.getProdutos)
+        const { produtos, valores } = storeToRefs(vendaAberta)
         watch(
-            () => vendaAberta.getProdutos,
-            () => {
-                produtos.value = vendaAberta.getProdutos
-            },
-            { deep: true }
+            produtos,
+            () =>{
+                let total = 0
+                produtos.value.forEach((produto:IProduto)=> {
+                    total = total + produto.valor
+                })
+                valores.value.valores_produtos = total
+            },{deep : true  }
+        )
+        watch(
+            valores,
+            () =>{
+                console.log(valores.value)
+                let total = 0 as number
+                Object.entries(valores.value).forEach((valor:[string,number|ITipoValor]) => {
+                    const [key, value] = valor
+                    console.log(key, value)
+                    if (key == 'valores_produtos'){
+                        total = total + (value as number)
+                    }
+                    else if (key == 'frete'){
+                        total = total + ((value as ITipoValor).valor as number)
+                    }
+                    else if (key == 'desconto'){
+                        if ((value as ITipoValor).tipo == 'Porcentagem'){
+                            let desconto = total*((value as ITipoValor).valor/100)
+                            total = total - desconto
+                        }else if((value as ITipoValor).tipo == 'Valor'){
+                            total = total - (value as ITipoValor).valor
+                        }
+                    }})
+                valores.value.valor_total = total
+            },{deep : true  }
         )
         return {
             vendaAberta,
+            valores,
             produtos
         }
     }

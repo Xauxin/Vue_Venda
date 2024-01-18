@@ -4,13 +4,11 @@
         <v-divider></v-divider>
         <v-card-text>
             <TabelaResumo
-            @salvaDesconto="atualizaValores"
-            @salvaFrete="atualizaValores"
             ></TabelaResumo>
         </v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions class="py-0">
-            <v-btn color="success" :disabled="!vendaValida" @click.prevent="salvarVenda" to="/vendas" variant="flat">Salvar Venda</v-btn>
+            <v-btn color="success" :disabled="!vendaValida" to="/vendas" variant="flat">Salvar Venda</v-btn>
         </v-card-actions>
     </v-card>
 </template>
@@ -22,7 +20,7 @@ import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { ref, watch } from 'vue';
 import { defineComponent } from 'vue'
 import TabelaResumo from './TabelaResumo.vue'
-import { IValores, ITipoValor } from '@/interfaces/Venda';
+import { IValores } from '@/interfaces/Venda';
 export default defineComponent({
     name: 'ResumoVenda',
     components:{
@@ -34,20 +32,10 @@ export default defineComponent({
         }
     },
     methods:{
-        multiplica(val1:number, val2:number){
-            return val1 * val2 as number
-        },
         salvarVenda(){
             console.log(this.vendaValida)
             if (this.vendaValida){
                 this.vendaAberta.salvaVenda()
-            }
-        },
-        atualizaValores(objeto:ITipoValor){
-            if (objeto.tipo == 'Porcentagem' || objeto.tipo == 'Valor'){
-                this.valores.desconto = objeto 
-            }else{
-                this.valores.frete = objeto 
             }
         }
     },

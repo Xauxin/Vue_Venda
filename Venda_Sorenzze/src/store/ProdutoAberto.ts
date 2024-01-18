@@ -11,7 +11,7 @@ export const useProdutoAbertoStore = defineStore(
   'ProdutoAberto',
   {
     state: () => ({
-      id : 1,
+      id : null as null|number,
       nome: "" as string,
       nomeFoiEscolhido: false as boolean,
       cor: "" as string,
@@ -64,6 +64,7 @@ export const useProdutoAbertoStore = defineStore(
             produto[key]= value;
         })
         const venda = useVendaAbertaStore()
+        produto.id = venda.getIdDoProximoProduto
         const esquema = useEsquemaProdutoStore()
         venda.setProduto(produto)
         this.$reset()

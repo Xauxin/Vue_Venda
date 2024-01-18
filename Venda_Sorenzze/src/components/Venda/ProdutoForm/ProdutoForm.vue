@@ -46,7 +46,7 @@ import ModelagemProduto from './ModelagemProduto.vue'
 import MedidasProduto from './MedidasProduto/MedidasProduto.vue'
 import BordadosProduto from './BordadoProduto/BordadosProduto.vue'
 import PrecoProduto from './PrecoProduto/PrecoProduto.vue';
-import { defineComponent, onMounted, ref , watch } from 'vue'
+import { computed, defineComponent , ref , watch } from 'vue'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto';
 import { IBordados } from '@/interfaces/Bordado';
@@ -117,15 +117,16 @@ export default defineComponent({
             }
         )
         //Acessa store de Esquema e pega as opções possiveis para venda
-        let opcoesDeEsquema = ref([] as String[])
-        onMounted(async () => {
-            opcoesDeEsquema.value = []
-            try {
-                opcoesDeEsquema.value = esquemaStore.getStrListEsquemas
-            } catch (error) {
-                console.log(error)
-            }
-        })
+        let opcoesDeEsquema = computed(()=> esquemaStore.getStrListEsquemas)
+            // onMounted(async () => {
+            //     opcoesDeEsquema.value = []
+            //     try {
+            //         opcoesDeEsquema.value = esquemaStore.getStrListEsquemas
+            //         console.log(opcoesDeEsquema.value)
+            //     } catch (error) {
+            //         console.log(error)
+            //     }
+            // })
         return{
             esquemaStore,
             produtoAbertoStore,
