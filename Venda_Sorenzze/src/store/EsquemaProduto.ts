@@ -21,7 +21,7 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
         console.log(error)
       }
     },
-    async SetEscolhido(escolhido: String) {
+    async setEscolhido(escolhido: String) {
       try {
         if (escolhido == ""){
           this.esquema_escolhido = {}  as IEsquemaProduto

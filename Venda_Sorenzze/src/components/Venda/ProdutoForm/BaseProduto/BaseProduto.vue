@@ -26,9 +26,11 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
+import { Store, StoreState, storeToRefs } from 'pinia'
+import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 
 
 
@@ -46,52 +48,19 @@ export default defineComponent({
     },
     data() {
         return {
-            nome : "" as string,
-            tamanho : "" as string,
-            tecido : "" as string,
-            ultimaValidacaoBase: false as boolean,
             cores: ['Branco', 'Preto', 'Azul-Noite', 'Verde Militar'],
             tecidos: ['Gabardine', 'Tricoline'],
         }
     },
-    computed: {
-
-    },
-    watch: {
-        nome:{
-            handler(){
-                this.$emit('setNome', this.nome, 'nome')
-                },
-        },
-        // cor: 'handlerBase',
-        tamanho: 'handlerBase',
-        tecido: 'handlerBase',
-    },
-    methods: {
-        handlerBase(){
-                const objetoBase = {
-                    cor: this.cor,
-                    tamanho: this.tamanho,
-                    tecido: this.tecido
-                } as Object
-                this.$emit('setBase', objetoBase , 'base')
- 
-        },
-        primeiraLetraMaiuscula(palavra: string) {
-            return palavra[0].toUpperCase() + palavra.substring(1);
-        },
-        reset(){
-            this.nome = ""
-            this.cor = ""
-            this.tamanho = ""
-            this.tecido = ""
-        }
-    },
     setup(){
-        const produtoAberto = useProdutoAbertoStore()
-        const cor = ref(produtoAberto.cor)
+        const produtoAberto = useProdutoAbertoStore() as any
+        const {nome, cor, tamanho, tecido } = storeToRefs(produtoAberto)
         return{
-            cor
+            produtoAberto,
+            nome,
+            cor,
+            tamanho,
+            tecido
         }
     }
     

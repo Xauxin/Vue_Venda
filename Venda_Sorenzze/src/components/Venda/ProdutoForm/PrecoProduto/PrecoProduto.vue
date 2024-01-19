@@ -17,7 +17,7 @@
             <v-col aling="center">
                 <v-row>
                     <v-col cols="4">
-                        <v-btn :disabled="!produtoValido" color="success" @click.prevent="adicionarProduto" density="compact" variant="elevated" style="font-size: 10px;">
+                        <v-btn :disabled="!produtoValido" color="success" density="compact" variant="elevated" style="font-size: 10px;">
                             Adicionar
                         </v-btn>
                     </v-col>
@@ -68,12 +68,6 @@ export default defineComponent({
                 this.produtoValido = true
             }
         },
-        adicionarProduto(){
-            this.produtoAbertoStore.setter('valor', this.valorProduto)
-            this.produtoAbertoStore.setter('quantidade', this.quantidadeProduto)
-            this.produtoAbertoStore.salvaProduto()
-            this.$emit('resetaProduto')
-        }
     },
     watch:{
         valorProduto(){
@@ -88,16 +82,6 @@ export default defineComponent({
         const produtoAbertoStore = useProdutoAbertoStore();
         const vendaAbertaStore = useVendaAbertaStore()
         const escolhasValidas = ref(false as boolean)
-        watch(
-            ([()=> produtoAbertoStore.getBaseFoiEscolhida, ()=> produtoAbertoStore.getModelagemFoiEscolhida]),([newBase, newModelagem]) => {
-                if (newBase && newModelagem) {
-                    escolhasValidas.value = true
-                }else{
-                    escolhasValidas.value = false
-                }
-                
-            },
-            {deep: true})
         return{
             escolhasValidas,
             vendaAbertaStore,

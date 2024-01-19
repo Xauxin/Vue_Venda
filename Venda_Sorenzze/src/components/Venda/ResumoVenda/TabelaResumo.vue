@@ -131,11 +131,9 @@ export default defineComponent({
         watch(
             valores,
             () =>{
-                console.log(valores.value)
-                let total = 0 as number
+                let total = 0 as number 
                 Object.entries(valores.value).forEach((valor:[string,number|ITipoValor]) => {
                     const [key, value] = valor
-                    console.log(key, value)
                     if (key == 'valores_produtos'){
                         total = total + (value as number)
                     }
