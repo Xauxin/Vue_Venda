@@ -1,6 +1,6 @@
 import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IModelagem, IMedidas, IProduto } from '../interfaces/Produto';
-import { IBordados } from '../interfaces/Bordado';
+import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados, } from '../interfaces/Bordado';
 import { defineStore } from 'pinia'
 import { useVendaAbertaStore } from './VendaAberta';
 
@@ -72,6 +72,14 @@ export const useProdutoAbertoStore = defineStore(
       },
       clearMedidas() {
         this.medidas = {} as IMedidas
+      },
+      setValoresPadroesParaNomeBordado(nomePadrao:string) {
+        this.bordados.bordado_do_nome = {
+          nome: nomePadrao as string,
+          abaixo_do_nome: {"text":"Sem","font":"Block"} as IAbaixoDoNome,
+          fonte: "Monotype" as string,
+          cor: "Preto" as string
+        }
       }
     },
     getters: {

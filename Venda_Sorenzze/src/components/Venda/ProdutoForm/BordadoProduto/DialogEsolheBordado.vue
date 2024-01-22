@@ -28,7 +28,7 @@
                                 <v-row class="pa-2">
                                     <v-col>
                                         <v-row>
-                                            <v-col cols="2" v-for="bordado in bordados" v-bind:key="bordado.codigo">
+                                            <v-col cols="2" v-for="bordado in bordadosList" v-bind:key="bordado.codigo">
                                                 <v-tooltip  :text="bordado.Nome" location="top">
                                                     <template  v-slot:activator="{ props }">
                                                         <v-card @click.prevent="selcionaBordado(bordado)" v-bind="props" height="100%" hover
@@ -72,7 +72,7 @@
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-btn color="green" variant="flat"
-                                            @click.prevent="$emit('adicionaBordado', BordadoPreSelecionado)">Adicionar</v-btn>
+                                            @click.prevent="adicionaBordado(BordadoPreSelecionado)">Adicionar</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-col>
@@ -85,9 +85,11 @@
 
 <script lang="ts">
 
-import { IBordado } from '@/interfaces/Bordado' 
+import { IBordado, ILocalBordado } from '@/interfaces/Bordado' 
 import { defineComponent, onMounted, ref } from 'vue'
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
+import { storeToRefs } from 'pinia'
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 
 
 export default defineComponent({
@@ -115,7 +117,7 @@ export default defineComponent({
         },
         bordadoPeloCodigo(codigoDoBordado: string): IBordado | undefined {
             var bordadoAchado = {} as {}
-            this.bordados.forEach((element: IBordado) => {
+            this.bordadosList.forEach((element: IBordado) => {
                 if (element.codigo == codigoDoBordado) {
                     bordadoAchado = element
                 }
@@ -130,23 +132,25 @@ export default defineComponent({
             this.BordadoPreSelecionado =  bordado
         },
         adicionaBordado(bordado: IBordado){
-            this.$emit('adcionaBordado', bordado)
+                this.bordados[this.BordadoAscessado].bordado = bordado; 
+             
         }
     },
     setup() {
         const EsquemaStore = useEsquemaProdutoStore()
-        const bordados = ref([] as IBordado[])
-    
+        const produtoAberto = useProdutoAbertoStore()
+        const { bordados } = storeToRefs(produtoAberto)
+        const { bordadosList } = storeToRefs(EsquemaStore)
         onMounted(async () => {
             try {
                 await EsquemaStore.listBordados()
-                bordados.value = EsquemaStore.getBordados as IBordado[]
             } catch (error) {
                 console.log(error)
             }
         })
         return {
-            bordados: bordados,
+            bordadosList,
+            bordados
         }
     }
 })

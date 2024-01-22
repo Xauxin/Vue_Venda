@@ -8,7 +8,7 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
   state: () => ({
     esquemas: [] as IEsquemaProduto[],
     esquema_escolhido: {} as IEsquemaProduto,
-    bordados: [] as IBordado[],
+    bordadosList: [] as IBordado[],
   }),
   actions: {
     async listEsquemas() {
@@ -40,7 +40,7 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
       try {
         const resposta = (await http.get('bordados')).data as [IBordado]
         resposta.forEach((bordado: IBordado) => {
-          this.bordados.push(bordado)
+          this.bordadosList.push(bordado)
         })
       } catch (error) {
         return error
@@ -58,7 +58,6 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
     }
   },
   getters: {
-    getBordados: (state) => state.bordados,
     getEsquemaEscolhido: (state) => state.esquema_escolhido,
     getStrListEsquemas():String[]{
       const strEsquemas = [] as String[]

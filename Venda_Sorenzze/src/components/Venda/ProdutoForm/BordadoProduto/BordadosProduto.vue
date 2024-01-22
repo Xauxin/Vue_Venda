@@ -3,15 +3,12 @@
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
             <BordadoNome 
                 :cores="['Preto', 'Dourado', 'Grafite']"
-                :fontes="['MontSerrat', 'Block', 'Monotype']"
-                @set-nome-bordado="setNome"/>
+                :fontes="['MontSerrat', 'Block', 'Monotype']"/>
             <v-divider class="mb-1 border-opacity-75"></v-divider>
             <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
-                :locais="esquemaEscolhido ? locaisPossiveis((esquemaEscolhido.locais_de_bordado as String[]), (locaisEscolhidos as String[])) : []"
-                @atualiza-locais-escolhidos="atualizaLocaisEscolhidos" @abre-dialog="AbreDialogEMudaBordadoAscessado" />
+                @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
-        <DialogEsolheBordado ref="dialog" :bordado-ascessado="(BordadoAscessado as string)"
-            @adiciona-bordado="adicionaBordado" />
+        <DialogEsolheBordado ref="dialog" :bordado-ascessado="(BordadoAscessado as string)"/>
     </div>
 </template>
 
@@ -62,38 +59,12 @@ export default defineComponent({
         }
     },
     methods: {
-        locaisPossiveis(todosLocais: String[], locaisEscolhidos: String[]) {
-            if (todosLocais) {
-                const possiveisLocais = todosLocais.filter(local => !locaisEscolhidos.includes(local)) as String[]
-                return possiveisLocais
-            }
-            return []
-        },
         AbreDialogEMudaBordadoAscessado(key: string) {
             this.BordadoAscessado = key
             console.log(key);
             (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog()
         },
-        atualizaLocaisEscolhidos(localEscolhido: String, contexto?:string) {
-            if (contexto){
-                this.locaisEscolhidos.push(localEscolhido)
-                this.contextoParaOutroBordado = contexto
-            }else{
-                this.locaisEscolhidos.push(localEscolhido)
-            }
-        },
-        adicionaBordado(bordado: IBordado) {
-            if(this.BordadoAscessado.includes('outro')){
-                this.bordadosEscolhidos.outro = {bordado: bordado, contexto: this.contextoParaOutroBordado };
-                (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
-            }else{
-                this.bordadosEscolhidos[(this.BordadoAscessado as string)] = bordado;
-                (this.$refs.dialog as typeof DialogEsolheBordado).fechaDialog()
-            }
-        },
-        setNome(nome:IBordadoNome){
-            this.bordadosEscolhidos.bordado_do_nome = nome
-        }
+        
     }
    
 })

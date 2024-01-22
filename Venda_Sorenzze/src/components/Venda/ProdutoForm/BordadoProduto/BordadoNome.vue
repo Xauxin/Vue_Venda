@@ -174,21 +174,8 @@ export default defineComponent({
         }
     },  
     watch: {
-        // bordados.bordado_do_nome: {
-        //     handler() {
-        //         if (this.comNome) {
-        //             this.$emit('setNomeBordado', this.bordados.bordado_do_nome)
-        //         }
-        //     },
-        //     deep: true
-        // },
         comNome() {
-            if (this.comNome) {
-                this.bordados.bordado_do_nome.nome = this.VendaAbertastore.pessoaVenda.nome
-            } else {
-                this.bordados.bordado_do_nome.abaixo_do_nome.text = "Sem"
-                this.$emit('setNomeBordado', this.bordados.bordado_do_nome)
-            }
+            this.produtoAberto.setValoresPadroesParaNomeBordado(this.pessoaVenda.nome)
         },
 
     },
@@ -210,12 +197,14 @@ export default defineComponent({
         }
     },
     setup() {
-        const VendaAbertastore = useVendaAbertaStore()
+        const vendaAberta = useVendaAbertaStore()
         const produtoAberto = useProdutoAbertoStore()
         const { bordados } = storeToRefs(produtoAberto)
+        const { pessoaVenda } = storeToRefs(vendaAberta)
         const holdnome = ref("" as string)
         return {
-            VendaAbertastore,
+            pessoaVenda,
+            produtoAberto,
             holdnome,
             bordados
         }

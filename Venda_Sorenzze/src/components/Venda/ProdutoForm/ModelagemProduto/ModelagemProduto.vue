@@ -71,14 +71,6 @@ export default defineComponent({
     setup() {
         const storeProdutoAberto = useProdutoAbertoStore()
         const { modelagem } = storeToRefs(storeProdutoAberto)
-        watch(
-            modelagem, () => {
-           
-            }, 
-            { 
-                deep: true 
-            }
-        )
         return {
             storeProdutoAberto,
             modelagem,
