@@ -42,11 +42,10 @@
 
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref} from 'vue'
 export default defineComponent({
     name: 'PrecoProdutos',
     components: {
-
     },
     data() {
         return {

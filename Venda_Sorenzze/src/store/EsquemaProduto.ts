@@ -66,7 +66,17 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
         strEsquemas.push(esquema.nome)
       })
       return strEsquemas
-    }
+    },
+    modelagemObrigatoria(state) {
+      const modelagemObrigatoria = {} as { [key: string]: boolean }
+      if (state.esquema_escolhido) {
+          Object.entries(state.esquema_escolhido.modelagem).forEach(modelagem => {
+              modelagemObrigatoria[modelagem[0]] = modelagem[1].required
+          })
+          return modelagemObrigatoria
+      }
+      return {}
+  }
   }
 }
 )

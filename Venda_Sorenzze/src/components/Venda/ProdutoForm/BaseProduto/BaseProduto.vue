@@ -26,11 +26,10 @@
 </template>
   
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
-import { Store, StoreState, storeToRefs } from 'pinia'
-import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
+import { storeToRefs } from 'pinia'
 
 
 

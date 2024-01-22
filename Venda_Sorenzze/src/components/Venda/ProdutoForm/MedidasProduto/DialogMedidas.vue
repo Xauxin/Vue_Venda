@@ -23,8 +23,7 @@
                             <v-row>
                                 <v-col dense cols="6" v-for="(value, key) in esquemaMedidasEscolhidas" :key="key" class="pa-1">
                                     <v-text-field
-                                        
-                                        v-model="MedidasEscolhidas[(key as string)]"
+                                        v-model="medidas[(key as string)]"
                                         density="compact" 
                                         :label=key.toString()
                                         hide-details
@@ -48,11 +47,7 @@
                                     </v-autocomplete>
                                 </v-col>
                             </v-row>
-                            <v-row>
-                                <v-col>
-                                    <v-btn @click.prevent="SalvarMedidas()">Salvar</v-btn>
-                                </v-col>
-                            </v-row>
+
                         </v-col>
                     </v-row>
                 </v-sheet>
@@ -62,9 +57,10 @@
 
 <script lang="ts">
 import { IEsquemaMedidas } from '@/interfaces/EsquemaProdutos'
-import { IMedidas } from '@/interfaces/Produto'
+
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
+import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
 
 
@@ -75,9 +71,7 @@ export default defineComponent({
     data() {
         return {
             dialog: false,
-            possiveisMedidasEscolhidas: [] as string[],
-            MedidasEscolhidas: {} as IMedidas,
-            
+            possiveisMedidasEscolhidas: [] as string[],            
         }
     },
     props:{
@@ -120,21 +114,18 @@ export default defineComponent({
         //     }
         // },
         apagaMedidas() {
-            this.MedidasEscolhidas =  {}
+            this.medidas =  {}
         },
         abreEFechaDialog(){
             this.dialog = !this.dialog
-        },
-        SalvarMedidas(){
-            this.produtoAberto.setter('medidas' , this.MedidasEscolhidas )
-            this.abreEFechaDialog()
         }
     },
     setup() {
         const esquemaStore = useEsquemaProdutoStore()
         const produtoAberto = useProdutoAbertoStore()
-    
+        const { medidas } = storeToRefs(produtoAberto)
         return {
+            medidas,
             produtoAberto,
             esquemaStore
             

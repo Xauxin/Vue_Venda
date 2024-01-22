@@ -39,7 +39,7 @@ export const useProdutoAbertoStore = defineStore(
           em_espera: false as boolean
         } as IProduto
         Object.entries(this.$state as any).forEach((campo: [string, any]) => {
-          const [key, value] = campo
+          const key = campo[0]
           if (!arrayDeCampos.includes(key)) {
             (this.$state as any)[key] = stadoInicial[key]
           }

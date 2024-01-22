@@ -17,7 +17,7 @@
         </v-row>
         <v-divider></v-divider>
         <v-row class="pa-3">
-            <v-col cols="6" v-for="(item, key) in MedidasEscolhidas" v-bind:key="key">
+            <v-col cols="6" v-for="(item, key) in medidas" v-bind:key="key">
                 <v-row class="pa-0 overflow-hidden">
                     <v-col class="pa-0 pl-1" cols="8">
                         <p class="text-body-2 text-no-wrap  overflow-hidden">{{ key }}</p>
@@ -35,9 +35,8 @@
 
 <script lang="ts">
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
-import { defineComponent, ref, watch} from 'vue'
-
-
+import { storeToRefs } from 'pinia'
+import { defineComponent} from 'vue'
 
 export default defineComponent({
     name: 'TabelaMedidas',
@@ -48,19 +47,12 @@ export default defineComponent({
         abreEFechaDialog(){
             this.$emit('abreEFechaDialog')
         }
-
     },
     setup() {
         const produtoAberto = useProdutoAbertoStore()
-        let MedidasEscolhidas = ref({})
-    watch(
-        () => produtoAberto.getMedidas,
-        () => {
-            MedidasEscolhidas.value = produtoAberto.getMedidas
-        }
-    )
+        const { medidas } = storeToRefs(produtoAberto)
         return {
-            MedidasEscolhidas,
+            medidas,
             produtoAberto
         }
     }

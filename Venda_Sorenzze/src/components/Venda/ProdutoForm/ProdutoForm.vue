@@ -1,6 +1,6 @@
 <template>
     <v-card class="ma-1">
-        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state)"
+        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state, 'obg', console.log(modelagemFoiEscolhida))"
             class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
         <v-divider></v-divider>
         <v-card-text class="px-0 py-2 mx-0">
@@ -41,11 +41,10 @@ import PrecoProduto from './PrecoProduto/PrecoProduto.vue';
 import { computed, defineComponent, ref, watch } from 'vue'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto';
-import { IBordados } from '@/interfaces/Bordado';
-import { IModelagem, IMedidas } from '@/interfaces/Produto';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos';
 import { storeToRefs } from 'pinia';
+
 
 
 export default defineComponent({
@@ -79,10 +78,12 @@ export default defineComponent({
         let nomeFoiEscolhido = ref(false)
         let modelagemFoiEscolhida = ref(false)
         let baseFoiEscolhida = ref(false)
+        const { cor, tecido, tamanho } = storeToRefs(produtoAbertoStore)
+        const base = {cor, tecido, tamanho}
+        //Validador de Nome do Produto
         watch(
             () => produtoAbertoStore.nome,
             (newValue, oldValue): any => {
-                console.log('old', oldValue, 'new', newValue)
                 if (newValue && !oldValue){
                     esquemaStore.setEscolhido(newValue)
                     nomeFoiEscolhido.value = true
@@ -96,6 +97,34 @@ export default defineComponent({
                     esquemaStore.setEscolhido(newValue)
                 }
             } 
+        )
+        //Validador de Modelagem do Produto
+        watch(
+            () => produtoAbertoStore.modelagem,
+            (): any => {
+                modelagemFoiEscolhida.value = true
+                Object.entries(esquemaStore.modelagemObrigatoria).forEach((modelagem:[string,any])=>{
+                    const [key, value] = modelagem
+                    if (value && !produtoAbertoStore.modelagem[key]){
+                        modelagemFoiEscolhida.value = false
+                    }
+                })
+                console.log(modelagemFoiEscolhida.value)
+            },{deep: true} 
+        )
+        //Validador da Base do Produto
+        watch(
+            () => base,
+            (): any => {
+                baseFoiEscolhida.value = true
+                Object.entries(base).forEach((base:[string,any])=>{
+                    const value = base[1]
+                    if (!value.value){
+                        baseFoiEscolhida.value = false
+                    }
+                })
+                console.log(baseFoiEscolhida.value)
+            },{deep: true} 
         )
         let opcoesDeEsquema = computed(() => esquemaStore.getStrListEsquemas)
         return {

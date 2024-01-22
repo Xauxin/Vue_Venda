@@ -2,6 +2,7 @@
 <template>
     <v-container class="pa-0 ma-0">
         <v-row align="center" no-gutters>
+            <!-- Switch com Label Responsiva-->
             <v-col cols="2" class="mb-1">
                 <v-switch color="primary" density="compact" v-model="comNome" hide-details>
                     <template v-slot:label="props">
@@ -9,19 +10,24 @@
                     </template>
                 </v-switch>
             </v-col>
+            <!-- Switch com Label Responsiva-->
+            <!-- TextField Do nome-->
             <v-col cols="8" v-if="comNome">
                 <v-text-field solo :prepend-inner-icon="comPrefixo ? 'cancel' : ''" single-line variant="solo"
-                    @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1" v-model="objetoNome.nome"
+                    @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1" v-model="bordados.bordado_do_nome.nome"
                     class="text-center pa-0 ma-0 nomeBordado text-field-center" center-affix :style="estiloNome" density="compact"
                     clearable>
+                    <!-- Parte debaixo do nome com especialidade-->
                     <template #loader class="pa-0 ma-0 text-center" >
                         <p class="text-center" :style="fontFamilyAbaixoDoNome">
-                            {{ objetoNome.abaixo_do_nome.text == 'Sem'  ? '' : objetoNome.abaixo_do_nome.text }}
+                            {{ bordados.bordado_do_nome.abaixo_do_nome.text == 'Sem'  ? '' : bordados.bordado_do_nome.abaixo_do_nome.text }}
                         </p>
                     </template>
-
+                    <!-- Parte debaixo do nome com especialidade-->
+                    <!-- Esquerda do textfield com Menus de prefixo e abaixo do nome-->
                     <template v-slot:prepend>
                         <v-container style="display: flex;flex-direction: column;" class="pa-0 ma-0">
+                            <!-- Menu de prefixo-->
                             <v-menu v-model="menuPrefixo" :close-on-content-click="false" location="end">
                                 <template v-slot:activator="{ props }">
                                     <v-btn :disabled="!comNome" v-bind="props" class="custom-btn-style" density="compact"
@@ -40,7 +46,8 @@
                                     </v-card-text>
                                 </v-card>
                             </v-menu>
-                            <!-- Abaixo -->
+                            <!-- Menu de prefixo-->
+                            <!-- Menu de Abaixo do Nome -->
                             <v-menu v-model="menuAbaixo" :close-on-content-click="false" location="end">
                                 <template v-slot:activator="{ props }">
                                     <v-btn :disabled="!comNome" v-bind="props" class="custom-btn-style mt-1"
@@ -52,7 +59,7 @@
                                         <v-list class="ma-0 pa-0">
                                             <v-list-item class="ma-0 pa-0">
                                                 <v-autocomplete :items="itemsAbaixoDoNome"
-                                                    v-model="objetoNome.abaixo_do_nome.text" density="compact"
+                                                    v-model="bordados.bordado_do_nome.abaixo_do_nome.text" density="compact"
                                                     variant="outlined" :hide-no-data="false" hide-details>
                                                     <template #no-data>
                                                         <v-container>
@@ -65,19 +72,22 @@
                                                 </v-autocomplete>
                                             </v-list-item>
                                             <v-list-item class="ma-0 pa-0">
-                                                <v-select :disabled="objetoNome.abaixo_do_nome.text == 'Sem'" class="mt-1" label="Fonte" :items="fontesAbaixoDoNome" density="compact"
-                                                    v-model="objetoNome.abaixo_do_nome.font" hide-details
+                                                <v-select :disabled="bordados.bordado_do_nome.abaixo_do_nome.text == 'Sem'" class="mt-1" label="Fonte" :items="fontesAbaixoDoNome" density="compact"
+                                                    v-model="bordados.bordado_do_nome.abaixo_do_nome.font" hide-details
                                                     variant="outlined"></v-select>
                                             </v-list-item>
                                         </v-list>
                                     </v-card-text>
                                 </v-card>
                             </v-menu>
+                            <!-- Menu de Abaixo do Nome -->
                         </v-container>
                     </template>
-
+                    <!-- Esquerda do textfield com Menus de prefixo e abaixo do nome-->
                 </v-text-field>
             </v-col>
+            <!-- TextField Do nome-->
+            <!-- Menu font e cor do Bordado do nome-->
             <v-col cols="2" v-if="comNome">
                 <div class="text-center">
                     <v-menu v-model="menu" :close-on-content-click="false" location="end">
@@ -89,11 +99,11 @@
                         <v-card min-width="150">
                             <v-list>
                                 <v-list-item>
-                                    <v-select class="mt-2" label="Fonte" :items="fontes" v-model="objetoNome.fonte"
+                                    <v-select class="mt-2" label="Fonte" :items="fontes" v-model="bordados.bordado_do_nome.fonte"
                                         hide-details density="compact" variant="outlined"></v-select>
                                 </v-list-item>
                                 <v-list-item>
-                                    <v-text-field class="mt-2" variant="outlined" label="Cor" v-model="objetoNome.cor"
+                                    <v-text-field class="mt-2" variant="outlined" label="Cor" v-model="bordados.bordado_do_nome.cor"
                                         hide-details density="compact">
                                     </v-text-field>
                                 </v-list-item>
@@ -107,8 +117,9 @@
 </template>
 
 <script lang="ts">
-import { IAbaixoDoNome, IBordadoNome } from '@/interfaces/Bordado';
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
+import { storeToRefs } from 'pinia';
 import { defineComponent,  ref } from 'vue'
 
 export default defineComponent({
@@ -126,11 +137,11 @@ export default defineComponent({
     computed: {
         estiloNome(): { [key: string]: string } {
             const estilo : { [key: string]: string } = {
-                fontFamily: this.objetoNome.fonte,
-                color: this.objetoNome.cor,
+                fontFamily: this.bordados.bordado_do_nome.fonte,
+                color: this.bordados.bordado_do_nome.cor,
                 fontSize: this.fontSize
             };
-            if (this.objetoNome.fonte == 'Montserrat') {
+            if (this.bordados.bordado_do_nome.fonte == 'Montserrat') {
                 estilo.fontWeight = 'Bold';
             } else {
                 estilo.fontWeight = this.fontWeight;
@@ -138,7 +149,7 @@ export default defineComponent({
             return estilo as { [key: string]: string };
         },
         fontFamilyAbaixoDoNome():{ [key: string]: string }{
-            return {fontFamily : this.objetoNome.abaixo_do_nome.font}
+            return {fontFamily : this.bordados.bordado_do_nome.abaixo_do_nome.font}
         }
     },
     data() {
@@ -146,7 +157,6 @@ export default defineComponent({
             comNome: false as boolean,
             comPrefixo: false as boolean,
             indexPrefixo: 0 as number,
-            estiloDr: "Grey" as string,
             fontWeight: "400" as string,
             fontSize: '40px' as string,
             menu: false as boolean,
@@ -162,24 +172,22 @@ export default defineComponent({
                 'Enf.',
             ]
         }
-    },
+    },  
     watch: {
-        objetoNome: {
-            handler() {
-                if (this.comNome) {
-                    this.$emit('setNomeBordado', this.objetoNome)
-                }
-            },
-            deep: true
-        },
+        // bordados.bordado_do_nome: {
+        //     handler() {
+        //         if (this.comNome) {
+        //             this.$emit('setNomeBordado', this.bordados.bordado_do_nome)
+        //         }
+        //     },
+        //     deep: true
+        // },
         comNome() {
             if (this.comNome) {
-                this.objetoNome.nome = this.VendaAbertastore.pessoaVenda.nome
+                this.bordados.bordado_do_nome.nome = this.VendaAbertastore.pessoaVenda.nome
             } else {
-                this.objetoNome = {
-                    abaixo_do_nome: {text : "Sem"}
-                } as IBordadoNome
-                this.$emit('setNomeBordado', this.objetoNome)
+                this.bordados.bordado_do_nome.abaixo_do_nome.text = "Sem"
+                this.$emit('setNomeBordado', this.bordados.bordado_do_nome)
             }
         },
 
@@ -187,35 +195,29 @@ export default defineComponent({
     methods: {
         adicionaPrefixo(target: HTMLElement) {
             if (this.comPrefixo) {
-                this.objetoNome.nome = this.objetoNome.nome.slice(this.indexPrefixo)
+                this.bordados.bordado_do_nome.nome = this.bordados.bordado_do_nome.nome.slice(this.indexPrefixo)
             }
             const prefixo = target.textContent
             this.indexPrefixo = prefixo ? prefixo.length : 0;
-            this.objetoNome.nome = `${prefixo}${this.objetoNome.nome ? this.objetoNome.nome : ""}`
+            this.bordados.bordado_do_nome.nome = `${prefixo}${this.bordados.bordado_do_nome.nome ? this.bordados.bordado_do_nome.nome : ""}`
             this.comPrefixo = true
             this.menuPrefixo = false
 
         },
         tiraPrefixo() {
-            this.objetoNome.nome = this.objetoNome.nome.slice(this.indexPrefixo)
+            this.bordados.bordado_do_nome.nome = this.bordados.bordado_do_nome.nome.slice(this.indexPrefixo)
             this.comPrefixo = false
         }
     },
     setup() {
         const VendaAbertastore = useVendaAbertaStore()
+        const produtoAberto = useProdutoAbertoStore()
+        const { bordados } = storeToRefs(produtoAberto)
         const holdnome = ref("" as string)
-        const objetoNome = ref({
-            nome: "" as String,
-            fonte: 'MonoType' as string,
-            abaixo_do_nome: {
-                text:'Sem', font:"Block"
-            } as IAbaixoDoNome,
-            cor: 'Preto' as string
-        } as unknown as IBordadoNome,)
         return {
             VendaAbertastore,
             holdnome,
-            objetoNome
+            bordados
         }
     }
 })
