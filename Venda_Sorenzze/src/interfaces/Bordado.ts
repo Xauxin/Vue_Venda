@@ -1,5 +1,4 @@
 export interface IBordados{
-    bordado_do_nome: IBordadoNome
     [key:string]: ILocalBordado | IBordadoNome 
 }
 

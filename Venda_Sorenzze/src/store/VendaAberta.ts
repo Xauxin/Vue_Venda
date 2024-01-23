@@ -7,6 +7,7 @@ import { useVendasStore } from './Vendas';
 import { useProdutoAbertoStore } from './ProdutoAberto';
 import { usePessoasStore } from './Pessoas';
 import moment from 'moment';
+import { IBordado } from '@/interfaces/Bordado';
 
 
 
@@ -97,46 +98,22 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
       this.tipo = tipo
     },
     setProduto(Produto:IProduto){
-      Object.entries(Produto).forEach((dado:[string,any])=>{
-        const [key,value] = dado
-        if(key == 'valor' && value){
-          this.valores.valores_produtos = this.valores.valores_produtos + value
+        const find = this.produtos.find(produto => produto.id == Produto.id)
+        if (find){
+          this.produtos = this.produtos.map((produto:IProduto) => {
+            if (produto.id === Produto.id){
+              return Object.assign({}, Produto) as IProduto
+            }
+            return produto
+          })
+        }else{
+          this.produtos.push(Object.assign({}, Produto))
         }
-      })
-        this.produtos.push(Produto)
-        this.calculaTotal()
         if (this.produtos.length > 0){
           this.produtoFoiEscolhido = true
         }
-    },
-    setValoresFreteDesconto(valores:IValores){
-      Object.entries(valores).forEach((valor:[string,number|ITipoValor])=>{
-        const [key, value] = valor
-        if (typeof value === 'object')
-        this.valores[key] = {valor: value.valor, tipo: value.tipo}
-      })
-      this.calculaTotal()
-    },
-    calculaTotal(){
-      let total = 0 as number
-      Object.entries(this.valores).forEach((valor:[string,number|ITipoValor])=>{
-        const [key, value] = valor
-        if (key == 'valores_produtos'){
-          total = total + (value as number)
-        } else if (key == 'frete'  && typeof value === 'object'){
-          total = total + (value.valor as number)
-        } 
-        if (key == 'desconto' && typeof value === 'object'){
-          if (value.tipo == 'Porcentagem'){
-            const porcentagem = parseFloat(JSON.stringify(value.valor).length == 1 ? `0.0${value.valor}` : `0.${value.valor}`)
-            console.log(total * porcentagem)
-            if (porcentagem != 100){
-                total = total - ( total * porcentagem)          
-            }
-          }
-        }
-      })
-      this.valores.valor_total = total
+        const produtoAberto = useProdutoAbertoStore()
+        produtoAberto.$reset()
     },
     salvaVenda(){
       const venda = {} as IVenda

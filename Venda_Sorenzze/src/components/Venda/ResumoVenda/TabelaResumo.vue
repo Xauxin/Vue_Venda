@@ -57,6 +57,7 @@ import { defineComponent, watch } from 'vue'
 import { ITipoValor } from '@/interfaces/Venda';
 import { IProduto } from '@/interfaces/Produto';
 import { storeToRefs } from 'pinia';
+import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 
 export default defineComponent({
     name: 'TabelaResumo',
@@ -93,7 +94,8 @@ export default defineComponent({
                         produtoCopiado.id = this.vendaAberta.getIdDoProximoProduto
                         this.produtos.push(produtoCopiado)
                     }else if (ElementoClickado.innerHTML.includes('edit')){
-                        console.log('Editar Produto')
+                        const produtoASerAberto = this.produtos.find(produto => produto.id == id) as IProduto;
+                        this.produtoAberto.$state = produtoASerAberto
                     }else if (ElementoClickado.innerHTML.includes('delete')){
                         this.produtos = this.produtos.filter(produto => produto.id != id)
                     }
@@ -117,6 +119,7 @@ export default defineComponent({
     },
     setup() {
         const vendaAberta = useVendaAbertaStore()
+        const produtoAberto = useProdutoAbertoStore()
         const { produtos, valores } = storeToRefs(vendaAberta)
         watch(
             produtos,
@@ -153,6 +156,7 @@ export default defineComponent({
         )
         return {
             vendaAberta,
+            produtoAberto,
             valores,
             produtos
         }

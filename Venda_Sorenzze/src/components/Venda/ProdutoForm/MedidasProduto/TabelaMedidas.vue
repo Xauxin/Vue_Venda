@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts">
+import { IMedidas } from '@/interfaces/Produto'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 import { storeToRefs } from 'pinia'
 import { defineComponent} from 'vue'
@@ -42,7 +43,7 @@ export default defineComponent({
     name: 'TabelaMedidas',
     methods: {
         apagaMedidas() {
-            this.produtoAberto.clearMedidas()
+            this.produtoAberto.medidas = {} as IMedidas
         },
         abreEFechaDialog(){
             this.$emit('abreEFechaDialog')

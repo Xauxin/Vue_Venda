@@ -28,23 +28,14 @@ export default defineComponent({
     },
     data() {
         return {
-            valores : {} as IValores
+            
         }
     },
     methods:{
         salvarVenda(){
-            console.log(this.vendaValida)
             if (this.vendaValida){
                 this.vendaAberta.salvaVenda()
             }
-        }
-    },
-    watch:{
-        valores:{
-            handler(){
-                this.vendaAberta.setValoresFreteDesconto(this.valores)
-            },
-            deep:true
         }
     },
     setup(){

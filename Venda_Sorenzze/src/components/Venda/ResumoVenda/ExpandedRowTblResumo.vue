@@ -33,12 +33,12 @@
                                             <v-container v-if="item.bordados.bordado_do_nome" class="pa-0 ma-0">
                                                 <div>
                                                     <p class="text-center pa-0 ma-0"
-                                                        :style="fontNomeBordado(item.bordados.bordado_do_nome)">{{
+                                                        :style="fontNomeBordado(item.bordados.bordado_do_nome as IBordadoNome)">{{
                                                             item.bordados.bordado_do_nome.nome }}</p>
                                                     <p class="text-center pa-0 ma-0"
-                                                        :style="fontEmBaixoDoNome(item.bordados.bordado_do_nome.abaixo_do_nome)"
-                                                        v-if="!(item.bordados.bordado_do_nome.abaixo_do_nome.text == 'Sem')">
-                                                        {{ item.bordados.bordado_do_nome.abaixo_do_nome.text }}</p>
+                                                        :style="fontEmBaixoDoNome(item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome)"
+                                                        v-if="!((item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome).text == 'Sem')">
+                                                        {{ (item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome).text }}</p>
                                                 </div>
                                             </v-container>
                                             <v-container v-else class="pa-0 ma-0 d-flex align-center  justify-center">
@@ -46,7 +46,7 @@
                                             </v-container>
                                             <v-divider></v-divider>
                                             <v-container
-                                                v-if="item.bordados.manga_direita || item.bordados.manga_esquerda || item.bordados.outro"
+                                                v-if="bordadosSemONome(item.bordados)"
                                                 class="pa-0 ma-0 d-flex  justify-start">
                                                 <v-row>
                                                     <v-col cols="4" class="pa-2 ma-0"
@@ -55,18 +55,16 @@
                                                             <v-card-text class="pa-0 ma-1">
                                                                 <v-tooltip location="top">
                                                                     <template v-slot:activator="{ props }">
-                                                                        <v-img v-bind="props" :src="((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).Imagem : value.Imagem as string)"
+                                                                        <v-img v-bind="props" :src="(value.bordado as IBordado).Imagem ? (value.bordado as IBordado).Imagem : ''"
                                                                             height="60px"></v-img>
                                                                     </template>
                                                                     <template v-slot:default>
-                                                                        <p>{{ ((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).Nome : value.Nome as string) }}</p>
-                                                                        <p class="text-center">{{ ((value as IOutroBordado).contexto ? ((value as IOutroBordado).bordado as IBordado).codigo : value.codigo as string) }}</p>
+                                                                        <p>{{ (value.bordado as IBordado).Nome }}</p>
+                                                                        <p class="text-center">{{ (value.bordado as IBordado).codigo }}</p>
                                                                     </template>
-
                                                                 </v-tooltip>
                                                             </v-card-text>
                                                         </v-card>
-
                                                     </v-col>
                                                 </v-row>
                                             </v-container>
@@ -107,7 +105,7 @@
   
 <script lang="ts">
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados, IOutroBordado } from "@/interfaces/Bordado";
+import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados } from "@/interfaces/Bordado";
 import { IProduto } from "@/interfaces/Produto";
 import { defineComponent } from "vue";
 

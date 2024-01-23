@@ -173,9 +173,7 @@ export default defineComponent({
             if (contexto == 'frete') {
                 this.valorFrete = parseFloat(texto)
             } else if (contexto == 'desconto') {
-                console.log(texto)
                 this.valorDesconto = parseFloat(texto)
-                console.log(this.valorDesconto)
             }
         },
     }

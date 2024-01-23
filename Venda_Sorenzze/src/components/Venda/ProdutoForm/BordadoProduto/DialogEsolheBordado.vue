@@ -133,7 +133,7 @@ export default defineComponent({
         },
         adicionaBordado(bordado: IBordado){
             (this.bordados[this.BordadoAscessado] as ILocalBordado).bordado = bordado; 
-            this.dialog = false
+            this.fechaDialog()
         }
     },
     setup() {
@@ -143,7 +143,9 @@ export default defineComponent({
         const { bordadosList } = storeToRefs(EsquemaStore)
         onMounted(async () => {
             try {
-                await EsquemaStore.listBordados()
+                if (bordadosList.value.length === 0){
+                    await EsquemaStore.listBordados()
+                }
             } catch (error) {
                 console.log(error)
             }

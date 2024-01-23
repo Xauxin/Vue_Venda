@@ -55,21 +55,6 @@ export const useProdutoAbertoStore = defineStore(
           this.$state.id = venda.getIdDoProximoProduto
         }
       },
-      salvaProduto() {
-        const produto = {} as IProduto
-        Object.entries(this.$state).forEach((dado: [string, any]) => {
-          const [key, value] = dado
-          if (key != 'nomeFoiEscolhido' && key != 'baseFoiEscolhida' && key != 'modelagemFoiEscolhida')
-            produto[key] = value;
-        })
-        const venda = useVendaAbertaStore()
-        produto.id = venda.getIdDoProximoProduto
-        const esquema = useEsquemaProdutoStore()
-        venda.setProduto(produto)
-        this.$reset()
-        this.abrirProduto()
-        esquema.restartEsquemaEscolhido()
-      },
       clearMedidas() {
         this.medidas = {} as IMedidas
       },

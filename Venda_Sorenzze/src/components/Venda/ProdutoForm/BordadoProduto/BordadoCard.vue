@@ -5,16 +5,19 @@
                 <v-card-title class="pa-0 text-center text-caption text-capitalize">
                     <p>{{ value.local }}</p>
                 </v-card-title>
-                <v-card-subtitle class="text-center text-caption">{{ value.bordado ? (value.bordado as IBordado).codigo :
+                <v-card-subtitle class="text-center text-caption">{{ (value.bordado as IBordado).codigo ? (value.bordado as
+                    IBordado).codigo :
                     "B1ABC00.ABC" }}</v-card-subtitle>
                 <v-divider class="mx-2 my-1"></v-divider>
                 <v-card-text class="pa-0">
-                    <v-img v-bind:item="key" @click="console.log(escondeAdcionarBordado)" :src="value.bordado ? (value.bordado as IBordado).Imagem : ''" min-height="100"
+                    <v-img v-bind:item="key" @click="console.log(escondeAdcionarBordado)"
+                        :src="(value.bordado as IBordado).Imagem ? (value.bordado as IBordado).Imagem : ''" min-height="100"
                         height="100" aspect-ratio="1/1">
                     </v-img>
                     <v-divider class="mx-2 my-1"></v-divider>
-                    <p height="24px" class="mt-1 text-center text-body-1">R${{ value.bordado ? (value.bordado as
-                        IBordado).preco : "" }}</p>
+                    <p height="24px" class="mt-1 text-center text-body-1">R${{ (value.bordado as
+                        IBordado).preco ? (value.bordado as
+                            IBordado).preco : "" }}</p>
                 </v-card-text>
                 <v-divider class="mx-2"></v-divider>
                 <v-card-actions align-self="bo">
@@ -24,8 +27,8 @@
                                 density="compact" color="secondary" bg-color="info"></v-btn>
                         </v-col>
                         <v-col cols="4" offset="4">
-                            <v-btn variant="flat" density="compact"  @click.prevent="excluirBordado(key as string)" rounded icon="delete" color="secondary"
-                                bg-color="danger"></v-btn>
+                            <v-btn variant="flat" density="compact" @click.prevent="excluirBordado(key as string)" rounded
+                                icon="delete" color="secondary" bg-color="danger"></v-btn>
                         </v-col>
                     </v-row>
                 </v-card-actions>
@@ -94,12 +97,12 @@ export default defineComponent({
             local: "" as string
         }
     },
-    computed:{
-        escondeAdcionarBordado(){
-            if (Object.keys(this.locaisEscolhidos).length <= 3){
+    computed: {
+        escondeAdcionarBordado() {
+            if (Object.keys(this.locaisEscolhidos).length <= 3) {
                 console.log(Object.keys(this.locaisEscolhidos).length)
                 return true
-            }else{
+            } else {
                 return false
             }
         },
@@ -113,7 +116,7 @@ export default defineComponent({
             this.bordados[`${id}`] = { 'local': item, 'bordado': {} } as ILocalBordado
             this.menuLocais = false
         },
-        excluirBordado(id:string){
+        excluirBordado(id: string) {
             delete this.bordados[id]
         }
     },

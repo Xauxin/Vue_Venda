@@ -1,8 +1,8 @@
 <template>
         <v-row align="center">
             <v-col cols="3" class="py-0">
-                <v-text-field density="compact" class="inputPreco" prefix="R$" type="number" label="Preço" variant="outlined"
-                    v-model="valorProduto" hide-details/>
+                <v-text-field density="compact" class="inputPreco" prefix="R$" @input="strToNum($event.target.value)" type="number" label="Preço" variant="outlined"
+                     hide-details/>
             </v-col>
             <v-col cols="2" class="py-0">
                 <v-text-field density="compact"  type="number" label="Quantidade" variant="outlined" 
@@ -17,17 +17,17 @@
             <v-col aling="center">
                 <v-row>
                     <v-col cols="4">
-                        <v-btn :disabled="!produtoValido" color="success" density="compact" variant="elevated" style="font-size: 10px;">
+                        <v-btn :disabled="!podeSalvar" @click.prevent="salvaProduto" color="success" density="compact" variant="elevated" style="font-size: 10px;">
                             Adicionar
                         </v-btn>
                     </v-col>
                     <v-col cols="4">
-                        <v-btn :disabled="!produtoValido" color="info" density="compact" variant="elevated" style="font-size: 10px;">
+                        <v-btn :disabled="!podeSalvar" color="info" density="compact" variant="elevated" style="font-size: 10px;">
                             Guardar
                         </v-btn>
                     </v-col>
                     <v-col cols="4">
-                        <v-btn :disabled="!produtoValido" color="red" density="compact" variant="elevated" style="font-size: 10px;">
+                        <v-btn :disabled="!podeSalvar" color="red" density="compact" variant="elevated" style="font-size: 10px;">
                             Excluir
                         </v-btn>
                     </v-col>
@@ -40,8 +40,11 @@
 <script lang="ts">
 
 
+import { IProduto } from '@/interfaces/Produto'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
 import { useVendaAbertaStore } from '@/store/VendaAberta'
+import { stringLiteral } from '@babel/types'
+import { storeToRefs } from 'pinia'
 import { defineComponent, ref} from 'vue'
 export default defineComponent({
     name: 'PrecoProdutos',
@@ -50,41 +53,48 @@ export default defineComponent({
     data() {
         return {
             produtoValido : false as boolean,
-            comPreco: false as boolean,
-            valorProduto: 0 as number,
             quantidadeProduto: 1 as number
+        }
+    },
+    props:{
+        nomeBaseEModelagemFoiEscolhido: {
+            type: Boolean,
+            required: true
         }
     },
     computed: {
         valorConjuntoProdutos() {
-            const valorConjuntoProdutos = this.valorProduto * this.quantidadeProduto as number
-            return valorConjuntoProdutos
+            return this.valor * this.quantidadeProduto as number
+        },
+        podeSalvar(){
+            if (this.nomeBaseEModelagemFoiEscolhido && this.valor){
+                return true
+            }else{
+                return false
+            }
         }
     },
     methods:{
-        ValidaProduto(){
-            if (this.comPreco && this.escolhasValidas){
-                this.produtoValido = true
-            }
+        salvaProduto(){
+            this.vendaAberta.setProduto(this.produtoAbertoStore.$state as IProduto)
         },
-    },
-    watch:{
-        valorProduto(){
-            if (this.valorProduto > 0){
-                this.comPreco = true
+        strToNum(str:string){
+            if (str){
+                this.valor = parseFloat(str)
+            }else{
+                this.valor = 0
             }
-        },
-        comPreco: 'ValidaProduto',
-        escolhasValidas: 'ValidaProduto'
+        }
     },
+
     setup() {
         const produtoAbertoStore = useProdutoAbertoStore();
-        const vendaAbertaStore = useVendaAbertaStore()
-        const escolhasValidas = ref(false as boolean)
+        const vendaAberta = useVendaAbertaStore()
+        const { valor } = storeToRefs(produtoAbertoStore)
         return{
-            escolhasValidas,
-            vendaAbertaStore,
-            produtoAbertoStore
+            produtoAbertoStore,
+            vendaAberta,
+            valor
         }
     }   
 })

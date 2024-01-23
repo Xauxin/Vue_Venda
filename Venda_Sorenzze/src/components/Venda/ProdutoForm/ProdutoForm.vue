@@ -1,6 +1,6 @@
 <template>
     <v-card class="ma-1">
-        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state, 'obg', console.log(modelagemFoiEscolhida))"
+        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state)"
             class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
         <v-divider></v-divider>
         <v-card-text class="px-0 py-2 mx-0">
@@ -27,7 +27,8 @@
             </v-container>
         </v-card-text>
         <v-card-actions v-if="nomeFoiEscolhido" class="px-0 mx-0">
-            <PrecoProduto class="px-5 py-1" />
+            <PrecoProduto @reset="reset" :nome-base-e-modelagem-foi-escolhido="nomeBaseEModelagemEscolhida"
+                class="px-5 py-1" />
         </v-card-actions>
     </v-card>
 </template>
@@ -70,6 +71,18 @@ export default defineComponent({
                 return modelagemObrigatoria
             }
             return {}
+        },
+        nomeBaseEModelagemEscolhida() {
+            if (this.nomeFoiEscolhido && this.baseFoiEscolhida && this.modelagemFoiEscolhida) {
+                return true
+            } else {
+                return false
+            }
+        }
+    },
+    methods: {
+        reset() {
+            this.nomeFoiEscolhido = false
         }
     },
     setup() {
@@ -79,52 +92,52 @@ export default defineComponent({
         let modelagemFoiEscolhida = ref(false)
         let baseFoiEscolhida = ref(false)
         const { cor, tecido, tamanho } = storeToRefs(produtoAbertoStore)
-        const base = {cor, tecido, tamanho}
+        const base = { cor, tecido, tamanho }
         //Validador de Nome do Produto
         watch(
             () => produtoAbertoStore.nome,
             (newValue, oldValue): any => {
-                if (newValue && !oldValue){
+                if (newValue && !oldValue) {
                     esquemaStore.setEscolhido(newValue)
                     nomeFoiEscolhido.value = true
-                }else if (!newValue && oldValue){
+                } else if (!newValue && oldValue) {
                     nomeFoiEscolhido.value = false
                     produtoAbertoStore.$reset()
                     produtoAbertoStore.abrirProduto
                     esquemaStore.setEscolhido("")
-                }else if(newValue && oldValue){
+                } else if (newValue && oldValue) {
                     produtoAbertoStore.resetexcludente(['nome'])
                     esquemaStore.setEscolhido(newValue)
                 }
-            } 
+            }
         )
         //Validador de Modelagem do Produto
         watch(
             () => produtoAbertoStore.modelagem,
             (): any => {
                 modelagemFoiEscolhida.value = true
-                Object.entries(esquemaStore.modelagemObrigatoria).forEach((modelagem:[string,any])=>{
+                Object.entries(esquemaStore.modelagemObrigatoria).forEach((modelagem: [string, any]) => {
                     const [key, value] = modelagem
-                    if (value && !produtoAbertoStore.modelagem[key]){
+                    if (value && !produtoAbertoStore.modelagem[key]) {
                         modelagemFoiEscolhida.value = false
                     }
                 })
-                console.log(modelagemFoiEscolhida.value)
-            },{deep: true} 
+
+            }, { deep: true }
         )
         //Validador da Base do Produto
         watch(
             () => base,
             (): any => {
                 baseFoiEscolhida.value = true
-                Object.entries(base).forEach((base:[string,any])=>{
+                Object.entries(base).forEach((base: [string, any]) => {
                     const value = base[1]
-                    if (!value.value){
+                    if (!value.value) {
                         baseFoiEscolhida.value = false
                     }
                 })
-                console.log(baseFoiEscolhida.value)
-            },{deep: true} 
+
+            }, { deep: true }
         )
         let opcoesDeEsquema = computed(() => esquemaStore.getStrListEsquemas)
         return {
