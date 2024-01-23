@@ -86,7 +86,7 @@
 <script lang="ts">
 
 import { IBordado, ILocalBordado } from '@/interfaces/Bordado' 
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { useEsquemaProdutoStore } from '@/store/EsquemaProduto'
 import { storeToRefs } from 'pinia'
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto'
@@ -132,8 +132,8 @@ export default defineComponent({
             this.BordadoPreSelecionado =  bordado
         },
         adicionaBordado(bordado: IBordado){
-                this.bordados[this.BordadoAscessado].bordado = bordado; 
-             
+            (this.bordados[this.BordadoAscessado] as ILocalBordado).bordado = bordado; 
+            this.dialog = false
         }
     },
     setup() {

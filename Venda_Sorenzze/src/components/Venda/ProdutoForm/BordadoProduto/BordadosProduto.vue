@@ -8,13 +8,13 @@
             <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
                 @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
-        <DialogEsolheBordado ref="dialog" :bordado-ascessado="(BordadoAscessado as string)"/>
+        <DialogEsolheBordado ref="dialog" :BordadoAscessado="(bordadoAscessado as string)"/>
     </div>
 </template>
 
 <script lang="ts">
 
-import { IBordado, IBordadoNome, IBordados } from '@/interfaces/Bordado'
+import { IBordado , IBordados } from '@/interfaces/Bordado'
 import { defineComponent} from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import BordadoNome from './BordadoNome.vue'
@@ -39,7 +39,7 @@ export default defineComponent({
     data() {
         return {
             BordadoPreSelecionado: {} as IBordado,
-            BordadoAscessado: "" as String,
+            bordadoAscessado: "" as String,
             contextoParaOutroBordado: "" as string,
             bordadosEscolhidos: {
             } as IBordados,
@@ -60,8 +60,8 @@ export default defineComponent({
     },
     methods: {
         AbreDialogEMudaBordadoAscessado(key: string) {
-            this.BordadoAscessado = key
-            console.log(key);
+            this.bordadoAscessado = key
+            console.log(this.bordadoAscessado);
             (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog()
         },
         

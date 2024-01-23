@@ -1,6 +1,6 @@
 import { useEsquemaProdutoStore } from './EsquemaProduto';
 import { IModelagem, IMedidas, IProduto } from '../interfaces/Produto';
-import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados, } from '../interfaces/Bordado';
+import { IAbaixoDoNome, IBordados } from '../interfaces/Bordado';
 import { defineStore } from 'pinia'
 import { useVendaAbertaStore } from './VendaAberta';
 
