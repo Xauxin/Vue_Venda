@@ -48,7 +48,7 @@ export const useProdutoAbertoStore = defineStore(
       abrirProduto(produto?: IProduto) {
         if (produto) {
           Object.entries(produto).forEach((dado: [string, any]) => {
-            (this.$state as any)[dado[0]] = dado[1];
+            (this.$state as any)[dado[0]] = JSON.parse(JSON.stringify(dado[1]));
           })
         } else {
           const venda = useVendaAbertaStore()
