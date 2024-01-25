@@ -14,13 +14,15 @@
             <!-- TextField Do nome-->
             <v-col cols="8" v-if="comNome">
                 <v-text-field solo :prepend-inner-icon="comPrefixo ? 'cancel' : ''" single-line variant="solo"
-                    @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1" v-model="bordados.bordado_do_nome.nome"
-                    class="text-center pa-0 ma-0 nomeBordado text-field-center" center-affix :style="estiloNome" density="compact"
-                    clearable>
+                    @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1"
+                    v-model="(bordadoDoNome as IBordadoNome).nome"
+                    class="text-center pa-0 ma-0 nomeBordado text-field-center" center-affix :style="estiloNome"
+                    density="compact" clearable>
                     <!-- Parte debaixo do nome com especialidade-->
-                    <template #loader class="pa-0 ma-0 text-center" >
+                    <template #loader class="pa-0 ma-0 text-center">
                         <p class="text-center" :style="fontFamilyAbaixoDoNome">
-                            {{ (bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.text == 'Sem'  ? '' : (bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.text }}
+                            {{ (bordadoDoNome as IBordadoNome).abaixo_do_nome.text == 'Sem' ? '' : (bordadoDoNome as
+                                IBordadoNome).abaixo_do_nome.text }}
                         </p>
                     </template>
                     <!-- Parte debaixo do nome com especialidade-->
@@ -59,22 +61,24 @@
                                         <v-list class="ma-0 pa-0">
                                             <v-list-item class="ma-0 pa-0">
                                                 <v-autocomplete :items="itemsAbaixoDoNome"
-                                                    v-model="(bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.text" density="compact"
-                                                    variant="outlined" :hide-no-data="false" hide-details>
+                                                    v-model="(bordadoDoNome as IBordadoNome).abaixo_do_nome.text"
+                                                    density="compact" variant="outlined" :hide-no-data="false" hide-details>
                                                     <template #no-data>
                                                         <v-container>
                                                             <p>
                                                                 Sem resultado
                                                             </p>
-                                                                <v-btn>Criar</v-btn>
+                                                            <v-btn>Criar</v-btn>
                                                         </v-container>
                                                     </template>
                                                 </v-autocomplete>
                                             </v-list-item>
                                             <v-list-item class="ma-0 pa-0">
-                                                <v-select :disabled="(bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.text == 'Sem'" class="mt-1" label="Fonte" :items="fontesAbaixoDoNome" density="compact"
-                                                    v-model="(bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.font" hide-details
-                                                    variant="outlined"></v-select>
+                                                <v-select
+                                                    :disabled="(bordadoDoNome as IBordadoNome).abaixo_do_nome.text == 'Sem'"
+                                                    class="mt-1" label="Fonte" :items="fontesAbaixoDoNome" density="compact"
+                                                    v-model="(bordadoDoNome as IBordadoNome).abaixo_do_nome.font"
+                                                    hide-details variant="outlined"></v-select>
                                             </v-list-item>
                                         </v-list>
                                     </v-card-text>
@@ -99,12 +103,13 @@
                         <v-card min-width="150">
                             <v-list>
                                 <v-list-item>
-                                    <v-select class="mt-2" label="Fonte" :items="fontes" v-model="bordados.bordado_do_nome.fonte"
-                                        hide-details density="compact" variant="outlined"></v-select>
+                                    <v-select class="mt-2" label="Fonte" :items="fontes"
+                                        v-model="(bordadoDoNome as IBordadoNome).fonte" hide-details density="compact"
+                                        variant="outlined"></v-select>
                                 </v-list-item>
                                 <v-list-item>
-                                    <v-text-field class="mt-2" variant="outlined" label="Cor" v-model="bordados.bordado_do_nome.cor"
-                                        hide-details density="compact">
+                                    <v-text-field class="mt-2" variant="outlined" label="Cor"
+                                        v-model="(bordadoDoNome as IBordadoNome).cor" hide-details density="compact">
                                     </v-text-field>
                                 </v-list-item>
                             </v-list>
@@ -121,7 +126,7 @@ import { IBordadoNome } from '@/interfaces/Bordado';
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { storeToRefs } from 'pinia';
-import { defineComponent,  ref } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
     name: 'BordadoNome',
@@ -137,20 +142,20 @@ export default defineComponent({
     },
     computed: {
         estiloNome(): { [key: string]: string } {
-            const estilo : { [key: string]: string } = {
-                fontFamily: (this.bordados.bordado_do_nome as IBordadoNome).fonte,
-                color: (this.bordados.bordado_do_nome as IBordadoNome).cor,
+            const estilo: { [key: string]: string } = {
+                fontFamily: (this.bordadoDoNome as IBordadoNome).fonte,
+                color: (this.bordadoDoNome as IBordadoNome).cor,
                 fontSize: this.fontSize
             };
-            if (this.bordados.bordado_do_nome.fonte == 'Montserrat') {
+            if ((this.bordadoDoNome as IBordadoNome).fonte == 'Montserrat') {
                 estilo.fontWeight = 'Bold';
             } else {
                 estilo.fontWeight = this.fontWeight;
             }
             return estilo as { [key: string]: string };
         },
-        fontFamilyAbaixoDoNome():{ [key: string]: string }{
-            return {fontFamily : (this.bordados.bordado_do_nome as IBordadoNome).abaixo_do_nome.font}
+        fontFamilyAbaixoDoNome(): { [key: string]: string } {
+            return { fontFamily: (this.bordadoDoNome as IBordadoNome).abaixo_do_nome.font }
         }
     },
     data() {
@@ -165,7 +170,7 @@ export default defineComponent({
             menuAbaixo: false as boolean,
             itemsAbaixoDoNome: ['Médica', 'Medicina', 'Sem'],
             fontesAbaixoDoNome: ['Block', 'MontSerrat'],
-            procuraAbaixoDoNome : null,
+            procuraAbaixoDoNome: null,
             prefixos: [
                 'Dr(a)',
                 'Prof(a)',
@@ -173,14 +178,14 @@ export default defineComponent({
                 'Enf.',
             ]
         }
-    },  
+    },
     watch: {
         comNome() {
-            if (this.comNome){
+            if (this.comNome) {
                 this.produtoAberto.setValoresPadroesParaNomeBordado(this.pessoaVenda.nome)
-            }else{
-                if (this.bordados){
-                    delete this.bordados.bordado_do_nome
+            } else {
+                if (this.bordados) {
+                    this.bordados.filter(bordado => bordado.local != 'nome')
                 }
             }
         },
@@ -189,17 +194,17 @@ export default defineComponent({
     methods: {
         adicionaPrefixo(target: HTMLElement) {
             if (this.comPrefixo) {
-                this.bordados.bordado_do_nome.nome = (this.bordados.bordado_do_nome as IBordadoNome).nome.slice(this.indexPrefixo)
+                (this.bordadoDoNome as IBordadoNome).nome = (this.bordadoDoNome as IBordadoNome).nome.slice(this.indexPrefixo)
             }
             const prefixo = target.textContent
             this.indexPrefixo = prefixo ? prefixo.length : 0;
-            this.bordados.bordado_do_nome.nome = `${prefixo}${this.bordados.bordado_do_nome.nome ? this.bordados.bordado_do_nome.nome : ""}`
+            (this.bordadoDoNome as IBordadoNome).nome = `${prefixo}${(this.bordadoDoNome as IBordadoNome).nome ? (this.bordadoDoNome as IBordadoNome).nome : ""}`
             this.comPrefixo = true
             this.menuPrefixo = false
 
         },
         tiraPrefixo() {
-            this.bordados.bordado_do_nome.nome = (this.bordados.bordado_do_nome as IBordadoNome).nome.slice(this.indexPrefixo)
+            (this.bordadoDoNome as IBordadoNome).nome = (this.bordadoDoNome as IBordadoNome).nome.slice(this.indexPrefixo)
             this.comPrefixo = false
         }
     },
@@ -208,11 +213,20 @@ export default defineComponent({
         const produtoAberto = useProdutoAbertoStore()
         const { bordados } = storeToRefs(produtoAberto)
         const { pessoaVenda } = storeToRefs(vendaAberta)
-        const holdnome = ref("" as string)
+        const bordadoDoNome = computed((): IBordadoNome | any => {
+            return bordados.value.find(bordado => bordado.local = 'nome')?.bordado 
+        })
+        const comNome = computed((): boolean => {
+            if (bordadoDoNome.value) {
+                return true
+            } else {
+                return false
+            }
+        })
         return {
+            bordadoDoNome,
             pessoaVenda,
             produtoAberto,
-            holdnome,
             bordados
         }
     }
@@ -259,8 +273,7 @@ export default defineComponent({
     background-color: #0d47a1;
 }
 
-.text-field-center :deep(input){
+.text-field-center :deep(input) {
     text-align: center;
-}
-</style>
+}</style>
 

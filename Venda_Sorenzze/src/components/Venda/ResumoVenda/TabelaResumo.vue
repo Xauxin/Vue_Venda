@@ -90,8 +90,8 @@ export default defineComponent({
                 const ElementoClickado = event.target as HTMLElement
                 if (ElementoClickado.closest('.opcoes')){
                     if(ElementoClickado.innerHTML.includes('copy')){
-                        const produtoCopiado = Object.assign({}, this.produtos.find(produto => produto.id == id)) as IProduto;
-                        produtoCopiado.id = this.vendaAberta.getIdDoProximoProduto
+                        const idTemp = Math.random()
+                        const produtoCopiado = this.produtoAberto.copiaProduto(this.produtos.find(produto => produto.id == id) as IProduto)
                         this.produtos.push(produtoCopiado)
                     }else if (ElementoClickado.innerHTML.includes('edit')){
                         const produtoASerAberto = this.produtos.find(produto => produto.id == id) as IProduto;

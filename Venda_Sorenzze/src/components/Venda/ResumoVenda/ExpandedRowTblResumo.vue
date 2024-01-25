@@ -30,15 +30,18 @@
                                             style='background-color: #e5e0ff'>Bordados</v-card-title>
                                         <v-divider></v-divider>
                                         <v-card-text class="pa-1">
-                                            <v-container v-if="item.bordados.bordado_do_nome" class="pa-0 ma-0">
+                                            <v-container v-if="bordadoDoNome(item.bordados)" class="pa-0 ma-0">
                                                 <div>
                                                     <p class="text-center pa-0 ma-0"
-                                                        :style="fontNomeBordado(item.bordados.bordado_do_nome as IBordadoNome)">{{
-                                                            item.bordados.bordado_do_nome.nome }}</p>
+                                                        :style="fontNomeBordado((bordadoDoNome(item.bordados)  as IBordadoNome))">{{
+                                                           ((bordadoDoNome(item.bordados)  as IBordadoNome).nome) }}</p>
                                                     <p class="text-center pa-0 ma-0"
-                                                        :style="fontEmBaixoDoNome(item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome)"
-                                                        v-if="!((item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome).text == 'Sem')">
-                                                        {{ (item.bordados.bordado_do_nome.abaixo_do_nome as IAbaixoDoNome).text }}</p>
+                                                        :style="fontEmBaixoDoNome((bordadoDoNome(item.bordados)  as IBordadoNome).abaixo_do_nome as IAbaixoDoNome)" 
+
+                                                        v-if="(((bordadoDoNome(item.bordados) as IBordadoNome).abaixo_do_nome as IAbaixoDoNome).text == 'Sem')"
+                                                        
+                                                        >
+                                                        {{ ((bordadoDoNome(item.bordados)  as IBordadoNome).abaixo_do_nome as IAbaixoDoNome).text }}</p>
                                                 </div>
                                             </v-container>
                                             <v-container v-else class="pa-0 ma-0 d-flex align-center  justify-center">
@@ -105,7 +108,7 @@
   
 <script lang="ts">
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IAbaixoDoNome, IBordado, IBordadoNome, IBordados } from "@/interfaces/Bordado";
+import { IAbaixoDoNome, IBordado, IBordadoNome, ILocalBordado } from "@/interfaces/Bordado";
 import { IProduto } from "@/interfaces/Produto";
 import { defineComponent } from "vue";
 
@@ -122,15 +125,11 @@ export default defineComponent({
         }
     },
     methods:{
-        bordadosSemONome(bordados: IBordados) {
-            const bordadosNovo = {} as IBordados
-            Object.entries(bordados).forEach(bordado => {
-                const [key, value] = bordado
-                if (key != "bordado_do_nome") {
-                    bordadosNovo[key] = value
-                }
-            })
-            return bordadosNovo
+        bordadosSemONome(bordados: ILocalBordado[]) {
+            return bordados.filter(bordado => !(bordado.local == 'nome'))
+        },
+        bordadoDoNome(bordados:ILocalBordado[]) {
+            return bordados.find(bordado => bordado.local == 'nome')?.bordado
         },
         fontNomeBordado(bordado_do_nome: IBordadoNome) {
             return { fontFamily: bordado_do_nome.fonte }

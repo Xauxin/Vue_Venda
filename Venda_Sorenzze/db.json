@@ -1,7 +1,7 @@
 {
   "pessoas": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Dalton Soriani Alves",
       "especialidade": "Aluno",
       "telefone": "44998275682",
@@ -13,7 +13,7 @@
       "particao_id": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Maria da Silva",
       "especialidade": "Aluno",
       "telefone": "44998275683",
@@ -25,7 +25,7 @@
       "particao_id": 5
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "João Pereira",
       "especialidade": "Aluno",
       "telefone": "44998275684",
@@ -37,7 +37,7 @@
       "particao_id": 2
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Ana Souza",
       "especialidade": "Aluno",
       "telefone": "44998275685",
@@ -49,7 +49,7 @@
       "particao_id": 1
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Carlos Santos",
       "especialidade": "Aluno",
       "telefone": "44998275686",
@@ -61,7 +61,7 @@
       "particao_id": 8
     },
     {
-      "id": 6,
+      "id": "6",
       "nome": "Juliana Rodrigues",
       "especialidade": "Aluno",
       "telefone": "44998275687",
@@ -73,7 +73,7 @@
       "particao_id": 4
     },
     {
-      "id": 7,
+      "id": "7",
       "nome": "Ricardo Oliveira",
       "especialidade": "Aluno",
       "telefone": "44998275688",
@@ -85,7 +85,7 @@
       "particao_id": 6
     },
     {
-      "id": 8,
+      "id": "8",
       "nome": "Luisa Carvalho",
       "especialidade": "Aluno",
       "telefone": "44998275689",
@@ -97,7 +97,7 @@
       "particao_id": 1
     },
     {
-      "id": 9,
+      "id": "9",
       "nome": "Mariano Ferreira",
       "especialidade": "Aluno",
       "telefone": "44998275690",
@@ -109,7 +109,7 @@
       "particao_id": 10
     },
     {
-      "id": 10,
+      "id": "10",
       "nome": "Beatriz Mendes",
       "especialidade": "Aluno",
       "telefone": "44998275691",
@@ -121,7 +121,7 @@
       "particao_id": 6
     },
     {
-      "id": 11,
+      "id": "11",
       "nome": "Pedro Santos",
       "especialidade": "Aluno",
       "telefone": "44998275692",
@@ -133,7 +133,7 @@
       "particao_id": 9
     },
     {
-      "id": 12,
+      "id": "12",
       "nome": "Camila Silva",
       "especialidade": "Aluno",
       "telefone": "44998275693",
@@ -145,7 +145,7 @@
       "particao_id": 3
     },
     {
-      "id": 13,
+      "id": "13",
       "nome": "Lucas Vieira",
       "especialidade": "Aluno",
       "telefone": "44998275694",
@@ -157,7 +157,7 @@
       "particao_id": 1
     },
     {
-      "id": 14,
+      "id": "14",
       "nome": "Isabela Fernandes",
       "especialidade": "Aluno",
       "telefone": "44998275695",
@@ -169,7 +169,7 @@
       "particao_id": 10
     },
     {
-      "id": 15,
+      "id": "15",
       "nome": "Felipe Barbosa",
       "especialidade": "Aluno",
       "telefone": "44998275696",
@@ -181,7 +181,7 @@
       "particao_id": 6
     },
     {
-      "id": 16,
+      "id": "16",
       "nome": "Laura Gonçalves",
       "especialidade": "Aluno",
       "telefone": "44998275697",
@@ -193,7 +193,7 @@
       "particao_id": 8
     },
     {
-      "id": 17,
+      "id": "17",
       "nome": "Gustavo Lima",
       "especialidade": "Aluno",
       "telefone": "44998275698",
@@ -205,7 +205,7 @@
       "particao_id": 2
     },
     {
-      "id": 18,
+      "id": "18",
       "nome": "Mariana Ribeiro",
       "especialidade": "Aluno",
       "telefone": "44998275699",
@@ -217,7 +217,7 @@
       "particao_id": 1
     },
     {
-      "id": 19,
+      "id": "19",
       "nome": "Eduardo Almeida",
       "especialidade": "Aluno",
       "telefone": "44998275700",
@@ -229,7 +229,7 @@
       "particao_id": 10
     },
     {
-      "id": 20,
+      "id": "20",
       "nome": "Carolina Santos",
       "especialidade": "Aluno",
       "telefone": "44998275701",
@@ -241,7 +241,7 @@
       "particao_id": 6
     },
     {
-      "id": 21,
+      "id": "21",
       "nome": "Gabriel Fernandes",
       "especialidade": "Aluno",
       "telefone": "44998275702",
@@ -253,7 +253,7 @@
       "particao_id": 9
     },
     {
-      "id": 22,
+      "id": "22",
       "nome": "Isabel Oliveira",
       "especialidade": "Aluno",
       "telefone": "44998275703",
@@ -265,7 +265,7 @@
       "particao_id": 3
     },
     {
-      "id": 23,
+      "id": "23",
       "nome": "Fernando Costa",
       "especialidade": "Aluno",
       "telefone": "44998275704",
@@ -277,7 +277,7 @@
       "particao_id": 1
     },
     {
-      "id": 24,
+      "id": "24",
       "nome": "Amanda Rocha",
       "especialidade": "Aluno",
       "telefone": "44998275705",
@@ -289,7 +289,7 @@
       "particao_id": 10
     },
     {
-      "id": 25,
+      "id": "25",
       "nome": "Rafael Barbosa",
       "especialidade": "Aluno",
       "telefone": "44998275706",
@@ -301,7 +301,7 @@
       "particao_id": 6
     },
     {
-      "id": 26,
+      "id": "26",
       "nome": "Patrícia Lima",
       "especialidade": "Aluno",
       "telefone": "44998275707",
@@ -313,7 +313,7 @@
       "particao_id": 8
     },
     {
-      "id": 27,
+      "id": "27",
       "nome": "Vitor Santos",
       "especialidade": "Aluno",
       "telefone": "44998275708",
@@ -325,7 +325,7 @@
       "particao_id": 2
     },
     {
-      "id": 28,
+      "id": "28",
       "nome": "Natalia Ribeiro",
       "especialidade": "Aluno",
       "telefone": "44998275709",
@@ -339,99 +339,99 @@
   ],
   "nucleos": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Sorenzze"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Unicesumar"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Uninga"
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Clinica"
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Hospital"
     }
   ],
   "particao": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Sorenzze",
       "nucleo_id": 1
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Turma XI",
       "nucleo_id": 3
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Liga Nefrologia",
       "nucleo_id": 3
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Cruso Medicina",
       "nucleo_id": 3
     },
     {
-      "id": 5,
+      "id": "5",
       "nome": "Turma X",
       "nucleo_id": 2
     },
     {
-      "id": 6,
+      "id": "6",
       "nome": "Liga de Cardiologia",
       "nucleo_id": 2
     },
     {
-      "id": 7,
+      "id": "7",
       "nome": "Curso Medicina",
       "nucleo_id": 2
     },
     {
-      "id": 8,
+      "id": "8",
       "nome": "Vitally",
       "nucleo_id": 4
     },
     {
-      "id": 9,
+      "id": "9",
       "nome": "Prevenpet",
       "nucleo_id": 4
     },
     {
-      "id": 10,
+      "id": "10",
       "nome": "Santa Rita",
       "nucleo_id": 1
     }
   ],
   "classificacao_Cliente": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Funcionário"
     },
     {
-      "id": 2,
+      "id": "2",
       "nome": "Cliente"
     },
     {
-      "id": 3,
+      "id": "3",
       "nome": "Prestador de Serviço"
     },
     {
-      "id": 4,
+      "id": "4",
       "nome": "Empresa"
     }
   ],
   "bordados": [
     {
-      "id": 1,
+      "id": "1",
       "Nome": "Brasão da Turma XI de Medicina Uningá",
       "Estilo": "Brasão",
       "Núcleo": "Uningá",
@@ -441,7 +441,7 @@
       "preco": "25,00"
     },
     {
-      "id": 2,
+      "id": "2",
       "Nome": "Brasão da Liga de Nefrologia Uningá",
       "Estilo": "Brasão",
       "Núcleo": "Uningá",
@@ -451,7 +451,7 @@
       "preco": "25,00"
     },
     {
-      "id": 3,
+      "id": "3",
       "Nome": "Brasão do Curso de Medicina Uningá",
       "Estilo": "Brasão",
       "Núcleo": "Uningá",
@@ -461,7 +461,7 @@
       "preco": "25,00"
     },
     {
-      "id": 4,
+      "id": "4",
       "Nome": "Brasão da Turma X de Medicina Unicesumar",
       "Estilo": "Brasão",
       "Núcleo": "Unicesumar",
@@ -471,7 +471,7 @@
       "preco": "25,00"
     },
     {
-      "id": 5,
+      "id": "5",
       "Nome": "Brasão da Liga de Cardiologia Unicesumar",
       "Estilo": "Brasão",
       "Núcleo": "Unicesumar",
@@ -481,7 +481,7 @@
       "preco": "25,00"
     },
     {
-      "id": 6,
+      "id": "6",
       "Nome": "Brasão do Curso de Medicina Unicesumar",
       "Estilo": "Brasão",
       "Núcleo": "Unicesumar",
@@ -491,7 +491,7 @@
       "preco": "25,00"
     },
     {
-      "id": 7,
+      "id": "7",
       "Nome": "Logo da Clinica Vitally",
       "Estilo": "Logo",
       "Núcleo": "Clinica",
@@ -501,7 +501,7 @@
       "preco": "25,00"
     },
     {
-      "id": 8,
+      "id": "8",
       "Nome": "Logo da Clinica Prevenpet",
       "Estilo": "Logo",
       "Núcleo": "Clinica",
@@ -511,7 +511,7 @@
       "preco": "25,00"
     },
     {
-      "id": 9,
+      "id": "9",
       "Nome": "Logo da Cirurgia Vascular Hospital Santa Rita",
       "Estilo": "Logo",
       "Núcleo": "Hospital",
@@ -523,7 +523,7 @@
   ],
   "esquema_produto": [
     {
-      "id": 1,
+      "id": "1",
       "nome": "Jaleco Masculino",
       "tamanhos": [
         "38",
@@ -631,7 +631,7 @@
       "valor": 155
     },
     {
-      "id": 1,
+      "id": "1",
       "nome": "Blusa Cirúgica Masculina",
       "tamanhos": [
         "38",
@@ -720,15 +720,57 @@
   ],
   "vendas": [
     {
-      "id": 1,
+      "id": "1",
       "data_de_registro": "Invalid date",
       "tipo": "Pedido",
       "status": "Aguardando Pagamento",
       "pessoaId": 2,
-      "produtos": [],
+      "produtos": [
+        {
+          "id": 0.8882847994723007,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Manga": "Longa Basica",
+            "Gola": "Smoking",
+            "Trava": "Presa com Laço",
+            "Punho": "Ribana"
+          },
+          "medidas": {},
+          "bordados": {
+            "bordado_do_nome": {
+              "nome": "Dr(a)Maria da Silva",
+              "abaixo_do_nome": {
+                "text": "Médica",
+                "font": "Block"
+              },
+              "fonte": "Monotype",
+              "cor": "Preto"
+            },
+            "0.518468851723088": {
+              "local": "manga_esquerda",
+              "bordado": {
+                "id": "4",
+                "Nome": "Brasão da Turma X de Medicina Unicesumar",
+                "Estilo": "Brasão",
+                "Núcleo": "Unicesumar",
+                "Particao": "Medicina X",
+                "codigo": "B1CES02_MEDX",
+                "Imagem": "src/assets/B1CES02_MEDX.png",
+                "preco": "25,00"
+              }
+            }
+          },
+          "valor": 123123,
+          "quantidade": 1,
+          "em_espera": false
+        }
+      ],
       "valores": {
-        "valores_produtos": 0,
-        "valor_total": 0,
+        "valores_produtos": 123123,
+        "valor_total": 123123,
         "frete": {
           "tipo": "",
           "valor": 0

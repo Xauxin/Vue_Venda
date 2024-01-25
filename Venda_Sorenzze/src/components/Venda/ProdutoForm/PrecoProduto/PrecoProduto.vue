@@ -79,7 +79,7 @@ export default defineComponent({
     methods: {
         salvaProduto() {
             const produtoParaSalvar = this.produtoAbertoStore.$state
-            this.vendaAberta.setProduto(produtoParaSalvar);
+            this.vendaAberta.setProduto(produtoParaSalvar as IProduto);
         },
         strToNum(str: string) {
             if (str) {

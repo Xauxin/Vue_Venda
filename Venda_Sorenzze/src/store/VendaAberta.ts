@@ -29,18 +29,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
     getId: (state) => state.id,
     getTipoVenda: (state) => state.tipo,
     getpessoaVenda: (state) => state.pessoaVenda,
-    getIdDoProximoProduto (): number{
-      if(!this.produtos){
-        return 1
-      }
-      let maiorId = 0 as number
-      this.produtos.forEach(produto => {
-        if (produto.id > maiorId){
-          maiorId = produto.id
-        }
-      })
-      return maiorId + 1
-    },
+    
     getpessoaFoiEscolhida: (state) => state.pessoaFoiEscolhida,
     getprodutoFoiEscolhido: (state) => state.produtoFoiEscolhido,
     getProdutos: (state) => state.produtos,
@@ -113,7 +102,7 @@ export const useVendaAbertaStore = defineStore('VendaAberta', {
           this.produtoFoiEscolhido = true
         }
         const produtoAberto = useProdutoAbertoStore()
-        produtoAberto.$reset()
+        produtoAberto.abrirProduto()
     },
     salvaVenda(){
       const venda = {} as IVenda

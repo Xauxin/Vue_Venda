@@ -8,7 +8,7 @@
         </v-card-text>
         <v-spacer></v-spacer>
         <v-card-actions class="py-0">
-            <v-btn color="success" :disabled="!vendaValida" to="/vendas" variant="flat">Salvar Venda</v-btn>
+            <v-btn color="success" :disabled="!vendaValida" to="/vendas" @click.prevent="vendaAberta.salvaVenda()" variant="flat">Salvar Venda</v-btn>
         </v-card-actions>
     </v-card>
 </template>

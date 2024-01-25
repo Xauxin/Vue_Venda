@@ -1,11 +1,8 @@
-export interface IBordados{
-    [key:string]: ILocalBordado | IBordadoNome 
-}
 
 export interface ILocalBordado{
     local: string,
-    bordado: IBordado
-    [key:string]:string|IBordado
+    bordado: IBordado | IBordadoNome 
+    [key:string]:string|IBordado|IBordadoNome
 }
 
 export interface IBordadoNome{

@@ -44,12 +44,11 @@
                                             <p v-bind="props">{{ `Com ${Object.entries(item.bordados).length} Bordado` }}</p>
                                         </template>
                                         <template #default>
-                                            <p v-for="(value, key) in item.bordados" class="text-capitalize" :key="key">{{
-                                                (key as string).includes('outro') ? (key as string).split('/')[1] : (key as
-                                                    string).replace("_", ' ').replace("_", ' ') }}</p>
+                                            <p v-for="(value, index) in item.bordados" class="text-capitalize" :key="index">{{
+                                                value.local }}</p>
                                         </template>
                                     </v-tooltip>
-                                    <p v-else-if="item.bordados.bordado_dnome">Com bordado do Nome</p>
+                                    <p v-else-if="comNome(item.bordados)">Com bordado do Nome</p>
                                     <p v-else>Sem Bordados</p>
                                 </td>
                                 <td>
@@ -161,6 +160,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { IVenda } from "@/interfaces/Venda";
+import { ILocalBordado } from "@/interfaces/Bordado";
 
 
 export default defineComponent({
@@ -182,6 +182,13 @@ export default defineComponent({
         };
     },
     methods: {
+        comNome(bordados:ILocalBordado[]){
+            if (bordados.some( bordado => bordado.local == 'nome')){
+                return true
+            }else{
+                return false
+            }
+        },
         diaEMesdeData(dataEmString: string) {
             const listDiaMesAno = dataEmString.split("/");
             const diaEMesdeData = `${listDiaMesAno[0]}/${listDiaMesAno[1]}`;
