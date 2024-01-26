@@ -95,15 +95,9 @@ export const useProdutoAbertoStore = defineStore(
       }
     },
     getters: {
-      getNome: (state) => state.nome,
-      getCor: (state) => state.cor,
-      getTamanho: (state) => state.tamanho,
-      getTecido: (state) => state.tecido,
-      getModelagem: (state) => state.modelagem,
-      getMedidas: (state) => state.medidas,
-      getBordados: (state) => state.bordados,
-      getValor: (state) => state.valor,
-      getQuantidade: (state) => state.quantidade,
+     getBordadosSemONome():ILocalBordado[]{
+      return this.bordados.filter(bordado => bordado.local != 'nome')
+     }
     }
   }
 )

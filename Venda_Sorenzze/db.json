@@ -727,50 +727,40 @@
       "pessoaId": 2,
       "produtos": [
         {
-          "id": 0.8882847994723007,
+          "id": 0.5662682135871773,
           "nome": "Jaleco Masculino",
           "cor": "Branco",
           "tamanho": "38",
           "tecido": "Gabardine",
           "modelagem": {
-            "Manga": "Longa Basica",
-            "Gola": "Smoking",
+            "Manga": "Franzida",
+            "Gola": "Padre",
             "Trava": "Presa com Laço",
-            "Punho": "Ribana"
+            "Punho": "Elastico"
           },
           "medidas": {},
-          "bordados": {
-            "bordado_do_nome": {
-              "nome": "Dr(a)Maria da Silva",
-              "abaixo_do_nome": {
-                "text": "Médica",
-                "font": "Block"
-              },
-              "fonte": "Monotype",
-              "cor": "Preto"
-            },
-            "0.518468851723088": {
-              "local": "manga_esquerda",
+          "bordados": [
+            {
+              "local": "nome",
               "bordado": {
-                "id": "4",
-                "Nome": "Brasão da Turma X de Medicina Unicesumar",
-                "Estilo": "Brasão",
-                "Núcleo": "Unicesumar",
-                "Particao": "Medicina X",
-                "codigo": "B1CES02_MEDX",
-                "Imagem": "src/assets/B1CES02_MEDX.png",
-                "preco": "25,00"
+                "nome": "Maria da Silva",
+                "abaixo_do_nome": {
+                  "text": "Sem",
+                  "font": "Block"
+                },
+                "fonte": "Monotype",
+                "cor": "Preto"
               }
             }
-          },
-          "valor": 123123,
+          ],
+          "valor": 123,
           "quantidade": 1,
           "em_espera": false
         }
       ],
       "valores": {
-        "valores_produtos": 123123,
-        "valor_total": 123123,
+        "valores_produtos": 123,
+        "valor_total": 123,
         "frete": {
           "tipo": "",
           "valor": 0

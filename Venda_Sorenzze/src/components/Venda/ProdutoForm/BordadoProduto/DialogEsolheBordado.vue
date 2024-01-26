@@ -5,7 +5,7 @@
                     <v-card>
                         <v-row align="center" class="px-4 py-2">
                             <v-col cols="11">
-                                <p class="text-h4">{{ BordadoAscessado.replace("_", " ") }}</p>
+                                <p class="text-h4">{{ BordadoAscessado.replace("_", "") }}</p>
                             </v-col>
                             <v-col justify-self="end">
                                 <v-btn icon="close" @click.prevent="dialog = false" density="compact" rounded
@@ -131,9 +131,14 @@ export default defineComponent({
         selcionaBordado(bordado: IBordado){
             this.BordadoPreSelecionado =  bordado
         },
-        adicionaBordado(bordado: IBordado){
-            (this.bordados[this.BordadoAscessado] as ILocalBordado).bordado = bordado; 
-            this.fechaDialog()
+        adicionaBordado(bordadoASerAdicionado: IBordado){
+            this.bordados.map(bordado => {
+                if(bordado.local == this.BordadoAscessado){
+                    bordado.bordado = bordadoASerAdicionado
+                }
+                return bordado
+            })
+            this.dialog = false
         }
     },
     setup() {

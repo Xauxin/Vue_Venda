@@ -184,8 +184,12 @@ export default defineComponent({
             if (this.comNome) {
                 this.produtoAberto.setValoresPadroesParaNomeBordado(this.pessoaVenda.nome)
             } else {
-                if (this.bordados) {
-                    this.bordados.filter(bordado => bordado.local != 'nome')
+                if (this.bordados.length > 0) {
+                    this.bordados.map((bordado, index) => {
+                        if (bordado.local == 'nome'){
+                            this.bordados.splice(index, 1);
+                        }
+                    })
                 }
             }
         },

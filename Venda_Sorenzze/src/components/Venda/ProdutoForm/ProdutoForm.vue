@@ -1,6 +1,6 @@
 <template>
     <v-card class="ma-1">
-        <v-card-title @click.prevent="produtoAbertoStore.copiaProduto(produtoAbertoStore.$state as IProduto)"
+        <v-card-title @click.prevent="console.log(produtoAbertoStore.$state as IProduto)"
             class="text-center text-body-1 py-0 tituloCard">Produto</v-card-title>
         <v-divider></v-divider>
         <v-card-text class="px-0 py-2 mx-0">

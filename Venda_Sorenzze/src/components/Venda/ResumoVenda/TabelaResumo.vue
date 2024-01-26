@@ -16,7 +16,7 @@
                             <p class="" style="textWrap: nowrap;">{{ item.nome }}</p>
                         </td>
                         <td>
-                            <p class="text-center"  >{{ item.tamanho }}</p>
+                            <p class="text-center">{{ item.tamanho }}</p>
                         </td>
                         <td>
                             <p class="text-right">{{ (item.valor).toFixed(2) }}</p>
@@ -29,8 +29,8 @@
                         </td>
                         <td class="pa-1 text-right opcoes">
                             <v-row class="d-flex align-center justify-space-between opcoes" no-gutters align="center">
-                                <v-col cols="2" class="mx-1 opcoes"><v-btn class="opcoes" variant="flat" :ripple="false" :hover="false"
-                                        size="regular" icon="content_copy"></v-btn></v-col>
+                                <v-col cols="2" class="mx-1 opcoes"><v-btn class="opcoes" variant="flat" :ripple="false"
+                                        :hover="false" size="regular" icon="content_copy"></v-btn></v-col>
                                 <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false"
                                         size="regular" icon="edit"></v-btn></v-col>
                                 <v-col cols="2" class="mx-1"><v-btn variant="flat" :ripple="false" :hover="false"
@@ -86,20 +86,20 @@ export default defineComponent({
         salvaDesconto(objeto: ITipoValor) {
             this.valores.desconto = objeto
         },
-            expandRow(id: number, event:Event) {
-                const ElementoClickado = event.target as HTMLElement
-                if (ElementoClickado.closest('.opcoes')){
-                    if(ElementoClickado.innerHTML.includes('copy')){
-                        const idTemp = Math.random()
-                        const produtoCopiado = this.produtoAberto.copiaProduto(this.produtos.find(produto => produto.id == id) as IProduto)
-                        this.produtos.push(produtoCopiado)
-                    }else if (ElementoClickado.innerHTML.includes('edit')){
-                        const produtoASerAberto = this.produtos.find(produto => produto.id == id) as IProduto;
-                        this.produtoAberto.$state = produtoASerAberto
-                    }else if (ElementoClickado.innerHTML.includes('delete')){
-                        this.produtos = this.produtos.filter(produto => produto.id != id)
-                    }
-            }else if (!this.expanded.includes(id)) {
+        expandRow(id: number, event: Event) {
+            const ElementoClickado = event.target as HTMLElement
+            if (ElementoClickado.closest('.opcoes')) {
+                if (ElementoClickado.innerHTML.includes('copy')) {
+                    const idTemp = Math.random()
+                    const produtoCopiado = this.produtoAberto.copiaProduto(this.produtos.find(produto => produto.id == id) as IProduto)
+                    this.produtos.push(produtoCopiado)
+                } else if (ElementoClickado.innerHTML.includes('edit')) {
+                    const produtoASerAberto = this.produtos.find(produto => produto.id == id) as IProduto;
+                    this.produtoAberto.$state = produtoASerAberto
+                } else if (ElementoClickado.innerHTML.includes('delete')) {
+                    this.produtos = this.produtos.filter(produto => produto.id != id)
+                }
+            } else if (!this.expanded.includes(id)) {
                 this.expanded.pop()
                 this.expanded.push(id);
                 (this.$refs[id.toString()] as HTMLElement).classList.add('selectedRow');
@@ -123,36 +123,37 @@ export default defineComponent({
         const { produtos, valores } = storeToRefs(vendaAberta)
         watch(
             produtos,
-            () =>{
+            () => {
                 let total = 0
-                produtos.value.forEach((produto:IProduto)=> {
+                produtos.value.forEach((produto: IProduto) => {
                     total = total + produto.valor
                 })
                 valores.value.valores_produtos = total
-            },{deep : true  }
+            }, { deep: true }
         )
         watch(
             valores,
-            () =>{
-                let total = 0 as number 
-                Object.entries(valores.value).forEach((valor:[string,number|ITipoValor]) => {
+            () => {
+                let total = 0 as number
+                Object.entries(valores.value).forEach((valor: [string, number | ITipoValor]) => {
                     const [key, value] = valor
-                    if (key == 'valores_produtos'){
+                    if (key == 'valores_produtos') {
                         total = total + (value as number)
                     }
-                    else if (key == 'frete'){
+                    else if (key == 'frete') {
                         total = total + ((value as ITipoValor).valor as number)
                     }
-                    else if (key == 'desconto'){
-                        if ((value as ITipoValor).tipo == 'Porcentagem'){
-                            let desconto = total*((value as ITipoValor).valor/100)
+                    else if (key == 'desconto') {
+                        if ((value as ITipoValor).tipo == 'Porcentagem') {
+                            let desconto = total * ((value as ITipoValor).valor / 100)
                             total = total - desconto
-                        }else if((value as ITipoValor).tipo == 'Valor'){
+                        } else if ((value as ITipoValor).tipo == 'Valor') {
                             total = total - (value as ITipoValor).valor
                         }
-                    }})
+                    }
+                })
                 valores.value.valor_total = total
-            },{deep : true  }
+            }, { deep: true }
         )
         return {
             vendaAberta,

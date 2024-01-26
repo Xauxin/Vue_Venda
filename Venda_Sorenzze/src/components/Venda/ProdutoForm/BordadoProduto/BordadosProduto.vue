@@ -1,21 +1,18 @@
 <template>
     <div>
         <v-card height="100%" min-height="300" :elevation="3" border rounded class="py-2 px-4">
-            <BordadoNome 
-                :cores="['Preto', 'Dourado', 'Grafite']"
-                :fontes="['MontSerrat', 'Block', 'Monotype']"/>
+            <BordadoNome :cores="['Preto', 'Dourado', 'Grafite']" :fontes="['MontSerrat', 'Block', 'Monotype']" />
             <v-divider class="mb-1 border-opacity-75"></v-divider>
-            <BordadoCards :bordados-escolhidos="bordadosEscolhidos"
-                @abre-dialog="AbreDialogEMudaBordadoAscessado" />
+            <BordadoCards @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
-        <DialogEsolheBordado ref="dialog" :BordadoAscessado="(bordadoAscessado as string)"/>
+        <DialogEsolheBordado ref="dialog" :BordadoAscessado="(bordadoAscessado as string)" />
     </div>
 </template>
 
 <script lang="ts">
 
-import { IBordado , IBordados } from '@/interfaces/Bordado'
-import { defineComponent} from 'vue'
+import { IBordado } from '@/interfaces/Bordado'
+import { defineComponent } from 'vue'
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos'
 import BordadoNome from './BordadoNome.vue'
 import BordadoCards from './BordadoCard.vue'
@@ -30,43 +27,28 @@ export default defineComponent({
         BordadoCards,
         DialogEsolheBordado
     },
-    props:{
-        esquemaEscolhido:{
-            type: Object as ()=> IEsquemaProduto | null,
+    props: {
+        esquemaEscolhido: {
+            type: Object as () => IEsquemaProduto | null,
             required: true
         }
     },
     data() {
         return {
             BordadoPreSelecionado: {} as IBordado,
-            bordadoAscessado: "" as String,
+            bordadoAscessado: "" as string,
             contextoParaOutroBordado: "" as string,
-            bordadosEscolhidos: {
-            } as IBordados,
-            oldbordadosEscolhidos: {
-            } as IBordados,
-            locaisEscolhidos: [] as String[]
-        }
-    },
-    watch:{
-        bordadosEscolhidos:{
-            handler(){
-                if(this.oldbordadosEscolhidos != this.bordadosEscolhidos){
-                    this.$emit('setBordados', this.bordadosEscolhidos, 'bordados')
-                }
-            },
-            deep:true
         }
     },
     methods: {
-        AbreDialogEMudaBordadoAscessado(key: string) {
-            this.bordadoAscessado = key
-            console.log(this.bordadoAscessado);
+        AbreDialogEMudaBordadoAscessado(local: string) {
+            console.log(local)
+            this.bordadoAscessado = local;
             (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog()
         },
-        
+
     }
-   
+
 })
 </script>
 
