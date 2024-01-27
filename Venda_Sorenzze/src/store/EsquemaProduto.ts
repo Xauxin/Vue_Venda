@@ -1,6 +1,6 @@
 import { IEsquemaConfiguracaoMedidas } from './../interfaces/EsquemaProdutos';
 import http from "@/http"
-import { IBordado } from "@/interfaces/Bordado";
+import { IBordado, ILocalBordado } from "@/interfaces/Bordado";
 import { IEsquemaProduto } from '@/interfaces/EsquemaProdutos';
 import { defineStore } from 'pinia'
 
@@ -13,7 +13,7 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
   actions: {
     async listEsquemas() {
       try {
-        if (this.esquemas){
+        if (this.esquemas) {
           this.esquemas = []
         }
         this.esquemas = (await http.get('esquema_produto')).data as IEsquemaProduto[]
@@ -23,11 +23,11 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
     },
     async setEscolhido(escolhido: String) {
       try {
-        if (escolhido == ""){
-          this.esquema_escolhido = {}  as IEsquemaProduto
-        }else{
-          this.esquemas.forEach(esquema =>{
-            if (esquema.nome == escolhido){
+        if (escolhido == "") {
+          this.esquema_escolhido = {} as IEsquemaProduto
+        } else {
+          this.esquemas.forEach(esquema => {
+            if (esquema.nome == escolhido) {
               this.esquema_escolhido = esquema
             }
           })
@@ -53,15 +53,23 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
         delete this.esquema_escolhido.medidas[key]
       }
     },
-    restartEsquemaEscolhido(){
+    restartEsquemaEscolhido() {
       this.esquema_escolhido = {} as IEsquemaProduto
-    }
+    },
+    locaisDeBordadosRestantes(bordados:({[key:number]:ILocalBordado})) {
+      const locaisEscolhidos = [] as string[]
+      Object.entries(bordados).forEach((bordado: [string, ILocalBordado]) => {
+        const value = bordado[1]
+        locaisEscolhidos.push(value.local)
+      })
+      return this.esquema_escolhido.locais_de_bordado.filter((local) => !(locaisEscolhidos.includes(local as string))) as string[]
+    },
   },
   getters: {
     getEsquemaEscolhido: (state) => state.esquema_escolhido,
-    getStrListEsquemas():String[]{
+    getStrListEsquemas(): String[] {
       const strEsquemas = [] as String[]
-      this.esquemas.forEach((esquema:IEsquemaProduto) =>{
+      this.esquemas.forEach((esquema: IEsquemaProduto) => {
         strEsquemas.push(esquema.nome)
       })
       return strEsquemas
@@ -69,13 +77,15 @@ export const useEsquemaProdutoStore = defineStore('EsquemaProduto', {
     modelagemObrigatoria() {
       const modelagemObrigatoria = {} as { [key: string]: boolean }
       if (this.esquema_escolhido.nome) {
-          Object.entries(this.esquema_escolhido.modelagem).forEach(modelagem => {
-              modelagemObrigatoria[modelagem[0]] = modelagem[1].required
-          })
-          return modelagemObrigatoria
+        Object.entries(this.esquema_escolhido.modelagem).forEach(modelagem => {
+          modelagemObrigatoria[modelagem[0]] = modelagem[1].required
+        })
+        return modelagemObrigatoria
       }
       return {}
-  }
+    },
+    
+
   }
 }
 )

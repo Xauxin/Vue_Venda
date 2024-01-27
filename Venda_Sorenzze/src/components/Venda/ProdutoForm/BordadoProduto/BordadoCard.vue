@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col cols="4" v-for="(value, index) in getBordadosSemONome" :key="index">
+        <v-col cols="4" v-for="(value, key) in getBordadosSemONome" :key="key">
             <v-card density="compact" height="100%" min-height="235" color="primary">
                 <v-card-title class="pa-0 text-center text-caption text-capitalize">
                     <p>{{ value.local }}</p>
@@ -10,7 +10,7 @@
                     "B1ABC00.ABC" }}</v-card-subtitle>
                 <v-divider class="mx-2 my-1"></v-divider>
                 <v-card-text class="pa-0">
-                    <v-img v-bind:item="index" 
+                    <v-img v-bind:item="key" 
                         :src="(value.bordado as IBordado).Imagem ? (value.bordado as IBordado).Imagem : ''" min-height="100"
                         height="100" aspect-ratio="1/1">
                     </v-img>
@@ -23,18 +23,18 @@
                 <v-card-actions align-self="bo">
                     <v-row>
                         <v-col cols="4">    
-                            <v-btn variant="flat" icon="add" @click.prevent="$emit('abreDialog', value.local)" rounded
-                                density="compact" color="secondary" bg-color="info"></v-btn>
+                            <v-btn variant="flat" icon="add" @click.prevent="abreDialog(key)" rounded density="compact" color="secondary" bg-color="info"></v-btn>
+
                         </v-col>
                         <v-col cols="4" offset="4">
-                            <v-btn variant="flat" density="compact" @click.prevent="excluirBordado(value)" rounded
+                            <v-btn variant="flat" density="compact" @click.prevent="excluirBordado(key)" rounded
                                 icon="delete" color="secondary" bg-color="danger"></v-btn>
                         </v-col>
                     </v-row>
                 </v-card-actions>
             </v-card>
         </v-col>
-        <v-col cols="4" v-if="!(getBordadosSemONome.length >= 3)">
+        <v-col cols="4" v-if="locaisRestantes">
             <v-card color="primary" justify="center" density="compact" height="100%" min-height="235"
                 @click="escolhendoCard = !escolhendoCard">
                 <v-card-text class="text-center fill-height">
@@ -49,16 +49,16 @@
                                     </v-btn>
                                 </template>
                                 <v-list>
-                                    <v-list-item ref="listaLocais" v-for="(item, index) in locaisRestantes" :key="index"
-                                        :value="index">
-                                        <v-list-item-title @click="adicionaBordado(item as string)" v-if="item != 'outro'"
+                                    <v-list-item ref="listaLocais" v-for="(item, key) in locaisRestantes" :key="key"
+                                        :value="key">
+                                        <v-list-item-title @click="adicionaLocalBordado(item as string)" v-if="item != 'outro'"
                                             class=" text-capitalize">{{ (item as
                                                 string).replace("_", " ") }}
                                         </v-list-item-title>
                                         <v-text-field v-model="local" variant="outlined" label="Outro" v-else
                                             density="compact" hide-details>
                                             <template #append>
-                                                <v-icon @click="adicionaBordado(local as string)">check</v-icon>
+                                                <v-icon @click="adicionaLocalBordado(local as string)">check</v-icon>
                                             </template>
                                         </v-text-field>
                                     </v-list-item>
@@ -92,15 +92,14 @@ export default defineComponent({
         }
     },
     methods: {
-        abreDialog(item: String) {
-            this.$emit('abreDialog', item)
+        abreDialog(key:string|number){
+            this.$emit('abreDialog',parseFloat(key as string))
         },
-        adicionaBordado(item: string) {
-            this.bordados.push({ 'local': item, 'bordado': {} } as ILocalBordado) 
-            this.menuLocais = false
+        adicionaLocalBordado(item: string) {
+            this.produtoAberto.adicionaLocalBordado(item)
         },
-        excluirBordado(bordadoASerExlcuido:ILocalBordado) {
-            this.bordados.filter(bordado => bordado.local != bordadoASerExlcuido.local)
+        excluirBordado(key:number) {
+            delete this.bordados[key]
         }
     },
     setup() {
@@ -108,13 +107,7 @@ export default defineComponent({
         const esquemaProduto = useEsquemaProdutoStore()
         const { getBordadosSemONome, bordados } = storeToRefs(produtoAberto)
         const { esquema_escolhido } = storeToRefs(esquemaProduto)
-        let locaisRestantes = computed(() => {
-            const locaisEscolhidos = getBordadosSemONome.value.map(bordado =>{
-                return bordado.local
-            })
-            return esquema_escolhido.value.locais_de_bordado.filter(local => !locaisEscolhidos.includes(local as string)) as string[]
-        });
-
+        const locaisRestantes = computed(()=> esquemaProduto.locaisDeBordadosRestantes(bordados.value))
         return {
             bordados,
             locaisRestantes,

@@ -19,7 +19,7 @@ export const useProdutoAbertoStore = defineStore(
       tecido: "" as string,
       modelagem: {} as IModelagem,
       medidas: {} as IMedidas,
-      bordados: [] as ILocalBordado[],
+      bordados: {} as {[key:number]:ILocalBordado},
       valor: 0 as number,
       quantidade: 1 as number,
       em_espera: false as boolean
@@ -34,7 +34,7 @@ export const useProdutoAbertoStore = defineStore(
           tecido: "" as string,
           modelagem: {} as IModelagem,
           medidas: {} as IMedidas,
-          bordados: [] as ILocalBordado[],
+          bordados:  {} as {[key:number]:ILocalBordado},
           valor: 0 as number,
           quantidade: 1 as number,
           em_espera: false as boolean
@@ -61,19 +61,21 @@ export const useProdutoAbertoStore = defineStore(
       clearMedidas() {
         this.medidas = {} as IMedidas
       },
-      setValoresPadroesParaNomeBordado(nomePadrao:string) {
-        const bordado_do_nome = {
-          nome: nomePadrao as string,
-          abaixo_do_nome: {"text":"Sem","font":"Block"} as IAbaixoDoNome,
-          fonte: "Monotype" as string,
-          cor: "Preto" as string
+      setBordado(bordadoASerAdicionado:IBordado| IBordadoNome, key?:number) {
+        /// Adiciona Bordado Aos bordado do Produto, ao passar chave o bordado entra como um local ja definido, em outros caso o bordado entra como nome///
+        if (!key){
+          const newKey = Math.random()
+          this.bordados[newKey] = {
+            'local': 'nome',
+            'bordado': bordadoASerAdicionado
+          }
+        }else if(key){
+          this.bordados[key].bordado = bordadoASerAdicionado
         }
-        this.bordados.push({
-          local: 'nome',
-          bordado : bordado_do_nome as IBordadoNome
-        } as ILocalBordado)
-        
-        
+      },
+      adicionaLocalBordado( local:string){
+        const key = Math.random()
+        this.bordados[key] = {local, 'bordado': {} as IBordado}
       },
       copiaProduto(produto:IProduto){
         let novoProduto = {medidas:{},bordados:{},modelagem:{}} as IProduto
@@ -95,9 +97,27 @@ export const useProdutoAbertoStore = defineStore(
       }
     },
     getters: {
-     getBordadosSemONome():ILocalBordado[]{
-      return this.bordados.filter(bordado => bordado.local != 'nome')
-     }
+     getBordadosSemONome():({[key:number]:ILocalBordado}){
+      const hold = {} as {[key:number]:ILocalBordado};
+      Object.entries(this.bordados).forEach((bordado:[any, ILocalBordado])=>{
+        let [key , localBordado] = bordado
+        key = parseFloat(key) as number
+        if (localBordado.local != 'nome'){
+          hold[key] = localBordado
+        }
+      })
+      return hold
+     },
+     getBordadoDoNome():IBordadoNome|undefined{
+      Object.entries(this.bordados).forEach((bordado:[any, ILocalBordado])=>{
+        console.log(bordado)
+        const localBordado = bordado[1]
+        if (localBordado.local == 'nome'){
+          return localBordado.bordado as IBordadoNome
+        }
+      })
+      return undefined
+     },
     }
   }
 )

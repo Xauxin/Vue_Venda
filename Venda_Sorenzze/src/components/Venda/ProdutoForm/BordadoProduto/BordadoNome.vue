@@ -15,7 +15,7 @@
             <v-col cols="8" v-if="comNome">
                 <v-text-field solo :prepend-inner-icon="comPrefixo ? 'cancel' : ''" single-line variant="solo"
                     @click:prepend-inner="tiraPrefixo" :disabled="!comNome" rows="1"
-                    v-model="(bordadoDoNome as IBordadoNome).nome"
+                    :model-value="(bordadoDoNome as IBordadoNome).nome"
                     class="text-center pa-0 ma-0 nomeBordado text-field-center" center-affix :style="estiloNome"
                     density="compact" clearable>
                     <!-- Parte debaixo do nome com especialidade-->
@@ -122,9 +122,10 @@
 </template>
 
 <script lang="ts">
-import { IBordadoNome } from '@/interfaces/Bordado';
+import { IAbaixoDoNome, IBordadoNome, ILocalBordado } from '@/interfaces/Bordado';
 import { useProdutoAbertoStore } from '@/store/ProdutoAberto';
 import { useVendaAbertaStore } from '@/store/VendaAberta';
+import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { computed, defineComponent, ref } from 'vue'
 
@@ -182,15 +183,15 @@ export default defineComponent({
     watch: {
         comNome() {
             if (this.comNome) {
-                this.produtoAberto.setValoresPadroesParaNomeBordado(this.pessoaVenda.nome)
-            } else {
-                if (this.bordados.length > 0) {
-                    this.bordados.map((bordado, index) => {
-                        if (bordado.local == 'nome'){
-                            this.bordados.splice(index, 1);
-                        }
-                    })
+                const bordado_do_nome = {
+                    nome: this.pessoaVenda.nome as string,
+                    abaixo_do_nome: { "text": "Sem", "font": "Block" } as IAbaixoDoNome,
+                    fonte: "Monotype" as string,
+                    cor: "Preto" as string
                 }
+                this.produtoAberto.setBordado(bordado_do_nome)
+            } else {
+
             }
         },
 
@@ -217,16 +218,12 @@ export default defineComponent({
         const produtoAberto = useProdutoAbertoStore()
         const { bordados } = storeToRefs(produtoAberto)
         const { pessoaVenda } = storeToRefs(vendaAberta)
-        const bordadoDoNome = computed((): IBordadoNome | any => {
-            return bordados.value.find(bordado => bordado.local = 'nome')?.bordado 
-        })
-        const comNome = computed((): boolean => {
-            if (bordadoDoNome.value) {
-                return true
-            } else {
-                return false
-            }
-        })
+        const bordadoDoNome = computed(()=> produtoAberto.getBordadoDoNome as IBordadoNome) 
+        watch(() => bordados.value,
+            () => {
+                console.log(bordados.value, bordadoDoNome.value)
+            },
+            { deep: true })
         return {
             bordadoDoNome,
             pessoaVenda,
@@ -279,5 +276,6 @@ export default defineComponent({
 
 .text-field-center :deep(input) {
     text-align: center;
-}</style>
+}
+</style>
 

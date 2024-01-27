@@ -5,7 +5,7 @@
             <v-divider class="mb-1 border-opacity-75"></v-divider>
             <BordadoCards @abre-dialog="AbreDialogEMudaBordadoAscessado" />
         </v-card>
-        <DialogEsolheBordado ref="dialog" :BordadoAscessado="(bordadoAscessado as string)" />
+        <DialogEsolheBordado ref="dialog" :BordadoAscessado="(bordadoAscessado as number)"/>
     </div>
 </template>
 
@@ -36,15 +36,14 @@ export default defineComponent({
     data() {
         return {
             BordadoPreSelecionado: {} as IBordado,
-            bordadoAscessado: "" as string,
+            bordadoAscessado: 0 as Number,
             contextoParaOutroBordado: "" as string,
         }
     },
     methods: {
-        AbreDialogEMudaBordadoAscessado(local: string) {
-            console.log(local)
-            this.bordadoAscessado = local;
-            (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog()
+        AbreDialogEMudaBordadoAscessado(key: Number) {
+            this.bordadoAscessado = key;
+            (this.$refs.dialog as typeof DialogEsolheBordado).abrirDialog();
         },
 
     }
