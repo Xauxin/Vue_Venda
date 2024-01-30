@@ -218,7 +218,7 @@ export default defineComponent({
         const produtoAberto = useProdutoAbertoStore()
         const { bordados } = storeToRefs(produtoAberto)
         const { pessoaVenda } = storeToRefs(vendaAberta)
-        const bordadoDoNome = computed(()=> produtoAberto.getBordadoDoNome as IBordadoNome) 
+        const bordadoDoNome = computed(()=> produtoAberto.bordadoDoNome() as IBordadoNome) 
         watch(() => bordados.value,
             () => {
                 console.log(bordados.value, bordadoDoNome.value)

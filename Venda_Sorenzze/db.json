@@ -739,8 +739,8 @@
             "Punho": "Elastico"
           },
           "medidas": {},
-          "bordados": [
-            {
+          "bordados": {
+            "0.651651":{
               "local": "nome",
               "bordado": {
                 "nome": "Maria da Silva",
@@ -751,8 +751,8 @@
                 "fonte": "Monotype",
                 "cor": "Preto"
               }
-            }
-          ],
+            }}
+          ,
           "valor": 123,
           "quantidade": 1,
           "em_espera": false

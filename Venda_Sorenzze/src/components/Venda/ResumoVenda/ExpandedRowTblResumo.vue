@@ -3,6 +3,7 @@
     <tr class="pa-0 ma-0">
         <td :colspan="columns.length" class="pa-0 ma-0">
             <v-row no no-gutters class="pa-0">
+                <!-- Modelagem -->
                 <v-col cols="4">
                     <v-card class="py-1 ma-1" min-height="140px">
                         <v-card-title class="pa-0 text-center font-weight-regular"
@@ -20,23 +21,25 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
+                <!-- Modelagem -->
+                <!-- Bordados -->
                 <v-col cols="5">
                     <v-card class="py-1 ma-1" min-height="140px">
                         <v-card-title @click="console.log(item.bordados)" class="pa-0 text-center font-weight-regular"
                             style='background-color: #e5e0ff'>Bordados</v-card-title>
                         <v-divider></v-divider>
                         <v-card-text class="pa-1">
-                            <v-container v-if="bordadoDoNome(item.bordados)" class="pa-0 ma-0">
+                            <!-- Bordado Nome -->
+                            <v-container v-if="comNome" class="pa-0 ma-0">
                                 <div>
                                     <p class="text-center pa-0 ma-0"
-                                        :style="fontNomeBordado((bordadoDoNome(item.bordados) as IBordadoNome))"
-                                    >{{((bordadoDoNome(item.bordados) as IBordadoNome).nome)}}
+                                        :style="fontNomeBordado((bordadoDoNome as IBordadoNome))">
+                                        {{ (bordadoDoNome as IBordadoNome).nome }}
                                     </p>
                                     <p class="text-center pa-0 ma-0"
-                                        :style="fontEmBaixoDoNome((bordadoDoNome(item.bordados) as IBordadoNome).abaixo_do_nome as IAbaixoDoNome)"
-                                        v-if="(((bordadoDoNome(item.bordados) as IBordadoNome).abaixo_do_nome as IAbaixoDoNome).text == 'Sem')"
-                                    >
-                                    {{ ((bordadoDoNome(item.bordados) as IBordadoNome).abaixo_do_nome as IAbaixoDoNome).text }}
+                                        :style="fontEmBaixoDoNome((bordadoDoNome as IBordadoNome).abaixo_do_nome as IAbaixoDoNome)"
+                                        v-if="ComBordadoEmbaixoDoNome">
+                                        {{ ((bordadoDoNome as IBordadoNome).abaixo_do_nome as IAbaixoDoNome).text }}
                                     </p>
                                 </div>
                             </v-container>
@@ -44,10 +47,12 @@
                                 <p class="font-weight-bold text-center">Sem bordado do nome</p>
                             </v-container>
                             <v-divider></v-divider>
-                            <v-container v-if="bordadosSemONome(item.bordados)" class="pa-0 ma-0 d-flex  justify-start">
+                            <!-- Bordado Nome -->
+                            <!-- Bordado Brasões/Logos -->
+                            <v-container v-if="comBordados" class="pa-0 ma-0 d-flex  justify-start">
                                 <v-row>
                                     <v-col cols="4" class="pa-2 ma-0"
-                                        v-for="(value, key) in bordadosSemONome(item.bordados)" :key="key">
+                                        v-for="(value, key) in produtoAberto.bordadosSemONome(item.bordados)" :key="key">
                                         <v-card variant="flat" class="ma-1">
                                             <v-card-text class="pa-0 ma-1">
                                                 <v-tooltip location="top">
@@ -69,9 +74,12 @@
                             <v-container v-else class="pa-0 ma-0 d-flex  align-center justify-center">
                                 <p class="font-weight-bold text-center ma-4">Sem bordados</p>
                             </v-container>
+                            <!-- Bordado Brasões/Logos -->
                         </v-card-text>
                     </v-card>
                 </v-col>
+                <!-- Bordados -->
+                <!-- Medidas -->
                 <v-col cols="3">
                     <v-card class="py-1 ma-1" min-height="140px">
                         <v-card-title class="pa-0 text-center font-weight-regular"
@@ -96,6 +104,7 @@
                         </v-card-text>
                     </v-card>
                 </v-col>
+                <!-- Medidas -->
             </v-row>
         </td>
     </tr>
@@ -105,7 +114,8 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IAbaixoDoNome, IBordado, IBordadoNome, ILocalBordado } from "@/interfaces/Bordado";
 import { IProduto } from "@/interfaces/Produto";
-import { defineComponent } from "vue";
+import { useProdutoAbertoStore } from "@/store/ProdutoAberto";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
     name: 'ExapandedRowTblResumo',
@@ -120,19 +130,54 @@ export default defineComponent({
         }
     },
     methods: {
-        bordadosSemONome(bordados: ILocalBordado[]) {
-            return bordados.filter(bordado => bordado.local != 'nome')
-        },
-        bordadoDoNome(bordados: ILocalBordado[]): IBordadoNome {
-            return bordados.find(bordado => bordado.local == 'nome')?.bordado as IBordadoNome
-        },
         fontNomeBordado(bordado_do_nome: IBordadoNome) {
             return { fontFamily: bordado_do_nome.fonte }
         },
         fontEmBaixoDoNome(abaixo_do_nome: IAbaixoDoNome) {
             return { fontFamily: abaixo_do_nome.font }
         },
+    },
+    setup(props) {
+        debugger
+        const produtoAberto = useProdutoAbertoStore()
+        const bordados = props.item.bordados
+        const bordadoDoNome = computed(() => {
+            return produtoAberto.bordadoDoNome(bordados) as IBordadoNome | void;
+        });
+        const bordadosSemONome = computed(() => {
+            return produtoAberto.bordadosSemONome(bordados);
+        });
+        const comNome = computed(() => {
+            if (bordadoDoNome.value) {
+                return true as boolean
+            } else {
+                return false as boolean
+            }
+        })
+        const ComBordadoEmbaixoDoNome = computed(() => {
+            if (bordadoDoNome.value.abaixo_do_nome.text == 'Sem') {
+                return false as boolean
+            } else {
+                return true as boolean
+            }
+        })
+        const comBordados = computed(() => {
+            if (bordadosSemONome.value) {
+                return true as boolean
+            } else {
+                return false as boolean
+            }
+        })
+        return {
+            comNome,
+            ComBordadoEmbaixoDoNome,
+            comBordados,
+            bordadosSemONome,
+            bordadoDoNome,
+            produtoAberto
+        }
     }
+
 });
 </script>
 

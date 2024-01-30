@@ -81,10 +81,10 @@ export const useProdutoAbertoStore = defineStore(
         let novoProduto = {medidas:{},bordados:{},modelagem:{}} as IProduto
         Object.entries(produto).forEach((campo:[string,string|IModelagem|IMedidas|number|boolean|undefined])=>{
           const [key , value] = campo
-          if (key == 'modelagem' || key == 'medidas'){
-            Object.entries(value as IMedidas|IModelagem).forEach((objMedidasEModelagem)=>{
+          if (key == 'modelagem' || key == 'medidas' || key == 'bordados'){
+            Object.entries(value as IMedidas|IModelagem|({[key:number]:ILocalBordado})).forEach((objMedidasEModelagem)=>{
               const [chave, valor] = objMedidasEModelagem;
-              (novoProduto[key] as IMedidas|IModelagem)[chave] = valor
+              (novoProduto[key] as any)[chave] = valor
             })
           }else if(key == 'id'){
             const id = Math.random()
@@ -94,30 +94,33 @@ export const useProdutoAbertoStore = defineStore(
           }
         })
         return novoProduto
-      }
+      },
+      bordadosSemONome(bordadosPassados?:({[key:number]:ILocalBordado})):({[key:number]:ILocalBordado}){
+        const todosBordados = bordadosPassados ? bordadosPassados : this.bordados
+        const hold = {} as {[key:number]:ILocalBordado};
+        Object.entries(todosBordados).forEach((bordado:[any, ILocalBordado])=>{
+          let [key , localBordado] = bordado
+          key = parseFloat(key) as number
+          if (localBordado.local != 'nome'){
+            hold[key] = localBordado
+          }
+        })
+        return hold
+       },
+       bordadoDoNome(bordadosPassados?:({[key:number]:ILocalBordado})):IBordadoNome{
+        const todosBordados = bordadosPassados ? bordadosPassados : this.bordados
+        let nome = {} as IBordadoNome
+        Object.entries(todosBordados).forEach((bordado:[any, ILocalBordado])=>{
+          const localBordado = bordado[1] 
+          if (localBordado.local == 'nome'){
+            nome = localBordado.bordado as IBordadoNome
+          }
+        })
+        return nome
+       },
     },
     getters: {
-     getBordadosSemONome():({[key:number]:ILocalBordado}){
-      const hold = {} as {[key:number]:ILocalBordado};
-      Object.entries(this.bordados).forEach((bordado:[any, ILocalBordado])=>{
-        let [key , localBordado] = bordado
-        key = parseFloat(key) as number
-        if (localBordado.local != 'nome'){
-          hold[key] = localBordado
-        }
-      })
-      return hold
-     },
-     getBordadoDoNome():IBordadoNome|undefined{
-      Object.entries(this.bordados).forEach((bordado:[any, ILocalBordado])=>{
-        console.log(bordado)
-        const localBordado = bordado[1]
-        if (localBordado.local == 'nome'){
-          return localBordado.bordado as IBordadoNome
-        }
-      })
-      return undefined
-     },
+     
     }
   }
 )

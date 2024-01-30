@@ -1,6 +1,6 @@
 <template>
     <v-row>
-        <v-col cols="4" v-for="(value, key) in getBordadosSemONome" :key="key">
+        <v-col cols="4" v-for="(value, key) in bordadosSemONome" :key="key">
             <v-card density="compact" height="100%" min-height="235" color="primary">
                 <v-card-title class="pa-0 text-center text-caption text-capitalize">
                     <p>{{ value.local }}</p>
@@ -105,13 +105,14 @@ export default defineComponent({
     setup() {
         const produtoAberto = useProdutoAbertoStore()
         const esquemaProduto = useEsquemaProdutoStore()
-        const { getBordadosSemONome, bordados } = storeToRefs(produtoAberto)
+        const { bordados } = storeToRefs(produtoAberto)
         const { esquema_escolhido } = storeToRefs(esquemaProduto)
         const locaisRestantes = computed(()=> esquemaProduto.locaisDeBordadosRestantes(bordados.value))
+        const bordadosSemONome = computed(()=> produtoAberto.bordadosSemONome())
         return {
             bordados,
             locaisRestantes,
-            getBordadosSemONome,
+            bordadosSemONome,
             esquema_escolhido,
             produtoAberto,
         }
