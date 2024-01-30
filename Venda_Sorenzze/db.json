@@ -740,7 +740,38 @@
           },
           "medidas": {},
           "bordados": {
-            "0.651651":{
+            "0.651651": {
+              "local": "nome",
+              "bordado": {
+                "nome": "Dr(a)Maria da Silva",
+                "abaixo_do_nome": {
+                  "text": "Médica",
+                  "font": "MontSerrat"
+                },
+                "fonte": "Monotype",
+                "cor": "Preto"
+              }
+            }
+          },
+          "valor": 123,
+          "quantidade": 1,
+          "em_espera": false
+        },
+        {
+          "id": 0.004786038327194708,
+          "nome": "Jaleco Masculino",
+          "cor": "Branco",
+          "tamanho": "38",
+          "tecido": "Gabardine",
+          "modelagem": {
+            "Gola": "Smoking",
+            "Manga": "Cavada",
+            "Punho": "Basico",
+            "Trava": "Básica"
+          },
+          "medidas": {},
+          "bordados": {
+            "0.16249073834953864": {
               "local": "nome",
               "bordado": {
                 "nome": "Maria da Silva",
@@ -751,16 +782,29 @@
                 "fonte": "Monotype",
                 "cor": "Preto"
               }
-            }}
-          ,
+            },
+            "0.016496559882144712": {
+              "local": "manga_direita",
+              "bordado": {
+                "id": "3",
+                "Nome": "Brasão do Curso de Medicina Uningá",
+                "Estilo": "Brasão",
+                "Núcleo": "Uningá",
+                "Particao": "Curso de Medicina",
+                "codigo": "B1UNI03_MED0",
+                "Imagem": "src/assets/B1UNI03_MED0.png",
+                "preco": "25,00"
+              }
+            }
+          },
           "valor": 123,
           "quantidade": 1,
           "em_espera": false
         }
       ],
       "valores": {
-        "valores_produtos": 123,
-        "valor_total": 123,
+        "valores_produtos": 246,
+        "valor_total": 246,
         "frete": {
           "tipo": "",
           "valor": 0

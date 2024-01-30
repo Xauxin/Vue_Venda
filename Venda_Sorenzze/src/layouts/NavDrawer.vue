@@ -12,6 +12,7 @@
         <v-list density="compact" nav>
             <v-list-item prepend-icon="home" title="Página Inicial" value="home" to="/" @click.stop="rail = !rail"/>
             <v-list-item prepend-icon="sell" title="Vendas" value="vendas" to="/vendas" @click.stop="rail = !rail"/>
+            <v-list-item prepend-icon="menu_book" title="Produtos" value="vendas" to="/produtos" @click.stop="rail = !rail"/>
             <v-list-item prepend-icon="attach_money" title="Finanças" value="financas" @click.stop="rail = !rail"/>
         </v-list>
     </v-navigation-drawer>

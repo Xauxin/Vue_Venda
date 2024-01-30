@@ -138,7 +138,6 @@ export default defineComponent({
         },
     },
     setup(props) {
-        debugger
         const produtoAberto = useProdutoAbertoStore()
         const bordados = props.item.bordados
         const bordadoDoNome = computed(() => {
@@ -155,7 +154,7 @@ export default defineComponent({
             }
         })
         const ComBordadoEmbaixoDoNome = computed(() => {
-            if (bordadoDoNome.value.abaixo_do_nome.text == 'Sem') {
+            if ((bordadoDoNome.value as IBordadoNome).abaixo_do_nome .text == 'Sem' ) {
                 return false as boolean
             } else {
                 return true as boolean

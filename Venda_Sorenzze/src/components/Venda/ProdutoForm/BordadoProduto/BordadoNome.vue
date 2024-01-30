@@ -128,6 +128,7 @@ import { useVendaAbertaStore } from '@/store/VendaAberta';
 import { watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { computed, defineComponent, ref } from 'vue'
+import { onMounted } from 'vue';
 
 export default defineComponent({
     name: 'BordadoNome',
@@ -161,7 +162,6 @@ export default defineComponent({
     },
     data() {
         return {
-            comNome: false as boolean,
             comPrefixo: false as boolean,
             indexPrefixo: 0 as number,
             fontWeight: "400" as string,
@@ -183,13 +183,15 @@ export default defineComponent({
     watch: {
         comNome() {
             if (this.comNome) {
-                const bordado_do_nome = {
-                    nome: this.pessoaVenda.nome as string,
-                    abaixo_do_nome: { "text": "Sem", "font": "Block" } as IAbaixoDoNome,
-                    fonte: "Monotype" as string,
-                    cor: "Preto" as string
+                if (!this.abrindoProdutoComNome){
+                    const bordado_do_nome = {
+                        nome: this.pessoaVenda.nome as string,
+                        abaixo_do_nome: { "text": "Sem", "font": "Block" } as IAbaixoDoNome,
+                        fonte: "Monotype" as string,
+                        cor: "Preto" as string
+                    }
+                    this.produtoAberto.setBordado(bordado_do_nome)
                 }
-                this.produtoAberto.setBordado(bordado_do_nome)
             } else {
 
             }
@@ -214,17 +216,32 @@ export default defineComponent({
         }
     },
     setup() {
+        debugger;
         const vendaAberta = useVendaAbertaStore()
         const produtoAberto = useProdutoAbertoStore()
         const { bordados } = storeToRefs(produtoAberto)
         const { pessoaVenda } = storeToRefs(vendaAberta)
-        const bordadoDoNome = computed(()=> produtoAberto.bordadoDoNome() as IBordadoNome) 
+        const bordadoDoNome = computed(()=> produtoAberto.bordadoDoNome() as IBordadoNome)
+        const comNome = ref(false as boolean)
+        const abrindoProdutoComNome = ref(false as boolean)
+        onMounted(
+            ()=> {
+                Object.values(bordados.value).forEach(bordado => {
+                    if (bordado.local == 'nome'){
+                        comNome.value = true
+                        abrindoProdutoComNome.value = true
+                    }
+                })
+            }
+        )
         watch(() => bordados.value,
             () => {
                 console.log(bordados.value, bordadoDoNome.value)
             },
             { deep: true })
         return {
+            abrindoProdutoComNome,
+            comNome,
             bordadoDoNome,
             pessoaVenda,
             produtoAberto,
